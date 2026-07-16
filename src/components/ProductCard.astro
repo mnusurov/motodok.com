@@ -18,7 +18,6 @@ const image = product.images?.[0];
 
 <article class="product-card">
   <a href={`/${product.category}/${product.slug}/`} class="product-card-link">
-    {image && <img src={image} alt={product.title} loading="lazy" class="product-card-img" />}
     <div class="product-card-body">
       <h3 class="product-card-title">{product.title}</h3>
       {product.price && <span class="product-card-price">{product.price} $</span>}
@@ -34,48 +33,40 @@ const image = product.images?.[0];
 
 <style>
   .product-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: all 0.2s;
+    background: var(--surface);
   }
   .product-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-color: rgba(245,158,11,0.3);
   }
   .product-card-link {
     text-decoration: none;
     color: inherit;
     display: block;
-  }
-  .product-card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-  .product-card-body {
-    padding: 0.75rem;
+    padding: 20px;
   }
   .product-card-title {
-    margin: 0 0 0.5rem;
+    margin: 0 0 8px;
     font-size: 1rem;
+    color: #fff;
   }
   .product-card-price {
     display: inline-block;
     font-weight: 700;
-    color: #c0392b;
-    margin-bottom: 0.5rem;
+    color: var(--accent);
+    margin-bottom: 8px;
   }
   .product-card-desc {
     font-size: 0.85rem;
-    color: #666;
-    margin: 0 0 0.5rem;
+    color: var(--text-muted);
+    margin: 0 0 8px;
   }
   .product-card-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     font-size: 0.8rem;
-    color: #888;
+    color: var(--text-muted);
   }
   .product-card-features li::before {
     content: '— ';

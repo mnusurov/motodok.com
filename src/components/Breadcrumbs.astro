@@ -47,16 +47,16 @@ const { items } = Astro.props;
   .breadcrumbs li + li::before {
     content: '/';
     margin: 0 0.5rem;
-    color: #999;
+    color: var(--text-muted);
   }
   .breadcrumbs a {
-    color: #1a1a2e;
+    color: var(--text-secondary);
     text-decoration: none;
   }
   .breadcrumbs a:hover {
-    text-decoration: underline;
+    color: var(--accent);
   }
   .breadcrumb-current {
-    color: #666;
+    color: var(--text-muted);
   }
 </style>

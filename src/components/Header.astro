@@ -1,50 +1,65 @@
 ---
+
 ---
 
 <header class="header">
   <div class="header-inner">
-    <a href="/" class="header-logo">
-      <span class="header-title">Motodok</span>
-      <span class="header-tagline">Оборудование для автодиагностики</span>
-    </a>
-    <a href="tel:+996772553731" class="header-phone">+996-772-553-731</a>
+    <a href="/" class="logo">Motodok</a>
+    <nav class="nav">
+      <a href="/Diagnosis/">Диагностика</a>
+      <a href="/Measure/">Измерение</a>
+      <a href="/Immobilizer/">Иммобилайзеры</a>
+      <a href="/Odometers/">Одометры</a>
+      <a href="/Databases/">Базы данных</a>
+      <a href="/Services/">Услуги</a>
+      <a href="/Articles/">Статьи</a>
+      <a href="/Contacts/">Контакты</a>
+    </nav>
+    <a href="tel:+996772553731" class="phone">+996-772-553-731</a>
   </div>
 </header>
 
 <style>
   .header {
-    background: #1a1a2e;
-    color: #fff;
-    padding: 0.75rem 1rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
   }
   .header-inner {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 24px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .header-logo {
-    color: #fff;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-  }
-  .header-title {
+  .logo {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.02em;
   }
-  .header-tagline {
-    font-size: 0.75rem;
-    opacity: 0.8;
+  .nav {
+    display: flex;
+    gap: 4px;
   }
-  .header-phone {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
+  .nav a {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    transition: all 0.15s;
+  }
+  .nav a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+  .phone {
+    color: var(--accent);
     font-weight: 600;
+    font-size: 0.9rem;
   }
-  .header-phone:hover {
-    text-decoration: underline;
+  .phone:hover {
+    color: var(--accent-hover);
   }
 </style>

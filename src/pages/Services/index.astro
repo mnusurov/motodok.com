@@ -41,8 +41,9 @@ const allServices = await getCollection('services');
     gap: 1.5rem;
   }
   .service-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
     overflow: hidden;
     transition: box-shadow 0.2s;
   }
@@ -68,11 +69,11 @@ const allServices = await getCollection('services');
   }
   .service-card-desc {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-muted);
     margin: 0 0 0.5rem;
   }
   .service-card-price {
     font-weight: 700;
-    color: #c0392b;
+    color: var(--accent);
   }
 </style>

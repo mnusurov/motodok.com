@@ -15,7 +15,6 @@ const { category } = Astro.props;
 
 <article class="category-card">
   <a href={`/${category.slug}/`} class="category-card-link">
-    {category.image && <img src={category.image} alt={category.title} loading="lazy" class="category-card-img" />}
     <div class="category-card-body">
       <h3 class="category-card-title">{category.title}</h3>
       {(category.description || category.metaDescription) && (
@@ -27,34 +26,30 @@ const { category } = Astro.props;
 
 <style>
   .category-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: all 0.2s;
+    background: var(--surface);
   }
   .category-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
   .category-card-link {
+    display: block;
+    padding: 24px;
     text-decoration: none;
     color: inherit;
-    display: block;
-  }
-  .category-card-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-  .category-card-body {
-    padding: 0.75rem;
   }
   .category-card-title {
-    margin: 0 0 0.5rem;
+    margin: 0 0 8px;
     font-size: 1.1rem;
+    color: #fff;
   }
   .category-card-desc {
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-muted);
     margin: 0;
   }
 </style>

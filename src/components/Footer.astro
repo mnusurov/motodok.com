@@ -1,48 +1,68 @@
 ---
+
 ---
 
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-info">
-      <p class="footer-copy">&copy; Motodok</p>
-      <p class="footer-phone">Телефон: <a href="tel:+996772553731">+996-772-553-731</a></p>
-      <p class="footer-email">Email: <a href="mailto:info@motodok.com">info@motodok.com</a></p>
+    <div class="footer-grid">
+      <div>
+        <h4>Motodok</h4>
+        <p>Оборудование для автодиагностики с 2015 года</p>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p><a href="tel:+996772553731">+996-772-553-731</a></p>
+        <p><a href="mailto:info@motodok.com">info@motodok.com</a></p>
+      </div>
+      <div>
+        <h4>Разделы</h4>
+        <p><a href="/Diagnosis/">Диагностика</a></p>
+        <p><a href="/Services/">Услуги</a></p>
+        <p><a href="/Articles/">Статьи</a></p>
+      </div>
     </div>
-    <div class="footer-admin">
-      <a href="/admin">CMS</a>
-    </div>
+    <div class="footer-bottom">&copy; Motodok</div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: #1a1a2e;
-    color: #ccc;
-    padding: 1rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 48px 24px 24px;
   }
   .footer-inner {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
-  .footer-info p {
-    margin: 0.25rem 0;
-    font-size: 0.85rem;
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-bottom: 32px;
   }
-  .footer-info a {
-    color: #ccc;
-  }
-  .footer-info a:hover {
+  .footer h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
     color: #fff;
+    margin-bottom: 12px;
   }
-  .footer-admin a {
-    color: #666;
-    text-decoration: none;
+  .footer p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .footer a {
+    color: var(--text-muted);
+  }
+  .footer a:hover {
+    color: var(--accent);
+  }
+  .footer-bottom {
+    text-align: center;
     font-size: 0.8rem;
-  }
-  .footer-admin a:hover {
-    color: #999;
+    color: var(--text-muted);
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
   }
 </style>
