@@ -1,0 +1,14 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/pdfs/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/admin/*
+  Cache-Control: no-cache, no-store, must-revalidate
