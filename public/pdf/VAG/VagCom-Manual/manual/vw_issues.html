@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title></title>
+<meta name="description" content="">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="layout">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Motodok</a>
+      <nav class="nav">
+        <div class="dropdown">
+          <a href="/Diagnosis/" class="dropbtn">Каталог</a>
+          <div class="dropdown-content">
+            <a href="/Diagnosis/">Диагностика</a>
+            <a href="/Odometers/">Одометры</a>
+            <a href="/Immobilizer/">Иммобилайзеры</a>
+            <a href="/Measure/">Осциллографы</a>
+            <a href="/Databases/">Базы данных</a>
+            <a href="/Services/">Услуги</a>
+          </div>
+        </div>
+        <a href="/News/">Новости</a>
+        <a href="/Articles/">Статьи</a>
+        <a href="/Documentation/">Файлы</a>
+        <a href="/Prices.html">Цены</a>
+        <a href="/How-to-buy.html">Как купить</a>
+        <a href="/Contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-content">
+    <div class="container">
+      <table bordercolor="#000080" bgcolor="#FFFFFF">
+<tr>
+<td>
+<p><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener"><img src="rt48.gif" tppabs="http://www.motodok.com/images/rt48.gif"></a><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener"><br>
+</a><b><i>VAG-COM</i><br>
+VW Issues &amp;
+Problems</b></p>
+<p><b><a name="Airbags" target="_blank" rel="noopener">2000-2001
+Golf/GTI/Jetta/Beetle Airbag System </a>  (important!)<br>
+</b>There have been a
+few isolated reports of Air Bag Warning Lights staying on permanently
+after scanning with VAG-COM.&nbsp;&nbsp; The Air Bag Controller
+shows&nbsp; DTC number 65535, indicating an internal error which cannot be
+cleared.&nbsp;&nbsp;&nbsp;&nbsp; Now there is no way that scanning a
+controller should cause it to become dysfunctional in this manner, even if
+the scan-tool fouls up in some way.&nbsp;&nbsp; I suspect there is a bug
+in the firmware in some of these controllers.&nbsp; I also believe VW knows
+this, but isn't admitting it.&nbsp;&nbsp; Most replacement controllers I have
+seen have a suspicious new label over the original, as if they had been
+updated in some way.&nbsp; I have a brand new controller here (with the
+new label over the old one and cannot reproduce the problem.&nbsp;&nbsp;
+Suggestions:</p>
+<ul>
+<li>
+<p>If your
+car is still under the bumper-to-bumper warranty, scan the airbag
+controller repeatedly.&nbsp; If your get DTC 65535 and your airbag
+light stays on, take it to your dealer and play dumb: &quot;My airbag
+light is on, please fix it!&quot;.&nbsp;&nbsp; They will scan the car
+themselves, find the DTC indicating an internal controller error and
+replace the controller, no questions asked.&nbsp;&nbsp; Get the
+updated controller now while the car is still under warranty!&nbsp;</li>
+<li>
+<p>&nbsp;If
+your car is no longer under the bumper-to-bumper warranty, <i>avoid
+scanning the airbag controller in these cars</i>, unless you are
+prepared to buy a new one!&nbsp; Please note the <a href="javascript:if(confirm('http://www.motodok.com/vag-com/download/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/download/index.html#Disclaimer:'" tppabs="http://www.motodok.com/vag-com/download/index.html#Disclaimer:" target="_blank" rel="noopener">disclaimer</a>
+on the Download Page.</li>
+</ul>
+<p><b><a name="97B546" target="_blank" rel="noopener">1997 Passat B5
+Central Convenience System</a><br>
+</b>These controllers
+seem to have a bug that causes them to drop the communications session
+when VAG-COM requests the door-slave controller &quot;Extra&quot;
+info.&nbsp;&nbsp; A work-around is available in <a href="javascript:if(confirm('http://www.motodok.com/vag-com/download/alpha/VagCom-A70e.exe  \n\nThis file was not retrieved by Teleport Pro, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/download/alpha/VagCom-A70e.exe'" tppabs="http://www.motodok.com/vag-com/download/alpha/VagCom-A70e.exe" target="_blank" rel="noopener">Version
+0.70e</a> which simply does not request any &quot;Extra&quot;
+info.&nbsp;&nbsp; If you have a 1997 B5 Passat (non-US models only), use
+0.70e on the Central Convenience system.&nbsp; 1998 and newer Passats&nbsp;
+do not have this problem.</p>
+<p><b><a name="16V" target="_blank" rel="noopener">1990-1992 2.0L
+16V Engines</a><br>
+</b>
+Set the <b>Start Baud</b>
+on the <a href="option_screen.html" tppabs="http://www.motodok.com/vag-com/tour/option_screen.html" target="_blank" rel="noopener">Options Screen</a> to 4800
+to get these to work.&nbsp; If you have anything else in Starting Baud
+Rate, the ECU will &quot;choke&quot; and you'll need to turn the ignition
+OFF and back ON again before you can communicate.</p>
+<hr>
+<p><a href="revisions.html" tppabs="http://www.motodok.com/vag-com/revisions.html" target="_blank" rel="noopener">Main&nbsp;
+Revison History and Issues Page</a></p>
+<p><a href="javascript:if(confirm('http://www.motodok.com/vag-com/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/index.html'" tppabs="http://www.motodok.com/vag-com/index.html" target="_blank" rel="noopener">Main
+VAG-COM Page</a></p>
+<p><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener">Ross-Tech
+Home Page</a></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+</table>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2007-2026 <a href="/">Motodok</a> · г. Бишкек, Кыргызстан</p>
+      <p class="footer-contacts">+996 (772) 553-731 · +996 (312) 298-969</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

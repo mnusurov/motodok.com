@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title></title>
+<meta name="description" content="">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="layout">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Motodok</a>
+      <nav class="nav">
+        <div class="dropdown">
+          <a href="/Diagnosis/" class="dropbtn">Каталог</a>
+          <div class="dropdown-content">
+            <a href="/Diagnosis/">Диагностика</a>
+            <a href="/Odometers/">Одометры</a>
+            <a href="/Immobilizer/">Иммобилайзеры</a>
+            <a href="/Measure/">Осциллографы</a>
+            <a href="/Databases/">Базы данных</a>
+            <a href="/Services/">Услуги</a>
+          </div>
+        </div>
+        <a href="/News/">Новости</a>
+        <a href="/Articles/">Статьи</a>
+        <a href="/Documentation/">Файлы</a>
+        <a href="/Prices.html">Цены</a>
+        <a href="/How-to-buy.html">Как купить</a>
+        <a href="/Contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-content">
+    <div class="container">
+      <table bordercolor="#000080" bgcolor="#FFFFFF">
+<tr>
+<td>
+<p><a href="javascript:if(confirm('http://www.motodok.com/  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/'" tppabs="http://www.motodok.com/" target="_blank" rel="noopener"><img src="rt48.gif" tppabs="http://www.motodok.com/images/rt48.gif"></a><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener"><br>
+</a><b><i>VAG-COM</i><br>
+Issues &amp; Revision History</b></p>
+<p><b>Possible Issues, all
+versions:</b></p>
+<ul>
+<li>SP1 for Windows 2000 adversely affects VAG-COM's
+ability to do real-time and makes communications with some controllers
+unreliable.&nbsp;&nbsp; The fix: install IE 5.5 (Version 5.50.4522.1800
+or higher!)&nbsp; over top of SP1.</li>
+<li>VAG-COM does not currently support
+controllers using the new KWP2000 protocol.&nbsp; A few 2001 models
+may have Teves-60 ABS controllers that require these protocols.&nbsp; I already
+have all the tools in place to analyze and emulate this protocol
+and&nbsp; expect to add support for it as soon as I identify and can
+get my hands on a control module that requires it.</li>
+<li>VAG-COM does not properly support <a href="faq_2.html#WSC" tppabs="http://www.motodok.com/vag-com/faq_2.html#WSC" target="_blank" rel="noopener">
+WorkShopCodes</a> higher than 65535.&nbsp; This will be fixed in a
+future release.</li>
+</ul>
+<p><b>Car-Model Specific
+Issues:</b></p>
+<p><b><a href="vw_issues.html" tppabs="http://www.motodok.com/vag-com/vw_issues.html" target="_blank" rel="noopener">Volkswagen:</a></b></p>
+<ul>
+<li><a href="vw_issues.html#Airbags" tppabs="http://www.motodok.com/vag-com/vw_issues.html#Airbags" target="_blank" rel="noopener">2000-2001
+Golf/GTI/Jetta/Beetle Airbags</a>
+<b>(important!)</b></li>
+<li><a href="vw_issues.html#97B546" tppabs="http://www.motodok.com/vag-com/vw_issues.html#97B546" target="_blank" rel="noopener">1997
+Passat B5 Central Convenience System</a></li>
+<li><a href="vw_issues.html#16V" tppabs="http://www.motodok.com/vag-com/vw_issues.html#16V" target="_blank" rel="noopener">1990-1992
+2.0 16V Engines</a></li>
+</ul>
+<p><b><a href="audi_issues.html" tppabs="http://www.motodok.com/vag-com/audi_issues.html" target="_blank" rel="noopener">Audi:</a></b></p>
+<ul>
+<li><a href="audi_issues.html#Radios" tppabs="http://www.motodok.com/vag-com/audi_issues.html#Radios" target="_blank" rel="noopener">Concert Radio
+&amp; Symphony Radios</a></li>
+<li><a href="audi_issues.html#C417" tppabs="http://www.motodok.com/vag-com/audi_issues.html#C417" target="_blank" rel="noopener">1992-1997 100/A6/S6
+(instrument cluster)</a></li>
+<li><a href="audi_issues.html#26V6" tppabs="http://www.motodok.com/vag-com/audi_issues.html#26V6" target="_blank" rel="noopener">1992-1994
+2.6L V6 Engines</a></li>
+</ul>
+<p><b><a name="All" target="_blank" rel="noopener">All:&nbsp;</a></b></p>
+<ul>
+<li>If when you try to connect to a control
+module, you get the error message &quot;Can't Synch Baud Rate&quot;,
+go to the <a href="option_screen.html" tppabs="http://www.motodok.com/vag-com/tour/option_screen.html" target="_blank" rel="noopener">Options Screen</a> and try
+setting the <b>Start Baud </b>to 9600.&nbsp; If 9600 doesn't work,
+also try 4800 and 1200.&nbsp;&nbsp;&nbsp; Turn the car's ignition OFF
+and back ON after each failed attempt to connect!</li>
+</ul>
+<hr>
+<p><b>Revision History, Public
+Releases:&nbsp;</b></p>
+<p><b>Beta 0.78&nbsp; Posted
+08 July 2001</b></p>
+<ul>
+<li>Adds <a href="javascript:if(confirm('http://groups.yahoo.com/group/VAG-COM/message/1770  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://groups.yahoo.com/group/VAG-COM/message/1770'" tppabs="http://groups.yahoo.com/group/VAG-COM/message/1770" target="_blank" rel="noopener">Data
+Logging</a>
+<li>Adds<a href="javascript:if(confirm('http://www.motodok.com/vag-com/dtc-printout.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/dtc-printout.html'" tppabs="http://www.motodok.com/vag-com/dtc-printout.html" target="_blank" rel="noopener">
+Print Codes</a> from the <a href="dtc_screen.html" tppabs="http://www.motodok.com/vag-com/tour/dtc_screen.html" target="_blank" rel="noopener">Fault
+Code Screen</a>
+<li>Fixes a rarely occurring bug causing
+some fault codes not to be shown (only when there are a large number
+of them)
+<li>Lots of new <a href="javascript:if(confirm('http://groups.yahoo.com/group/VAG-COM/message/1527  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://groups.yahoo.com/group/VAG-COM/message/1527'" tppabs="http://groups.yahoo.com/group/VAG-COM/message/1527" target="_blank" rel="noopener">Label
+Files</a>, a few new Codes.</li>
+</ul>
+<p><b>Beta 0.75&nbsp; Posted
+18 Mar 2001</b></p>
+<ul>
+<li>Huge CODES file update.&nbsp; Over 3400
+codes!&nbsp;</li>
+<li>Adds the ability to <a href="m-blocks.html" tppabs="http://www.motodok.com/vag-com/tour/m-blocks.html" target="_blank" rel="noopener">view
+3 Measuring Block Groups simultaneously</a>.</li>
+<li>Adds support for <a href="javascript:if(confirm('http://groups.yahoo.com/group/VAG-COM/message/1527  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://groups.yahoo.com/group/VAG-COM/message/1527'" tppabs="http://groups.yahoo.com/group/VAG-COM/message/1527" target="_blank" rel="noopener">user-supplied
+Measuring Block Labels</a></li>
+<li>Adds complete support for
+&quot;hybrid&quot; measuring block data-type common in Digfant-3 ECUs
+and AG4 Transmissions.</li>
+<li>May work with some <a href="javascript:if(confirm('http://www.quatech.com/shopquatech/products/prod4213.asp  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.quatech.com/shopquatech/products/prod4213.asp'" tppabs="http://www.quatech.com/shopquatech/products/prod4213.asp" target="_blank" rel="noopener">USB&lt;-&gt;RS232
+adapters</a>, but this is not officially supported.&nbsp; If it works
+for you, fine.&nbsp; If it's &quot;flaky&quot;, try a PC with a
+&quot;real&quot; port!&nbsp;</li>
+</ul>
+<p><b>Beta 0.71&nbsp; Posted
+06 Feb 2001</b></p>
+<ul>
+<li>Adds <a href="obd-2.html" tppabs="http://www.motodok.com/vag-com/tour/obd-2.html" target="_blank" rel="noopener">OBD-II
+Compatibility Test</a></li>
+<li>Adds support for Magnetti-Marelli ECUs
+common on South American VWs.</li>
+</ul>
+<p><b>Beta 0.70b&nbsp; Posted
+10 Jan 2001</b></p>
+<ul>
+<li>Adds <a href="out_test.html" tppabs="http://www.motodok.com/vag-com/tour/out_test.html" target="_blank" rel="noopener"> Output
+Test</a>, <a href="single_screen.html" tppabs="http://www.motodok.com/vag-com/tour/single_screen.html" target="_blank" rel="noopener"> Single Reading</a>, and
+<a href="readiness.html" tppabs="http://www.motodok.com/vag-com/tour/readiness.html" target="_blank" rel="noopener">
+View Readiness</a>.</li>
+<li>Low-Level protocol drivers rewritten to
+include error detection and correction.</li>
+<li>Better support for <a href="javascript:if(confirm('http://www.diagnose-tool.de/  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.diagnose-tool.de/'" tppabs="http://www.diagnose-tool.de/" target="_blank" rel="noopener"> non-optically
+isolated interface adapters</a></li>
+<li>Adds checksums to Serial Numbers and
+Activation Codes so typographical errors will be rejected.</li>
+<li>Various small bug fixes</li>
+</ul>
+<p><b>Beta 0.65&nbsp; Posted
+30 Oct 2000</b></p>
+<ul>
+<li>Adds <a href="m-blocks.html" tppabs="http://www.motodok.com/vag-com/tour/m-blocks.html" target="_blank" rel="noopener">Measuring
+Blocks</a>, <a href="b-settings.html" tppabs="http://www.motodok.com/vag-com/tour/b-settings.html" target="_blank" rel="noopener">Basic Settings</a>, and
+<a href="adaptation_screen.html" tppabs="http://www.motodok.com/vag-com/tour/adaptation_screen.html" target="_blank" rel="noopener">Adaptation</a>
+Functions.</li>
+<li>Improved Controller Initialization and <a href="option_screen.html" tppabs="http://www.motodok.com/vag-com/tour/option_screen.html" target="_blank" rel="noopener">Protocol
+Options</a>. </li>
+<li>Runs as &quot;Shareware&quot; without <a href="activation.html" tppabs="http://www.motodok.com/vag-com/tour/activation.html" target="_blank" rel="noopener">Activation</a>.&nbsp;
+Requires Activation Code for full functionality.</li>
+<li>Version 0.65 is not longer supported,
+users should update to version 0.75.</li>
+</ul>
+<p><b>Beta 0.50 / 0.50a&nbsp; Posted&nbsp;
+May 2000</b></p>
+<p>Initial public
+&quot;release&quot;.&nbsp;&nbsp; No longer supported, except on 2.0L 16V
+cars.&nbsp; Users should
+update to current version.</p>
+<hr>
+<p><a href="javascript:if(confirm('http://www.motodok.com/vag-com/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/index.html'" tppabs="http://www.motodok.com/vag-com/index.html" target="_blank" rel="noopener">Main
+VAG-COM Page</a></p>
+<p><a href="javascript:if(confirm('http://www.motodok.com/  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/'" tppabs="http://www.motodok.com/" target="_blank" rel="noopener">Ross-Tech
+Home Page</a></p>
+<p>&nbsp;</p>
+</td>
+</tr>
+</table>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2007-2026 <a href="/">Motodok</a> · г. Бишкек, Кыргызстан</p>
+      <p class="footer-contacts">+996 (772) 553-731 · +996 (312) 298-969</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

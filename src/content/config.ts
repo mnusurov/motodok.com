@@ -6,7 +6,7 @@ const products = defineCollection({
     title: z.string(),
     category: z.enum(['diagnosis', 'measure', 'immobilizer', 'odometers', 'databases']),
     brand: z.string().optional(),
-    article: z.string().optional(),          // Артикул
+    article: z.string().optional(),
     price: z.number().optional(),
     currency: z.string().default('USD'),
     oldPrice: z.number().optional(),
@@ -83,7 +83,7 @@ const services = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     image: z.string().optional(),
-    price: z.string().optional(),
+    price: z.union([z.string(), z.number()]).optional(),
     metaTitle: z.string().optional(),
     metaDescription: z.string().optional(),
   }),

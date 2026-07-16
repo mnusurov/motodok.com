@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title></title>
+<meta name="description" content="">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="layout">
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo">Motodok</a>
+      <nav class="nav">
+        <div class="dropdown">
+          <a href="/Diagnosis/" class="dropbtn">Каталог</a>
+          <div class="dropdown-content">
+            <a href="/Diagnosis/">Диагностика</a>
+            <a href="/Odometers/">Одометры</a>
+            <a href="/Immobilizer/">Иммобилайзеры</a>
+            <a href="/Measure/">Осциллографы</a>
+            <a href="/Databases/">Базы данных</a>
+            <a href="/Services/">Услуги</a>
+          </div>
+        </div>
+        <a href="/News/">Новости</a>
+        <a href="/Articles/">Статьи</a>
+        <a href="/Documentation/">Файлы</a>
+        <a href="/Prices.html">Цены</a>
+        <a href="/How-to-buy.html">Как купить</a>
+        <a href="/Contacts.html">Контакты</a>
+      </nav>
+    </div>
+  </header>
+  <main class="page-content">
+    <div class="container">
+      <table bordercolor="#000080" bgcolor="#FFFFFF">
+<tr>
+<td>
+<p><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener"><br>
+</a><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener">
+<img src="rt48.gif" tppabs="http://www.motodok.com/images/rt48.gif"></a><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener"><br>
+</a><b>The
+&quot;Aftermarket Radio Problem&quot;</b></p>
+<p><b>Background:&nbsp;</b>&nbsp;<br>
+Somewhere between 1997 and 1998, VW&nbsp; and Audi started using diagnostics-capable radios is most of their models.   The means the dealer's scan tools (and my own
+<a href="javascript:if(confirm('http://www.motodok.com/vag-com/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/index.html'" tppabs="http://www.motodok.com/vag-com/index.html" target="_blank" rel="noopener"> VAG-COM</a> system) can talk to the radio.  Why?  So you can
+<a href="javascript:if(confirm('http://tech.vw.com/pdf/v919909.pdf  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://tech.vw.com/pdf/v919909.pdf'" tppabs="http://tech.vw.com/pdf/v919909.pdf" target="_blank" rel="noopener"> set various options</a>.&nbsp;&nbsp;
+In addition, these radios constantly monitor their speaker outputs and if you have an open circuit to one of the speakers, and if you have an open or short, even a momentary one, they will record a fault code.</p>
+<p>The problem is, VW brought the "K-Line", the wire on which all of the control modules communicate with the control modules in the car to the radio on a pin in the connector on which older radios used to put +12 back into the harness.&nbsp;
+(I'm not sure whether this was for antenna power or as an amplifier turn-on or what).&nbsp;
+So if I were to take the non-diagnostics capable radio out of my <a href="javascript:if(confirm('http://wso.net/ross/Uwe/VR6/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://wso.net/ross/Uwe/VR6/index.htm'" tppabs="http://wso.net/ross/Uwe/VR6/index.htm" target="_blank" rel="noopener"> 1997 GTI</a> and put it in a 1998 (where there should be a diagnostics-capable one), it fits perfectly, plugs right into the harness, but the K-line is ends up shorted to +12!</p>
+<p><b>Aftermarket Radios</b><br>
+Now people hardly ever put older stock radios in newer cars.  What they often do is install better after-market radios.  And they most often do this by using an aftermarket adapter-harness which plugs right into the car's harness, so they don't have to cut up the car's harness.  Trouble is, some of the aftermarket
+harnesses faithfully reproduces the older, non-diagnostics radios with a loop of wire between +12 and the pin where the K-line is on newer
+models.  So you install your fancy new radio with one of these and everything works fine until..  Somebody plugs in a scan tool.&nbsp;</p>
+<p><b>The Problem</b><br>
+Nothing in the car cares if the K-line is shorted to +12.  The K-Line is not used for intra-vehicle communications.  But a scan scan-tool initializes a communications session by pulling the K-line to ground.  The K-line is supposed to have some voltage on it, but through a high-impedance source.  If the K-line has "hard" +12 on it, something has to give!&nbsp;
+What "gives" is usually the scan-tool's output driver for the K-line.  And fixing a VAG-1551/1552 with a blown K-line driver is expen$ive!&nbsp;
+But the <a href="javascript:if(confirm('http://www.motodok.com/vag-com/adapter.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/adapter.html'" tppabs="http://www.motodok.com/vag-com/adapter.html" target="_blank" rel="noopener">ISO-COM</a> PC&lt;->Car interface adapter that I provide with my VAG-COM software has a small user-replaceable
+<a href="javascript:if(confirm('http://www.motodok.com/vag-com/images/adapter-guts.jpg  \n\nThis file was not retrieved by Teleport Pro, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/images/adapter-guts.jpg'" tppabs="http://www.motodok.com/vag-com/images/adapter-guts.jpg" target="_blank" rel="noopener"> fuse</a> protecting the K-Line output driver, and there's a spare fuse taped under the lid of the little box.  No big worries there..:-)</p>
+<p><b>The Dealers</b><br>
+Any VW dealer that tells you they can't scan your car because you have an aftermarket radio is either lazy or ignorant.  The
+<a href="javascript:if(confirm('http://tech.vw.com/pdf/67-98-02.pdf  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://tech.vw.com/pdf/67-98-02.pdf'" tppabs="http://tech.vw.com/pdf/67-98-02.pdf" target="_blank" rel="noopener"> TSB</a> on the subject
+suggests that they should yank your aftermarket radio and inspect the K-line, and if it's connected, they are supposed to cut it from the harness and tape it back.&nbsp;
+Sometimes it pays to educate the dealer yourself.&nbsp; Print out a copy
+of the <a href="javascript:if(confirm('http://tech.vw.com/pdf/67-98-02.pdf  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://tech.vw.com/pdf/67-98-02.pdf'" tppabs="http://tech.vw.com/pdf/67-98-02.pdf" target="_blank" rel="noopener"> TSB</a> and hand it
+to them!&nbsp;&nbsp; Or better yet, <a href="javascript:if(confirm('http://www.motodok.com/vag-com/order.html  \n\nThis file was not retrieved by Teleport Pro, because it is linked too far away from its Starting Address. If you increase the in-domain depth setting for the Starting Address, this file will be queued for retrieval.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/order.html'" tppabs="http://www.motodok.com/vag-com/order.html" target="_blank" rel="noopener">buy my VAG-COM
+package</a> and scan the car yourself..;-)</p>
+<p><b>Test for this
+problem yourself<br>
+</b>You can test for this problem yourself
+without removing the radio.&nbsp; First, if your car is a 1996 or earlier
+model, don't bother -- the K-Line doesn't go to the radio harness.&nbsp;&nbsp;</p>
+<p><b>If you have a volt-meter:</b>&nbsp;
+measure the voltage between pins 4 and 7 of the diagnostic connector with
+the ignition and radio turned ON.&nbsp;&nbsp; If it's under 9V, your
+K-line is fine.&nbsp; If it's over 9V, the results are inconclusive.&nbsp;
+You'll need a 1k Ohm (approximately) resistor.&nbsp; Put it between pins 4
+and 7 of the diagnostic connector.&nbsp; Now measure the voltage between 4
+and 7 (across the resistor).&nbsp; If it's under 1V, you don't have the
+problem.&nbsp; If it remains near 12V (the resistor will get hot!) you do
+have this problem and you'll need to fix it per the TSB.&nbsp;&nbsp;</p>
+<p><b>If don't have a volt-meter:</b>&nbsp;
+Go to Radio-Shack and buy a 1K-ohm resistor.  I think they cost $0.99 for a pack of 5.&nbsp;
+Put the resistor between pins 4 and 7 of your diagnostic connector.&nbsp;&nbsp;
+Ensure it's making contact with both pins.&nbsp;&nbsp; If the resistor gets hot, your K-line is shorted to +12.  If it does not get hot, you're fine.</p>
+<p><b>The Diagnostic Connector</b><br>
+<img src="DLC_Pinout.gif" tppabs="http://wso.net/ross/Uwe/VR6/Service/DLC_Pinout.gif"></p>
+<hr>
+<p><a href="javascript:if(confirm('http://www.motodok.com/vag-com/index.html  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/vag-com/index.html'" tppabs="http://www.motodok.com/vag-com/index.html" target="_blank" rel="noopener">Main
+VAG-COM Page</a></p>
+<p><a href="javascript:if(confirm('http://www.motodok.com/index.htm  \n\nThis file was not retrieved by Teleport Pro, because it is addressed on a domain or path outside the boundaries set for its Starting Address.  \n\nDo you want to open it from the server?'))window.location='http://www.motodok.com/index.htm'" tppabs="http://www.motodok.com/index.htm" target="_blank" rel="noopener">Ross-Tech
+Home Page</a>
+</td>
+</tr>
+</table>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2007-2026 <a href="/">Motodok</a> · г. Бишкек, Кыргызстан</p>
+      <p class="footer-contacts">+996 (772) 553-731 · +996 (312) 298-969</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
