@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://motodok.com/sitemap-index.xml

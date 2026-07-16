@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import { getCollection } from 'astro:content';
+
+const category = (await getCollection('categories')).find(c => c.data.slug === 'databases');
+const products = (await getCollection('products'))
+  .filter(p => p.data.category === 'databases')
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+---
+<BaseLayout
+  title={category?.data.metaTitle || category?.data.title || 'Базы данных'}
+  description={category?.data.metaDescription || category?.data.description || 'Базы данных для автодиагностики'}
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Базы данных' },
+  ]}
+>
+  <h1>{category?.data.title || 'Базы данных'}</h1>
+  {category?.data.description && <p class="category-desc">{category.data.description}</p>}
+
+  <ProductGrid
+    products={products.map(p => ({
+      ...p.data,
+      category: 'Databases',
+      slug: p.slug,
+    }))}
+  />
+</BaseLayout>

@@ -1,0 +1,59 @@
+---
+export interface Props {
+  item: {
+    title: string;
+    slug: string;
+    description?: string;
+    image?: string;
+    publishedDate?: string;
+  };
+}
+
+const { item } = Astro.props;
+---
+
+<article class="news-card">
+  <a href={`/News/${item.slug}/`} class="news-card-link">
+    {item.image && <img src={item.image} alt={item.title} loading="lazy" class="news-card-img" />}
+    <div class="news-card-body">
+      {item.publishedDate && <time class="news-card-date">{item.publishedDate}</time>}
+      <h3 class="news-card-title">{item.title}</h3>
+      {item.description && <p class="news-card-desc">{item.description}</p>}
+    </div>
+  </a>
+</article>
+
+<style>
+  .news-card {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 0.75rem 0;
+  }
+  .news-card:last-child {
+    border-bottom: none;
+  }
+  .news-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .news-card-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  .news-card-date {
+    font-size: 0.8rem;
+    color: #999;
+  }
+  .news-card-title {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1rem;
+  }
+  .news-card-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+  }
+</style>

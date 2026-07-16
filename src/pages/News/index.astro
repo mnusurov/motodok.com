@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allNews = (await getCollection('news')).sort(
+  (a, b) => (b.data.publishedDate?.getTime() || 0) - (a.data.publishedDate?.getTime() || 0)
+);
+---
+<BaseLayout
+  title="Новости — Motodok"
+  description="Новости мира автодиагностики, новинки оборудования, обновления"
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Новости' },
+  ]}
+>
+  <h1>Новости</h1>
+
+  {allNews.length > 0 ? (
+    <div class="news-grid">
+      {allNews.map(item => (
+        <article class="news-card">
+          <a href={`/News/${item.slug}/`} class="news-card-link">
+            {item.data.image && <img src={item.data.image} alt={item.data.title} loading="lazy" class="news-card-img" />}
+            <div class="news-card-body">
+              {item.data.publishedDate && <time class="news-card-date">{item.data.publishedDate.toLocaleDateString('ru-RU')}</time>}
+              <h2 class="news-card-title">{item.data.title}</h2>
+              <p class="news-card-desc">{item.data.description}</p>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <p>Новости скоро появятся</p>
+  )}
+</BaseLayout>
+
+<style>
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .news-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .news-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .news-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .news-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .news-card-body {
+    padding: 0.75rem;
+  }
+  .news-card-date {
+    font-size: 0.8rem;
+    color: #999;
+  }
+  .news-card-title {
+    margin: 0.25rem 0;
+    font-size: 1.1rem;
+  }
+  .news-card-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+  }
+</style>

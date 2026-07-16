@@ -1,0 +1,39 @@
+---
+import ProductCard from './ProductCard.astro';
+
+export interface Props {
+  products: {
+    title: string;
+    slug: string;
+    category: string;
+    price?: string;
+    images?: string[];
+    features?: string[];
+    metaTitle?: string;
+    metaDescription?: string;
+  }[];
+}
+
+const { products } = Astro.props;
+---
+
+{products.length > 0 ? (
+  <div class="product-grid">
+    {products.map(product => <ProductCard product={product} />)}
+  </div>
+) : (
+  <p class="product-grid-empty">Товары не найдены</p>
+)}
+
+<style>
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .product-grid-empty {
+    text-align: center;
+    color: #999;
+    padding: 2rem;
+  }
+</style>

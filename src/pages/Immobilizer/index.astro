@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import { getCollection } from 'astro:content';
+
+const category = (await getCollection('categories')).find(c => c.data.slug === 'immobilizer');
+const products = (await getCollection('products'))
+  .filter(p => p.data.category === 'immobilizer')
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+---
+<BaseLayout
+  title={category?.data.metaTitle || category?.data.title || 'Иммобилайзеры'}
+  description={category?.data.metaDescription || category?.data.description || 'Оборудование для работы с иммобилайзерами'}
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Иммобилайзеры' },
+  ]}
+>
+  <h1>{category?.data.title || 'Иммобилайзеры'}</h1>
+  {category?.data.description && <p class="category-desc">{category.data.description}</p>}
+
+  <ProductGrid
+    products={products.map(p => ({
+      ...p.data,
+      category: 'Immobilizer',
+      slug: p.slug,
+    }))}
+  />
+</BaseLayout>

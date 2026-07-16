@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allNews = await getCollection('news');
+  return allNews.map(item => ({
+    params: { slug: item.slug },
+    props: { entry: item },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data, body } = entry;
+---
+<BaseLayout
+  title={data.metaTitle || `${data.title} — Motodok`}
+  description={data.metaDescription || data.description}
+  ogImage={data.image}
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Новости', href: '/News/' },
+    { label: data.title },
+  ]}
+>
+  <article class="news-detail">
+    {data.publishedDate && <time class="news-date">{data.publishedDate.toLocaleDateString('ru-RU')}</time>}
+    <h1>{data.title}</h1>
+    {data.image && <img src={data.image} alt={data.title} loading="lazy" class="news-image" />}
+    <div class="news-body">{body}</div>
+  </article>
+</BaseLayout>

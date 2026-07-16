@@ -1,0 +1,83 @@
+---
+export interface Props {
+  product: {
+    title: string;
+    slug: string;
+    category: string;
+    price?: string;
+    images?: string[];
+    features?: string[];
+    metaTitle?: string;
+    metaDescription?: string;
+  };
+}
+
+const { product } = Astro.props;
+const image = product.images?.[0];
+---
+
+<article class="product-card">
+  <a href={`/${product.category}/${product.slug}/`} class="product-card-link">
+    {image && <img src={image} alt={product.title} loading="lazy" class="product-card-img" />}
+    <div class="product-card-body">
+      <h3 class="product-card-title">{product.title}</h3>
+      {product.price && <span class="product-card-price">{product.price} $</span>}
+      {product.metaDescription && <p class="product-card-desc">{product.metaDescription}</p>}
+      {product.features && product.features.length > 0 && (
+        <ul class="product-card-features">
+          {product.features.slice(0, 3).map(f => <li>{f}</li>)}
+        </ul>
+      )}
+    </div>
+  </a>
+</article>
+
+<style>
+  .product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .product-card:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .product-card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .product-card-body {
+    padding: 0.75rem;
+  }
+  .product-card-title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  .product-card-price {
+    display: inline-block;
+    font-weight: 700;
+    color: #c0392b;
+    margin-bottom: 0.5rem;
+  }
+  .product-card-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0 0 0.5rem;
+  }
+  .product-card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
+    color: #888;
+  }
+  .product-card-features li::before {
+    content: '— ';
+  }
+</style>

@@ -1,0 +1,51 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+  noIndex?: boolean;
+}
+
+const { title, description, ogImage, canonical, noIndex } = Astro.props;
+const siteUrl = 'https://motodok.com';
+---
+
+<title>{title} | Motodok</title>
+<meta name="description" content={description || ''} />
+<link rel="canonical" href={canonical || Astro.url.href} />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description || ''} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonical || Astro.url.href} />
+<meta property="og:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/og-default.jpg`} />
+<meta property="og:site_name" content="Motodok" />
+<meta property="og:locale" content="ru_RU" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description || ''} />
+<meta name="twitter:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/og-default.jpg`} />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Motodok",
+  "url": "https://motodok.com",
+  "logo": "https://motodok.com/favicon.ico",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+996-772-553-731",
+    "contactType": "sales",
+    "availableLanguage": ["Russian"]
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "KG"
+  }
+}
+</script>
+
+{noIndex && <meta name="robots" content="noindex, nofollow" />}

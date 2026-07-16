@@ -1,0 +1,55 @@
+# .html → clean URL (301)
+/Diagnosis/BMW-GT1.html /Diagnosis/BMW-GT1/ 301
+/Diagnosis/Launch-X-431.html /Diagnosis/Launch-X-431/ 301
+/Diagnosis/Mercedes-Star-Diagnosis.html /Diagnosis/Mercedes-Star-Diagnosis/ 301
+/Diagnosis/VAG-COM.html /Diagnosis/VAG-COM/ 301
+/Diagnosis/VAS-PC.html /Diagnosis/VAS-PC/ 301
+/Diagnosis/RAC-DS-708.html /Diagnosis/RAC-DS-708/ 301
+/Diagnosis/Autocom-CDP.html /Diagnosis/Autocom-CDP/ 301
+/Diagnosis/Diagnosis-2.html /Diagnosis/ 301
+/Measure/DigitalTester.html /Measure/DigitalTester/ 301
+/Measure/USB-Autoscope-II.html /Measure/USB-Autoscope-II/ 301
+/Measure/USB-Autoscope-IV.html /Measure/USB-Autoscope-IV/ 301
+/Measure/USB-Osciloscope.html /Measure/USB-Autoscope-IV/ 301
+/Measure/Autoscope-USB.html /Measure/USB-Autoscope-IV/ 301
+/Measure/CompressionTester.html /Measure/CompressionTester/ 301
+/Immobilizer/CarProg.html /Immobilizer/CarProg/ 301
+/Immobilizer/Tango.html /Immobilizer/Tango/ 301
+/Immobilizer/AutoProPad.html /Immobilizer/AutoProPad/ 301
+/Immobilizer/AVDI.html /Immobilizer/AVDI/ 301
+/Immobilizer/Knox.html /Immobilizer/Knox/ 301
+/Immobilizer/Smok-Unlocker.html /Immobilizer/Smok-Unlocker/ 301
+/Odometers/DIGA3.html /Odometers/DIGA3/ 301
+/Odometers/F-Tool.html /Odometers/F-Tool/ 301
+/Odometers/Kanwei.html /Odometers/Kanwei/ 301
+/Odometers/UP-16.html /Odometers/UP-16/ 301
+/Databases/Autodata-3.38.html /Databases/Autodata-3.38/ 301
+/Databases/AutoData-2.12.html /Databases/Autodata-3.38/ 301
+/Databases/Mitchel-On-Demand-5.html /Databases/Mitchel-On-Demand-2014/ 301
+/Databases/Mitchel-On-Demand-2014.html /Databases/Mitchel-On-Demand-2014/ 301
+/Databases/Elewin.html /Databases/Elewin/ 301
+/Databases/Alldata.html /Databases/Alldata/ 301
+/Databases/ATIS.html /Databases/ATIS/ 301
+/Databases/BBL.html /Databases/BBL/ 301
+/News/Free-Delivery.html /News/ 301
+/News/Autodata.html /News/Autodata/ 301
+/News/New-Software.html /News/New-Software/ 301
+/News/Mercedes-Diagnosis.html /News/Mercedes-Diagnosis/ 301
+
+# index.html → clean
+/Diagnosis/index.html /Diagnosis/ 301
+/Measure/index.html /Measure/ 301
+/Immobilizer/index.html /Immobilizer/ 301
+/Odometers/index.html /Odometers/ 301
+/Databases/index.html /Databases/ 301
+/Services/index.html /Services/ 301
+/News/index.html /News/ 301
+/Articles/index.html /Articles/ 301
+/Documentation/index.html /Documentation/ 301
+/index.html / 301
+
+# html → clean generic pattern
+/*.html /:splat/ 301
+
+# 404
+/* /404.html 404

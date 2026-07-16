@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motodok — Prototype вариантов дизайна 2026</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ========== Variant A: Dark Industrial ========== */
+.variant-a {
+  --bg: #0d0d0d;
+  --bg2: #1a1a1a;
+  --surface: #1f1f1f;
+  --border: #2a2a2a;
+  --text: #e8e8e8;
+  --text2: #888;
+  --accent: #ff6b35;
+  --accent2: #ff8c5a;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.variant-a header {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.variant-a .logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.variant-a nav a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: .85rem;
+  padding: .5rem .75rem;
+  transition: color .2s;
+}
+.variant-a nav a:hover { color: var(--text) }
+.variant-a .hero {
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.variant-a .hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.variant-a .hero h1 span { color: var(--accent) }
+.variant-a .hero p {
+  color: var(--text2);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+.variant-a .hero-search {
+  display: flex;
+  max-width: 480px;
+  margin: 0 auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.variant-a .hero-search input {
+  flex: 1;
+  padding: .85rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: .9rem;
+  outline: none;
+}
+.variant-a .hero-search button {
+  background: var(--accent);
+  border: none;
+  color: #000;
+  font-weight: 600;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  font-size: .85rem;
+}
+.variant-a .section {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.variant-a .section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.variant-a .category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: .75rem;
+}
+.variant-a .category-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color .2s, transform .2s;
+  cursor: pointer;
+}
+.variant-a .category-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.variant-a .category-card .icon { font-size: 2rem; margin-bottom: .5rem; }
+.variant-a .category-card .name { font-weight: 600; font-size: .9rem; }
+.variant-a .category-card .count { color: var(--text2); font-size: .75rem; margin-top: .25rem; }
+.variant-a .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.variant-a .product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color .2s;
+}
+.variant-a .product-card:hover { border-color: var(--accent) }
+.variant-a .product-card h3 { font-size: 1rem; margin-bottom: .5rem; }
+.variant-a .product-card p { color: var(--text2); font-size: .8rem; margin-bottom: .75rem; line-height: 1.4; }
+.variant-a .product-card .price { 
+  color: var(--accent); 
+  font-weight: 700; 
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.variant-a footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  color: var(--text2);
+  font-size: .8rem;
+}
+
+/* ========== Variant B: Clean B2B Professional ========== */
+.variant-b {
+  --bg: #f8f9fa;
+  --surface: #fff;
+  --text: #1a202c;
+  --text2: #4a5568;
+  --accent: #1a365d;
+  --accent2: #2a4a7f;
+  --border: #e2e8f0;
+  --green: #38a169;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+.variant-b header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.variant-b .header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+.variant-b .logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent);
+}
+.variant-b .logo small { font-weight: 400; color: var(--text2); font-size: .75rem; margin-left: .5rem; }
+.variant-b nav { display: flex; gap: .25rem; }
+.variant-b nav a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: .875rem;
+  padding: .5rem .85rem;
+  border-radius: 6px;
+  transition: background .15s, color .15s;
+}
+.variant-b nav a:hover { background: #edf2f7; color: var(--accent) }
+.variant-b .top-bar {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  padding: .4rem;
+  font-size: .8rem;
+}
+.variant-b .hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.variant-b .hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+.variant-b .hero h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+.variant-b .hero p {
+  color: var(--text2);
+  margin-bottom: 1.5rem;
+}
+.variant-b .hero-cta {
+  display: inline-flex;
+  gap: .75rem;
+}
+.variant-b .btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: .75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+.variant-b .btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: .75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: .9rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.variant-b .hero-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.variant-b .hero-feature {
+  background: var(--bg);
+  padding: 1rem;
+  border-radius: 8px;
+}
+.variant-b .hero-feature h3 { font-size: .9rem; margin-bottom: .25rem; }
+.variant-b .hero-feature p { font-size: .8rem; color: var(--text2); margin: 0; }
+.variant-b .section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.variant-b .section h2 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: .5rem;
+}
+.variant-b .section .subtitle { color: var(--text2); font-size: .9rem; margin-bottom: 1.5rem; }
+.variant-b .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.variant-b .product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: box-shadow .2s;
+}
+.variant-b .product-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.06) }
+.variant-b .product-card .tag {
+  display: inline-block;
+  background: #ebf4ff;
+  color: var(--accent);
+  font-size: .7rem;
+  font-weight: 600;
+  padding: .2rem .6rem;
+  border-radius: 4px;
+  margin-bottom: .5rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+.variant-b .product-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+.variant-b .product-card p { color: var(--text2); font-size: .82rem; line-height: 1.45; margin-bottom: .75rem; }
+.variant-b .product-card .meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.variant-b .product-card .price {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+.variant-b .product-card .badge {
+  color: var(--green);
+  font-size: .8rem;
+  font-weight: 500;
+}
+.variant-b .trust-bar {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+.variant-b .trust-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.variant-b .trust-item { text-align: center; }
+.variant-b .trust-item .icon { font-size: 1.5rem; margin-bottom: .3rem; }
+.variant-b .trust-item h4 { font-size: .85rem; font-weight: 600; }
+.variant-b .trust-item p { font-size: .78rem; color: var(--text2); }
+.variant-b footer {
+  background: var(--accent);
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  font-size: .85rem;
+}
+
+/* ========== Variant C: Bold D2C Marketplace ========== */
+.variant-c {
+  --bg: #f5f5f5;
+  --surface: #fff;
+  --text: #111;
+  --text2: #666;
+  --accent: #4f46e5;
+  --accent2: #6366f1;
+  --gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  --border: #e5e7eb;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.variant-c header {
+  background: var(--gradient);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.variant-c .header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.variant-c .logo {
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.variant-c .logo span { color: #818cf8 }
+.variant-c nav { display: flex; gap: .25rem; align-items: center; }
+.variant-c nav a {
+  color: rgba(255,255,255,.7);
+  text-decoration: none;
+  font-size: .85rem;
+  padding: .4rem .7rem;
+  border-radius: 6px;
+  transition: color .2s, background .2s;
+}
+.variant-c nav a:hover { color: #fff; background: rgba(255,255,255,.1) }
+.variant-c .cart-icon {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-left: .75rem;
+  cursor: pointer;
+}
+.variant-c .hero {
+  background: var(--gradient);
+  color: #fff;
+  padding: 4rem 2rem 6rem;
+  position: relative;
+  overflow: hidden;
+}
+.variant-c .hero::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: var(--bg);
+  border-radius: 0 0 50% 50% / 40px;
+}
+.variant-c .hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.variant-c .hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+  max-width: 700px;
+}
+.variant-c .hero h1 span {
+  background: linear-gradient(90deg, #818cf8, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.variant-c .hero p {
+  color: rgba(255,255,255,.65);
+  font-size: 1.15rem;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+.variant-c .hero-search {
+  display: flex;
+  max-width: 500px;
+  background: rgba(255,255,255,.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.variant-c .hero-search input {
+  flex: 1;
+  padding: .9rem 1.2rem;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: .9rem;
+  outline: none;
+}
+.variant-c .hero-search input::placeholder { color: rgba(255,255,255,.4) }
+.variant-c .hero-search button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 0 1.75rem;
+  cursor: pointer;
+  font-size: .85rem;
+}
+.variant-c .categories {
+  max-width: 1200px;
+  margin: -2rem auto 0;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: .75rem;
+  position: relative;
+  z-index: 2;
+}
+.variant-c .category-pill {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem .5rem;
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  font-size: .8rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  transition: transform .2s, box-shadow .2s;
+  cursor: pointer;
+}
+.variant-c .category-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(79,70,229,.12);
+}
+.variant-c .category-pill .icon { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+.variant-c .section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.variant-c .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.variant-c .section-header h2 { font-size: 1.4rem; font-weight: 700; }
+.variant-c .section-header a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: .85rem;
+  font-weight: 500;
+}
+.variant-c .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.variant-c .product-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  transition: transform .2s, box-shadow .2s;
+}
+.variant-c .product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.06);
+}
+.variant-c .product-card .badge {
+  display: inline-block;
+  background: #eef2ff;
+  color: var(--accent);
+  font-size: .7rem;
+  font-weight: 600;
+  padding: .2rem .6rem;
+  border-radius: 20px;
+  margin-bottom: .6rem;
+}
+.variant-c .product-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .35rem; }
+.variant-c .product-card p { color: var(--text2); font-size: .8rem; line-height: 1.45; margin-bottom: .75rem; }
+.variant-c .product-card .bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.variant-c .product-card .price { font-weight: 700; font-size: 1.1rem; }
+.variant-c .product-card .add-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.variant-c .product-card .add-btn:hover { transform: scale(1.1) }
+.variant-c .news-section {
+  background: var(--surface);
+}
+.variant-c .news-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+.variant-c .news-inner h2 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
+.variant-c .news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+.variant-c .news-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  transition: border-color .2s;
+}
+.variant-c .news-card:hover { border-color: var(--accent) }
+.variant-c .news-card .date {
+  color: var(--text2);
+  font-size: .75rem;
+  margin-bottom: .4rem;
+}
+.variant-c .news-card h3 { font-size: .95rem; font-weight: 600; margin-bottom: .3rem; }
+.variant-c .news-card p { color: var(--text2); font-size: .8rem; }
+.variant-c footer {
+  background: var(--gradient);
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+  font-size: .85rem;
+}
+
+/* ========== Switcher Bar ========== */
+#variant-switcher {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .5rem 1rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 20px rgba(0,0,0,.3);
+  z-index: 9999;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: .85rem;
+  user-select: none;
+}
+#variant-switcher button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  border-radius: 6px;
+  transition: background .15s;
+  line-height: 1;
+}
+#variant-switcher button:hover { background: rgba(255,255,255,.1) }
+#variant-switcher .label {
+  font-weight: 500;
+  min-width: 140px;
+  text-align: center;
+}
+#variant-switcher .dots { display: flex; gap: .35rem; }
+#variant-switcher .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  transition: background .2s;
+}
+#variant-switcher .dot.active { background: #818cf8 }
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+<div id="variant-switcher">
+  <button id="prev-btn" aria-label="Previous variant">←</button>
+  <div class="dots" id="dots"></div>
+  <span class="label" id="variant-label">A — Dark Industrial</span>
+  <button id="next-btn" aria-label="Next variant">→</button>
+</div>
+
+<script>
+const VARIANTS = [
+  { key: 'A', name: 'Dark Industrial', desc: 'Tech-ориентированный, тёмная тема, акцент оранжевый' },
+  { key: 'B', name: 'Clean B2B', desc: 'Профессиональный, светлый, для автосервисов' },
+  { key: 'C', name: 'Bold Marketplace', desc: 'Современный маркетплейс, градиенты, D2C' },
+];
+
+const APP = document.getElementById('app');
+const label = document.getElementById('variant-label');
+const dots = document.getElementById('dots');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+
+let currentIdx = 0;
+
+function getVariantFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const v = params.get('variant');
+  const idx = VARIANTS.findIndex(x => x.key === v);
+  return idx >= 0 ? idx : 0;
+}
+
+function renderVariant(idx) {
+  currentIdx = idx;
+  const v = VARIANTS[idx];
+  const url = new URL(window.location);
+  url.searchParams.set('variant', v.key);
+  window.history.replaceState({}, '', url);
+  
+  label.textContent = `${v.key} — ${v.name}`;
+  dots.innerHTML = VARIANTS.map((x, i) => 
+    `<span class="dot${i === idx ? ' active' : ''}"></span>`
+  ).join('');
+
+  switch(v.key) {
+    case 'A': APP.innerHTML = renderVariantA(); break;
+    case 'B': APP.innerHTML = renderVariantB(); break;
+    case 'C': APP.innerHTML = renderVariantC(); break;
+  }
+}
+
+function renderVariantA() {
+  return `<div class="variant-a">
+<header>
+  <div class="logo">Motodok</div>
+  <nav>
+    <a href="#">Каталог</a>
+    <a href="#">Новости</a>
+    <a href="#">Статьи</a>
+    <a href="#">Цены</a>
+    <a href="#">Контакты</a>
+  </nav>
+</header>
+<section class="hero">
+  <h1>Оборудование для <span>автодиагностики</span></h1>
+  <p>От любителя до профессионала — весь спектр оборудования для компьютерной диагностики автомобилей</p>
+  <div class="hero-search">
+    <input type="text" placeholder="Поиск оборудования, бренда, модели...">
+    <button>Найти</button>
+  </div>
+</section>
+<section class="section">
+  <h2>Категории</h2>
+  <div class="category-grid">
+    <div class="category-card"><div class="icon">🔧</div><div class="name">Диагностика</div><div class="count">24 товара</div></div>
+    <div class="category-card"><div class="icon">📊</div><div class="name">Одометры</div><div class="count">12 товаров</div></div>
+    <div class="category-card"><div class="icon">🔐</div><div class="name">Иммобилайзеры</div><div class="count">8 товаров</div></div>
+    <div class="category-card"><div class="icon">📡</div><div class="name">Осциллографы</div><div class="count">6 товаров</div></div>
+    <div class="category-card"><div class="icon">💿</div><div class="name">Базы данных</div><div class="count">18 товаров</div></div>
+    <div class="category-card"><div class="icon">🔩</div><div class="name">Услуги</div><div class="count">5 услуг</div></div>
+  </div>
+</section>
+<section class="section">
+  <h2>Популярное оборудование</h2>
+  <div class="product-grid">
+    <div class="product-card"><h3>BMW ICOM</h3><p>Дилерский диагностический прибор для BMW. Последнее ПО, поддержка русского языка.</p><div class="price">от $1,200</div></div>
+    <div class="product-card"><h3>MB Star Diagnosis SDConnect</h3><p>Дилерский сканер для Mercedes-Benz. Полный функционал дилерского центра.</p><div class="price">от $1,800</div></div>
+    <div class="product-card"><h3>USB Autoscope IV</h3><p>Цифровой осциллограф для анализа сигналов и диагностики двигателя.</p><div class="price">$1,450</div></div>
+    <div class="product-card"><h3>VAS 5054A</h3><p>Диагностический интерфейс для VAG. Кодирование, адаптация, программирование.</p><div class="price">от $650</div></div>
+    <div class="product-card"><h3>Toyota Intelligent Tester II</h3><p>Оригинальный дилерский сканер Toyota/Lexus.</p><div class="price">от $1,100</div></div>
+    <div class="product-card"><h3>Lexia 3 PSA</h3><p>Дилерский сканер для Peugeot/Citroen. Полная диагностика и программирование.</p><div class="price">$140</div></div>
+  </div>
+</section>
+<footer><p>© 2007-2026 Motodok · г. Бишкек, Кыргызстан · +996 (772) 553-731</p></footer>
+</div>`;
+}
+
+function renderVariantB() {
+  return `<div class="variant-b">
+<div class="top-bar">🚚 Доставка по всему миру · 🔧 Профессиональное оборудование · ✅ Гарантия качества</div>
+<header>
+  <div class="header-inner">
+    <div class="logo">Motodok <small>оборудование для диагностики</small></div>
+    <nav>
+      <a href="#">Каталог</a>
+      <a href="#">Новости</a>
+      <a href="#">Статьи</a>
+      <a href="#">Цены</a>
+      <a href="#">Контакты</a>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Оборудование для профессиональной автодиагностики</h1>
+      <p>Дилерские сканеры, мультимарочные приборы, осциллографы и базы данных для СТО и автосервисов. Работаем с 2007 года.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary">📋 Смотреть каталог</a>
+        <a href="#" class="btn-secondary">📞 Получить консультацию</a>
+      </div>
+    </div>
+    <div class="hero-features">
+      <div class="hero-feature"><h3>🔧 Дилерское оборудование</h3><p>BMW ICOM, MB Star, VAS 5054A, Toyota IT II</p></div>
+      <div class="hero-feature"><h3>📊 Мультимарочные сканеры</h3><p>Универсальные решения для любых марок</p></div>
+      <div class="hero-feature"><h3>💿 Базы данных и каталоги</h3><p>ELSA, ESITronic, Tolerance Data</p></div>
+      <div class="hero-feature"><h3>🔩 Ремонт и обновление</h3><p>Обновление ПО, ремонт приборов</p></div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <h2>Оборудование</h2>
+  <p class="subtitle">Проверенные решения для автосервисов любого масштаба</p>
+  <div class="product-grid">
+    <div class="product-card"><span class="tag">Дилерский</span><h3>BMW ICOM</h3><p>Полноценный дилерский прибор для диагностики BMW/Mini/Rolls-Royce. Программирование, кодирование, адаптация.</p><div class="meta"><span class="price">$1,200</span><span class="badge">✓ В наличии</span></div></div>
+    <div class="product-card"><span class="tag">Дилерский</span><h3>MB Star Diagnosis SDConnect</h3><p>Профессиональная диагностика Mercedes-Benz, Smart, Maybach. Полный спектр операций.</p><div class="meta"><span class="price">$1,800</span><span class="badge">✓ В наличии</span></div></div>
+    <div class="product-card"><span class="tag">Осциллограф</span><h3>USB Autoscope IV</h3><p>4-канальный автомобильный осциллограф. Анализ сигналов, диагностика двигателя и электросистем.</p><div class="meta"><span class="price">$1,450</span><span class="badge">✓ В наличии</span></div></div>
+    <div class="product-card"><span class="tag">Адаптер</span><h3>Opel OP-COM</h3><p>Диагностика Opel/Vauxhall 1996-2011. USB-подключение, полная поддержка электронных систем.</p><div class="meta"><span class="price">$70</span><span class="badge">✓ В наличии</span></div></div>
+    <div class="product-card"><span class="tag">База данных</span><h3>ELSA 3.81 VW/Audi</h3><p>Дилерская информационная база по ремонту VAG. Автомобили 1947-2012, 40 GB.</p><div class="meta"><span class="price">$80</span><span class="badge">✓ В наличии</span></div></div>
+    <div class="product-card"><span class="tag">Услуга</span><h3>Обновление MB Star</h3><p>Обновление программного обеспечения для Mercedes-Benz Star Diagnosis. Русифицированное ПО.</p><div class="meta"><span class="price">$200</span><span class="badge">✓ Услуга</span></div></div>
+  </div>
+</section>
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="icon">📦</div><h4>Доставка по всему миру</h4><p>Отправляем в любую страну</p></div>
+    <div class="trust-item"><div class="icon">🔒</div><h4>Безопасная оплата</h4><p>Несколько способов оплаты</p></div>
+    <div class="trust-item"><div class="icon">🛠</div><h4>Поддержка</h4><p>Помощь в настройке и установке</p></div>
+    <div class="trust-item"><div class="icon">⭐</div><h4>С 2007 года</h4><p>Более 17 лет на рынке</p></div>
+  </div>
+</div>
+<footer><p>© 2007-2026 Motodok · г. Бишкек, Кыргызстан · +996 (772) 553-731 · +996 (312) 298-969</p></footer>
+</div>`;
+}
+
+function renderVariantC() {
+  return `<div class="variant-c">
+<header>
+  <div class="header-inner">
+    <div class="logo">Moto<span>dok</span></div>
+    <nav>
+      <a href="#">Каталог</a>
+      <a href="#">Новости</a>
+      <a href="#">О нас</a>
+      <a href="#">Контакты</a>
+      <span class="cart-icon">🛒</span>
+    </nav>
+  </div>
+</header>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Всё для <span>автодиагностики</span><br>в одном месте</h1>
+    <p>Дилерские сканеры, адаптеры, осциллографы и базы данных. Доставка по всему миру.</p>
+    <div class="hero-search">
+      <input type="text" placeholder="Поиск среди 70+ товаров...">
+      <button>Найти</button>
+    </div>
+  </div>
+</section>
+<div class="categories">
+  <div class="category-pill"><span class="icon">🔧</span>Диагностика</div>
+  <div class="category-pill"><span class="icon">📊</span>Одометры</div>
+  <div class="category-pill"><span class="icon">🔐</span>Иммобилайзеры</div>
+  <div class="category-pill"><span class="icon">📡</span>Осциллографы</div>
+  <div class="category-pill"><span class="icon">💿</span>Базы данных</div>
+  <div class="category-pill"><span class="icon">🔩</span>Услуги</div>
+</div>
+<section class="section">
+  <div class="section-header">
+    <h2>🔥 Хиты продаж</h2>
+    <a href="#">Смотреть все →</a>
+  </div>
+  <div class="product-grid">
+    <div class="product-card"><span class="badge">Дилерский</span><h3>BMW ICOM</h3><p>Полный функционал дилерского центра BMW. Кодирование, программирование, адаптация.</p><div class="bottom"><span class="price">$1,200</span><button class="add-btn">+</button></div></div>
+    <div class="product-card"><span class="badge">Дилерский</span><h3>MB Star SDConnect</h3><p>Профессиональная диагностика Mercedes-Benz. Все операции на уровне дилера.</p><div class="bottom"><span class="price">$1,800</span><button class="add-btn">+</button></div></div>
+    <div class="product-card"><span class="badge">Осциллограф</span><h3>Autoscope IV</h3><p>4-канальный USB осциллограф для автосервиса. Анализ любых сигналов.</p><div class="bottom"><span class="price">$1,450</span><button class="add-btn">+</button></div></div>
+    <div class="product-card"><span class="badge">Адаптер</span><h3>Lexia 3 PSA</h3><p>Дилерский сканер Peugeot/Citroen 1995-н.в. Кодирование и адаптация.</p><div class="bottom"><span class="price">$140</span><button class="add-btn">+</button></div></div>
+  </div>
+</section>
+<section class="news-section">
+  <div class="news-inner">
+    <h2>📰 Новости и статьи</h2>
+    <div class="news-grid">
+      <div class="news-card"><div class="date">15 июня 2017</div><h3>Мотортестер Автоскоп 4</h3><p>Отличительные признаки мотортестера и обзор прибора Автоскоп 4</p></div>
+      <div class="news-card"><div class="date">7 июня 2016</div><h3>Новая конфигурация ICOM</h3><p>ICOM теперь можно использовать как GT-1 — два прибора в одном</p></div>
+      <div class="news-card"><div class="date">17 ноября 2014</div><h3>Выбор оборудования для СТО</h3><p>На что обращать внимание при выборе диагностического оборудования</p></div>
+    </div>
+  </div>
+</section>
+<footer><p>© 2007-2026 Motodok · Бишкек, Кыргызстан · +996 (772) 553-731</p></footer>
+</div>`;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if (e.target.matches('input, textarea, [contenteditable]')) return;
+  if (e.key === 'ArrowLeft') { currentIdx = (currentIdx - 1 + VARIANTS.length) % VARIANTS.length; renderVariant(currentIdx); }
+  if (e.key === 'ArrowRight') { currentIdx = (currentIdx + 1) % VARIANTS.length; renderVariant(currentIdx); }
+});
+
+prevBtn.addEventListener('click', () => {
+  currentIdx = (currentIdx - 1 + VARIANTS.length) % VARIANTS.length;
+  renderVariant(currentIdx);
+});
+nextBtn.addEventListener('click', () => {
+  currentIdx = (currentIdx + 1) % VARIANTS.length;
+  renderVariant(currentIdx);
+});
+
+// Init
+renderVariant(getVariantFromURL());
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = (await getCollection('products')).filter(p => p.data.category === 'databases');
+  return products.map(p => ({
+    params: { slug: p.slug },
+    props: { entry: p },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data, body } = entry;
+---
+<BaseLayout
+  title={data.metaTitle || `${data.title} — Motodok`}
+  description={data.metaDescription || `${data.title} — базы данных для автодиагностики`}
+  ogImage={data.ogImage || data.images?.[0]}
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Базы данных', href: '/Databases/' },
+    { label: data.title },
+  ]}
+>
+  <article class="product-detail">
+    <h1>{data.title}</h1>
+
+    {data.article && <p class="product-article">Артикул: {data.article}</p>}
+
+    {data.price && <div class="price">{data.price} $</div>}
+
+    {data.images && data.images.length > 0 && (
+      <div class="product-gallery">
+        {data.images.map(img => <img src={img} alt={data.title} loading="lazy" />)}
+      </div>
+    )}
+
+    <div class="product-body">{body}</div>
+
+    {data.features && data.features.length > 0 && (
+      <ul class="features">
+        {data.features.map(f => <li>{f}</li>)}
+      </ul>
+    )}
+
+    {data.pdfFiles && data.pdfFiles.length > 0 && (
+      <div class="files">
+        <h3>Файлы для скачивания</h3>
+        {data.pdfFiles.map(f => (
+          <a href={f} target="_blank" rel="noopener noreferrer">Скачать PDF</a>
+        ))}
+      </div>
+    )}
+  </article>
+</BaseLayout>

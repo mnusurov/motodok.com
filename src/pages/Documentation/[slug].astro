@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = (await getCollection('products')).filter(p => p.data.pdfFiles && p.data.pdfFiles.length > 0);
+  const paths: { params: { slug: string }; props: Record<string, unknown> }[] = [];
+
+  for (const p of products) {
+    for (const pdf of p.data.pdfFiles) {
+      const slug = pdf.split('/').pop()?.replace(/\.pdf$/i, '') || '';
+      if (slug) {
+        paths.push({ params: { slug }, props: { product: p, pdf } });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { product, pdf } = Astro.props;
+const data = product.data;
+const categorySlug = data.category === 'diagnosis' ? 'Diagnosis' : data.category === 'measure' ? 'Measure' : data.category === 'immobilizer' ? 'Immobilizer' : data.category === 'odometers' ? 'Odometers' : 'Databases';
+const fileName = pdf.split('/').pop() || 'Документ';
+---
+<BaseLayout
+  title={`${fileName} — ${data.title} — Motodok`}
+  description={`Документация: ${fileName} — ${data.title}`}
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Документация', href: '/Documentation/' },
+    { label: fileName },
+  ]}
+>
+  <article class="doc-detail">
+    <h1>{fileName}</h1>
+    <p>Документ для: <a href={`/${categorySlug}/${product.slug}/`}>{data.title}</a></p>
+    <a href={pdf} target="_blank" rel="noopener noreferrer" class="doc-download">Скачать PDF</a>
+  </article>
+</BaseLayout>
