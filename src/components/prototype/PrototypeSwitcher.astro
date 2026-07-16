@@ -1,0 +1,65 @@
+---
+const variants = ['a', 'b', 'c'];
+const labels: Record<string, string> = {
+  a: 'Dark Garage',
+  b: 'Clean Clinic',
+  c: 'Modern Store',
+};
+---
+
+<div id="proto-switcher">
+  <button id="proto-prev" aria-label="Previous variant">&#9664;</button>
+  <span id="proto-label">A — Dark Garage</span>
+  <button id="proto-next" aria-label="Next variant">&#9654;</button>
+</div>
+
+<script>
+  const variants = ['a', 'b', 'c'];
+  const labels = { a: 'Dark Garage', b: 'Clean Clinic', c: 'Modern Store' };
+
+  const url = new URL(location.href);
+  let v = url.searchParams.get('variant') || 'a';
+  if (!variants.includes(v)) v = 'a';
+
+  function show(variant: string) {
+    url.searchParams.set('variant', variant);
+    history.replaceState(null, '', url.toString());
+    document.querySelectorAll('[id^="variant-"]').forEach(el => (el as HTMLElement).hidden = true);
+    const el = document.getElementById('variant-' + variant);
+    if (el) el.hidden = false;
+    document.getElementById('proto-label')!.textContent = variant.toUpperCase() + ' — ' + labels[variant];
+  }
+
+  document.getElementById('proto-prev')!.onclick = () => {
+    const idx = (variants.indexOf(v) - 1 + variants.length) % variants.length;
+    v = variants[idx]; show(v);
+  };
+  document.getElementById('proto-next')!.onclick = () => {
+    const idx = (variants.indexOf(v) + 1) % variants.length;
+    v = variants[idx]; show(v);
+  };
+  document.addEventListener('keydown', (e) => {
+    if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+    if (e.key === 'ArrowLeft') { document.getElementById('proto-prev')!.click(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { document.getElementById('proto-next')!.click(); e.preventDefault(); }
+  });
+
+  show(v);
+</script>
+
+<style>
+  #proto-switcher {
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 12px;
+    background: #1f2937; color: #fff; padding: 8px 16px; border-radius: 999px;
+    font: 14px/1 system-ui, sans-serif; z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  #proto-switcher button {
+    background: none; border: none; color: #9ca3af; cursor: pointer;
+    font-size: 16px; padding: 4px 8px; border-radius: 4px;
+  }
+  #proto-switcher button:hover { background: rgba(255,255,255,0.1); color: #fff; }
+  #proto-label { min-width: 140px; text-align: center; letter-spacing: 0.01em; }
+</style>
