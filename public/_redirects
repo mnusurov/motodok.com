@@ -43,3 +43,6 @@
 
 # www → non-www
 https://www.motodok.com/* https://motodok.com/:splat 301
+
+# legacy sitemap path → flat sitemap
+/sitemap-index.xml /sitemap.xml 301

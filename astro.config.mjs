@@ -9,6 +9,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     sitemap({
+      entryLimit: 50000,
       changefreq: 'weekly',
       priority: 0.7,
       serialize: (item) => {
