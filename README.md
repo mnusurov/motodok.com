@@ -23,7 +23,7 @@
 
 ### 3. Войти в CMS
 
-https://motodok.com/admin/ → **Login with GitHub**
+https://motodok.com/admin/ → **Sign in with GitHub**
 
 ### 4. Коллекции
 
@@ -57,8 +57,12 @@ https://motodok.com/admin/ → **Login with GitHub**
 
 ### Полезные ссылки
 
-- [Decap CMS + Astro (документация)](https://docs.astro.build/ru/guides/cms/decap-cms/)
-- [Decap CMS — установка и настройка](https://truetech.dev/websites-development/services/cms-other/decap-cms-git-based-installation-setup.html)
+Русскоязычной документации по Sveltia CMS нет — только официальная (англ.):
+
+- [Sveltia CMS — что это и как начать](https://sveltiacms.app/en/docs/intro)
+- [Getting Started](https://sveltiacms.app/en/docs/start)
+- [Collections (коллекции, поля, сортировка)](https://sveltiacms.app/en/docs/collections)
+- [Editorial Workflow (черновики → ревью → публикация)](https://sveltiacms.app/en/docs/workflows/editorial)
 
 ---
 
@@ -77,10 +81,10 @@ npm run preview    # просмотр собранного
 
 - **Astro 5** — генератор статики
 - **MDX** — контент товаров и статей
-- **Decap CMS** (CDN, standalone) — управление контентом
+- **Sveltia CMS** (CDN, standalone) — управление контентом; современный git-based преемник Decap/Netlify CMS
 - **Pagefind** — полнотекстовый поиск по сайту (без сервера)
 - **Cloudflare Pages** — хостинг + деплой (GitHub Actions)
-- **Cloudflare Functions** — OAuth proxy для Decap CMS
+- **Cloudflare Functions** — OAuth proxy для Sveltia CMS (GitHub App)
 - **JSON-LD** — микроразметка (Product, Article, BreadcrumbList, LocalBusiness)
 
 ### Домены
@@ -108,7 +112,7 @@ src/
   styles/             # global.css
 public/
   images/             # 486 изображений товаров
-  admin/              # Decap CMS (config.yml + index.html)
+  admin/              # Sveltia CMS (config.yml + index.html)
   pdf/                # PDF-файлы
   _redirects          # 44 правила редиректов
   _headers            # Заголовки кеширования и безопасности
