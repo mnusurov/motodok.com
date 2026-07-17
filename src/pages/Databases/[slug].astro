@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductJsonLd from '../../components/ProductJsonLd.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -47,4 +48,5 @@ const { Content } = await entry.render();
       </div>
     )}
   </article>
+  <ProductJsonLd product={data} />
 </BaseLayout>

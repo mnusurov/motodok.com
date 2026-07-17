@@ -1,0 +1,39 @@
+---
+export interface Props {
+  product: {
+    title: string;
+    description?: string;
+    price?: number;
+    currency?: string;
+    inStock?: boolean;
+    images?: string[];
+    brand?: string;
+    article?: string;
+  };
+}
+
+const { product } = Astro.props;
+const siteUrl = 'https://motodok.com';
+
+if (!product.price) return;
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.title,
+  ...(product.description && { description: product.description }),
+  ...(product.images?.length && { image: product.images.map(i => `${siteUrl}${i}`) }),
+  offers: {
+    '@type': 'Offer',
+    price: product.price,
+    priceCurrency: product.currency || 'USD',
+    availability: product.inStock !== false
+      ? 'https://schema.org/InStock'
+      : 'https://schema.org/OutOfStock',
+  },
+  ...(product.brand && { brand: { '@type': 'Brand', name: product.brand } }),
+  ...(product.article && { sku: product.article }),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

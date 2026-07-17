@@ -11,13 +11,13 @@ export default defineConfig({
     sitemap({
       changefreq: 'weekly',
       priority: 0.7,
-      lastmod: new Date(),
       serialize: (item) => {
         if (item.url === 'https://motodok.com/') {
           item.priority = 1.0;
         } else if (item.url.includes('/Diagnosis/') || item.url.includes('/Measure/')) {
           item.priority = 0.9;
         }
+        delete item.lastmod;
         return item;
       },
     }),

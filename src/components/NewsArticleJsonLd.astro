@@ -1,0 +1,29 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  publishedDate?: Date;
+  updatedDate?: Date;
+}
+
+const { title, description, image, publishedDate, updatedDate } = Astro.props;
+const siteUrl = 'https://motodok.com';
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  headline: title,
+  ...(description && { description }),
+  ...(image && { image: `${siteUrl}${image}` }),
+  ...(publishedDate && { datePublished: publishedDate.toISOString() }),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  publisher: {
+    '@type': 'Organization',
+    name: 'Motodok',
+    url: siteUrl,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

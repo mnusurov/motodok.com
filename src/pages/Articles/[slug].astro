@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleJsonLd from '../../components/ArticleJsonLd.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -25,6 +26,14 @@ const { Content } = await entry.render();
     <h1>{data.title}</h1>
     {data.image && <img src={data.image} alt={data.title} loading="lazy" style="border-radius:var(--radius);margin-bottom:1.5rem;max-width:100%" />}
     <Content />
+    <ArticleJsonLd
+      title={data.title}
+      description={data.description}
+      image={data.image}
+      author={data.author}
+      publishedDate={data.publishedDate}
+      updatedDate={data.updatedDate}
+    />
     {data.tags && data.tags.length > 0 && (
       <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem">
         {data.tags.map(tag => <span style="font-size:.8rem;padding:4px 10px;background:var(--surface);color:var(--accent);border-radius:6px">{tag}</span>)}

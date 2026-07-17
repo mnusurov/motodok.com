@@ -9,32 +9,43 @@ export interface Props {
 
 const { title, description, ogImage, canonical, noIndex } = Astro.props;
 const siteUrl = 'https://motodok.com';
+const defaultOgImage = '/images/logo.svg';
 ---
 
 <title>{title} | Motodok</title>
-<meta name="description" content={description || ''} />
+{description ? <meta name="description" content={description} /> : null}
 <link rel="canonical" href={canonical || Astro.url.href} />
+<link rel="alternate" hreflang="ru" href={canonical || Astro.url.href} />
+<link rel="alternate" hreflang="x-default" href={canonical || Astro.url.href} />
 
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description || ''} />
+{description ? <meta property="og:description" content={description} /> : null}
 <meta property="og:type" content="website" />
 <meta property="og:url" content={canonical || Astro.url.href} />
-<meta property="og:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/og-default.jpg`} />
+<meta property="og:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}${defaultOgImage}`} />
+<meta property="og:image:width" content="600" />
+<meta property="og:image:height" content="315" />
 <meta property="og:site_name" content="Motodok" />
 <meta property="og:locale" content="ru_RU" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description || ''} />
-<meta name="twitter:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}/images/og-default.jpg`} />
+{description ? <meta name="twitter:description" content={description} /> : null}
+<meta name="twitter:image" content={ogImage ? `${siteUrl}${ogImage}` : `${siteUrl}${defaultOgImage}`} />
+<meta name="twitter:site" content="@motodok" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
   "name": "Motodok",
   "url": "https://motodok.com",
-  "logo": "https://motodok.com/favicon.ico",
+  "image": "https://motodok.com/images/logo.svg",
+  "logo": "https://motodok.com/images/logo.svg",
+  "description": "Продажа оборудования для автодиагностики: дилерские сканеры, адаптеры, осциллографы и базы данных",
+  "telephone": ["+996-772-553-731", "+996-312-298-969"],
+  "email": "info@motodok.com",
+  "@id": "https://motodok.com",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+996-772-553-731",
@@ -43,8 +54,10 @@ const siteUrl = 'https://motodok.com';
   },
   "address": {
     "@type": "PostalAddress",
+    "addressLocality": "Бишкек",
     "addressCountry": "KG"
-  }
+  },
+  "sameAs": []
 }
 </script>
 
