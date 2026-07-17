@@ -113,7 +113,7 @@ src/
   pages/              # Страницы и динамические маршруты
   styles/             # global.css
 public/
-  images/             # 486 изображений товаров
+  images/             # Медиатека по коллекциям: products/, brands/, articles/, categories/, news/, services/, pages/
   admin/              # Sveltia CMS (config.yml + index.html)
   pdf/                # PDF-файлы
   _redirects          # 44 правила редиректов
