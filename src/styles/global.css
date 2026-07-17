@@ -335,7 +335,8 @@ img { max-width: 100%; height: auto }
 }
 
 .listing-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -358,6 +359,16 @@ img { max-width: 100%; height: auto }
   font-size: 1rem;
   font-weight: 600;
   color: var(--text);
+  margin-bottom: .5rem;
+}
+
+.listing-card .price {
+  margin-top: auto;
+  text-align: right;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── Footer ──────────────────────────────── */

@@ -14,7 +14,7 @@ const allServices = await getCollection('services');
       {allServices.map(item => (
         <a href={`/Services/${item.slug}/`} class="listing-card">
           <h3>{item.data.title}</h3>
-          {item.data.price && <div class="price" style="color:var(--accent);font-weight:700">{item.data.price}</div>}
+          <div class="price">{item.data.price ? `${item.data.price} $` : 'Договорная'}</div>
         </a>
       ))}
     </div>
