@@ -13,10 +13,22 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { data } = entry;
 const { Content } = await entry.render();
+
+const siteUrl = 'https://motodok.com';
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: data.title,
+  description: data.description || undefined,
+  provider: { '@type': 'Organization', name: 'Motodok', url: siteUrl },
+  ...(data.price ? { offers: { '@type': 'Offer', price: data.price, priceCurrency: data.currency || 'USD' } } : {}),
+  ...(data.image ? { image: `${siteUrl}${data.image}` } : {}),
+};
 ---
 
 <BaseLayout
-  title={data.metaTitle || `${data.title} — Motodok`}
+  title={data.metaTitle || data.title}
   description={data.metaDescription || data.description}
   ogImage={data.image}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Услуги', href: '/Services/' }, { label: data.title } ]}
@@ -28,3 +40,4 @@ const { Content } = await entry.render();
     <Content />
   </article>
 </BaseLayout>
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

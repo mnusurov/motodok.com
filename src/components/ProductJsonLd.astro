@@ -14,26 +14,35 @@ export interface Props {
 
 const { product } = Astro.props;
 const siteUrl = 'https://motodok.com';
+const id = `${siteUrl}${Astro.url.pathname}`;
 
-if (!product.price) return;
-
-const ld = {
+const ld: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Product',
+  '@id': id,
   name: product.title,
   ...(product.description && { description: product.description }),
   ...(product.images?.length && { image: product.images.map(i => `${siteUrl}${i}`) }),
-  offers: {
+};
+
+if (product.price) {
+  ld.offers = {
     '@type': 'Offer',
     price: product.price,
     priceCurrency: product.currency || 'USD',
     availability: product.inStock !== false
       ? 'https://schema.org/InStock'
       : 'https://schema.org/OutOfStock',
-  },
-  ...(product.brand && { brand: { '@type': 'Brand', name: product.brand } }),
-  ...(product.article && { sku: product.article }),
-};
+  };
+}
+
+if (product.brand) {
+  ld.brand = { '@type': 'Brand', name: product.brand };
+}
+
+if (product.article) {
+  ld.sku = product.article;
+}
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

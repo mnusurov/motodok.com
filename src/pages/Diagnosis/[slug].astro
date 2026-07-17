@@ -17,9 +17,10 @@ const { Content } = await entry.render();
 ---
 
 <BaseLayout
-  title={data.metaTitle || `${data.title} — Motodok`}
+  title={data.metaTitle || data.title}
   description={data.metaDescription || `${data.title} — оборудование для автодиагностики`}
   ogImage={data.ogImage || data.images?.[0]}
+  ogType="product"
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Диагностика', href: '/Diagnosis/' }, { label: data.title } ]}
 >
   <article>

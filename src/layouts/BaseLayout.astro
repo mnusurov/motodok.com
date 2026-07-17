@@ -10,12 +10,13 @@ export interface Props {
   metaTitle?: string;
   metaDescription?: string;
   ogImage?: string;
+  ogType?: string;
   canonical?: string;
   breadcrumbs?: { label: string; href?: string }[];
   noIndex?: boolean;
 }
 
-const { title, description, metaTitle, metaDescription, ogImage, canonical, noIndex, breadcrumbs } = Astro.props;
+const { title, description, metaTitle, metaDescription, ogImage, ogType, canonical, noIndex, breadcrumbs } = Astro.props;
 ---
 
 <!doctype html>
@@ -27,6 +28,7 @@ const { title, description, metaTitle, metaDescription, ogImage, canonical, noIn
     title={metaTitle || title}
     description={metaDescription || description}
     ogImage={ogImage}
+    ogType={ogType}
     canonical={canonical}
     noIndex={noIndex}
   />

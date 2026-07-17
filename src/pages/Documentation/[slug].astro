@@ -22,12 +22,21 @@ const { product, pdf } = Astro.props;
 const data = product.data;
 const categorySlug = data.category === 'diagnosis' ? 'Diagnosis' : data.category === 'measure' ? 'Measure' : data.category === 'immobilizer' ? 'Immobilizer' : data.category === 'odometers' ? 'Odometers' : 'Databases';
 const fileName = pdf.split('/').pop() || 'Документ';
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${fileName} — ${data.title}`,
+  description: `Документация: ${fileName} — ${data.title}`,
+  about: { '@type': 'Product', name: data.title },
+};
 ---
 
-<BaseLayout title={`${fileName} — ${data.title} — Motodok`} description={`Документация: ${fileName} — ${data.title}`}>
+<BaseLayout title={`${fileName} — ${data.title}`} description={`Документация: ${fileName} — ${data.title}`}>
   <article>
     <h1>{fileName}</h1>
     <p>Документ для: <a href={`/${categorySlug}/${product.slug}/`}>{data.title}</a></p>
     <a href={pdf} target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:10px 20px;background:var(--accent);color:#000;font-weight:600;border-radius:var(--radius);margin-top:1rem">Скачать PDF</a>
   </article>
 </BaseLayout>
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

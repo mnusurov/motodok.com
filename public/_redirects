@@ -40,3 +40,6 @@
 
 # 404
 /* /404.html 404
+
+# www → non-www
+https://www.motodok.com/* https://motodok.com/:splat 301

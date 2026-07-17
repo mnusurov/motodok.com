@@ -3,7 +3,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://motodok.pages.dev',
+  site: 'https://motodok.com',
   base: '/',
   output: 'static',
   integrations: [
