@@ -213,16 +213,23 @@ img { max-width: 100%; height: auto }
 
 .product-card:hover { border-color: var(--accent); transform: translateY(-2px); color: inherit }
 
-.product-card h3 { margin-top: auto; font-size: 1rem; font-weight: 600; margin-bottom: .5rem; color: var(--text) }
+.product-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .5rem; color: var(--text) }
 
 .product-card p {
   color: var(--text2);
   font-size: .82rem;
   line-height: 1.5;
-  margin-bottom: .75rem;
+}
+
+.product-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .product-card .price {
+  margin-top: .5rem;
   text-align: right;
   color: var(--accent);
   font-weight: 700;
