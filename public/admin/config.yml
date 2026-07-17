@@ -20,7 +20,11 @@ collections:
     extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{price}}$"
-    sort: "order:asc"
+    sortable_fields:
+      fields: [title, price, order, publishedDate]
+      default:
+        field: order
+        direction: ascending
     fields:
       - { label: "Название", name: "title", widget: "string" }
       - { label: "URL (slug)", name: "slug", widget: "string", hint: "Автоматически из названия" }
@@ -92,7 +96,11 @@ collections:
     extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
-    sort: "publishedDate:desc"
+    sortable_fields:
+      fields: [title, author, publishedDate, updatedDate]
+      default:
+        field: publishedDate
+        direction: descending
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
       - { label: "URL (slug)", name: "slug", widget: "string" }
@@ -115,7 +123,11 @@ collections:
     extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
-    sort: "publishedDate:desc"
+    sortable_fields:
+      fields: [title, publishedDate, updatedDate]
+      default:
+        field: publishedDate
+        direction: descending
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
       - { label: "URL (slug)", name: "slug", widget: "string" }
