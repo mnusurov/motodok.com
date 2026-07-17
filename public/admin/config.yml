@@ -122,6 +122,7 @@ collections:
       - { label: "Описание", name: "description", widget: "text" }
       - { label: "Изображение", name: "image", widget: "image", required: false }
       - { label: "Дата публикации", name: "publishedDate", widget: "datetime" }
+      - { label: "Дата обновления", name: "updatedDate", widget: "datetime", required: false }
       - { label: "Содержание", name: "body", widget: "markdown" }
       - { label: "Meta Title", name: "metaTitle", widget: "string", required: false }
       - { label: "Meta Description", name: "metaDescription", widget: "text", required: false }
