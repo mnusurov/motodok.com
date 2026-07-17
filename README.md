@@ -1,5 +1,7 @@
 # motodok.com
 
+[![Deploy to Cloudflare Pages](https://github.com/mnusurov/motodok.com/actions/workflows/deploy.yml/badge.svg)](https://github.com/mnusurov/motodok.com/actions/workflows/deploy.yml)
+
 Интернет-магазин диагностического оборудования для автосервисов. Astro 5, статика, Cloudflare Pages.
 
 ---
