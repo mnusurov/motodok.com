@@ -20,9 +20,7 @@ const { product } = Astro.props;
       <img src={product.images[0]} alt={product.title} loading="lazy" />
     </div>
   )}
-  <div class="product-card-body">
-    <h3>{product.title}</h3>
-    {product.metaDescription && <p>{product.metaDescription}</p>}
-    {product.price && <div class="price">{product.price} $</div>}
-  </div>
+  <h3>{product.title}</h3>
+  {product.metaDescription && <p>{product.metaDescription}</p>}
+  {product.price && <div class="price">{product.price} $</div>}
 </a>
