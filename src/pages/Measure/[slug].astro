@@ -11,7 +11,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { data, body } = entry;
+const { data } = entry;
+const { Content } = await entry.render();
 ---
 
 <BaseLayout
@@ -29,7 +30,7 @@ const { data, body } = entry;
       </div>
     )}
 
-    {body}
+    <Content />
 
     {data.features && data.features.length > 0 && (
       <ul style="margin-bottom:1.5rem">

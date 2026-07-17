@@ -11,7 +11,8 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { data, body } = entry;
+const { data } = entry;
+const { Content } = await entry.render();
 ---
 
 <BaseLayout
@@ -23,6 +24,6 @@ const { data, body } = entry;
     {data.publishedDate && <time style="display:block;color:var(--accent);font-size:.85rem;margin-bottom:.5rem;font-weight:600">{data.publishedDate.toLocaleDateString('ru-RU')}</time>}
     <h1>{data.title}</h1>
     {data.image && <img src={data.image} alt={data.title} loading="lazy" style="border-radius:var(--radius);margin-bottom:1.5rem;max-width:100%" />}
-    {body}
+    <Content />
   </article>
 </BaseLayout>
