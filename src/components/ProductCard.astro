@@ -14,15 +14,13 @@ export interface Props {
 const { product } = Astro.props;
 ---
 
-<article class="product-card">
-  <a href={`/${product.category}/${product.slug}/`}>
-    {product.images && product.images[0] && (
-      <div class="product-card-img">
-        <img src={product.images[0]} alt={product.title} loading="lazy" />
-      </div>
-    )}
-    <h3>{product.title}</h3>
-    {product.metaDescription && <p>{product.metaDescription}</p>}
-    {product.price && <div class="price">{product.price} $</div>}
-  </a>
-</article>
+<a href={`/${product.category}/${product.slug}/`} class="product-card">
+  {product.images && product.images[0] && (
+    <div class="product-card-img">
+      <img src={product.images[0]} alt={product.title} loading="lazy" />
+    </div>
+  )}
+  <h3>{product.title}</h3>
+  {product.metaDescription && <p>{product.metaDescription}</p>}
+  {product.price && <div class="price">{product.price} $</div>}
+</a>
