@@ -20,6 +20,7 @@ const { Content } = await entry.render();
   title={data.metaTitle || `${data.title} — Motodok`}
   description={data.metaDescription || `${data.title} — оборудование для автодиагностики`}
   ogImage={data.ogImage || data.images?.[0]}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Диагностика' }, { label: data.title } ]}
 >
   <article>
     <h1>{data.title}</h1>

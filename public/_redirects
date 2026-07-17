@@ -1,40 +1,21 @@
 # .html → clean URL (301)
 /Diagnosis/BMW-GT1.html /Diagnosis/bmw-gt1/ 301
-/Diagnosis/Launch-X-431.html /Diagnosis/launch-x-431/ 301
-/Diagnosis/Mercedes-Star-Diagnosis.html /Diagnosis/mercedes-star-diagnosis/ 301
+/Diagnosis/Mercedes-Star-Diagnosis.html /Diagnosis/mb-star-diagnosis/ 301
 /Diagnosis/VAG-COM.html /Diagnosis/vag-com/ 301
-/Diagnosis/VAS-PC.html /Diagnosis/vas-pc/ 301
-/Diagnosis/RAC-DS-708.html /Diagnosis/rac-ds-708/ 301
-/Diagnosis/Autocom-CDP.html /Diagnosis/autocom-cdp/ 301
 /Diagnosis/Diagnosis-2.html /Diagnosis/ 301
 /Measure/DigitalTester.html /Measure/digitaltester/ 301
-/Measure/USB-Autoscope-II.html /Measure/usb-autoscope-ii/ 301
 /Measure/USB-Autoscope-IV.html /Measure/usb-autoscope-iv/ 301
 /Measure/USB-Osciloscope.html /Measure/usb-autoscope-iv/ 301
 /Measure/Autoscope-USB.html /Measure/usb-autoscope-iv/ 301
-/Measure/CompressionTester.html /Measure/compressiontester/ 301
+/Measure/CompressionTester.html /Measure/compresstiontester/ 301
 /Immobilizer/CarProg.html /Immobilizer/carprog/ 301
-/Immobilizer/Tango.html /Immobilizer/tango/ 301
-/Immobilizer/AutoProPad.html /Immobilizer/autopropad/ 301
-/Immobilizer/AVDI.html /Immobilizer/avdi/ 301
-/Immobilizer/Knox.html /Immobilizer/knox/ 301
-/Immobilizer/Smok-Unlocker.html /Immobilizer/smok-unlocker/ 301
-/Odometers/DIGA3.html /Odometers/diga3/ 301
-/Odometers/F-Tool.html /Odometers/f-tool/ 301
-/Odometers/Kanwei.html /Odometers/kanwei/ 301
-/Odometers/UP-16.html /Odometers/up-16/ 301
-/Databases/Autodata-3.38.html /Databases/autodata-3.38/ 301
-/Databases/AutoData-2.12.html /Databases/autodata-3.38/ 301
+/Databases/Autodata-3.38.html /Databases/autodata-3-38/ 301
+/Databases/AutoData-2.12.html /Databases/autodata-3-38/ 301
 /Databases/Mitchel-On-Demand-5.html /Databases/mitchel-on-demand-2014/ 301
 /Databases/Mitchel-On-Demand-2014.html /Databases/mitchel-on-demand-2014/ 301
-/Databases/Elewin.html /Databases/elewin/ 301
-/Databases/Alldata.html /Databases/alldata/ 301
-/Databases/ATIS.html /Databases/atis/ 301
-/Databases/BBL.html /Databases/bbl/ 301
+/Databases/Alldata.html /Databases/alldata-10-52/ 301
 /News/Free-Delivery.html /News/ 301
 /News/Autodata.html /News/autodata/ 301
-/News/New-Software.html /News/new-software/ 301
-/News/Mercedes-Diagnosis.html /News/mercedes-diagnosis/ 301
 
 # capitalized pages → lowercase
 /Documentation/ /documentation/ 301

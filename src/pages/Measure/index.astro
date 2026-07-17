@@ -12,6 +12,7 @@ const products = (await getCollection('products'))
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Осциллографы'}
   description={category?.data.metaDescription || category?.data.description || 'Измерительное оборудование для автодиагностики'}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Осциллографы' } ]}
 >
   <h1>{category?.data.title || 'Осциллографы'}</h1>
   {category?.data.description && <p style="color:var(--text2);margin-bottom:1.5rem">{category.data.description}</p>}

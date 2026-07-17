@@ -20,6 +20,7 @@ const { Content } = await entry.render();
   title={data.metaTitle || `${data.title} — Motodok`}
   description={data.metaDescription || data.description}
   ogImage={data.image}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Новости', href: '/News/' }, { label: data.title } ]}
 >
   <article>
     {data.publishedDate && <time style="display:block;color:var(--accent);font-size:.85rem;margin-bottom:.5rem;font-weight:600">{data.publishedDate.toLocaleDateString('ru-RU')}</time>}

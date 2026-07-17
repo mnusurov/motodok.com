@@ -7,7 +7,8 @@ const allNews = (await getCollection('news')).sort(
 );
 ---
 
-<BaseLayout title="Новости — Motodok" description="Новости мира автодиагностики, новинки оборудования, обновления">
+<BaseLayout title="Новости — Motodok" description="Новости мира автодиагностики, новинки оборудования, обновления"
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Новости' } ]}>
   <h1>Новости</h1>
 
   {allNews.length > 0 ? (

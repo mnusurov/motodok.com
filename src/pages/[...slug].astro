@@ -18,6 +18,7 @@ const { Content } = await entry.render();
 <BaseLayout
   title={data.metaTitle || data.title}
   description={data.metaDescription || data.description}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: data.title } ]}
 >
   <article>
     <h1>{data.title}</h1>
