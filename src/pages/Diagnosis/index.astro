@@ -8,6 +8,12 @@ const products = (await getCollection('products'))
   .filter(p => p.data.category === 'diagnosis')
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 
+const brands = (await getCollection('brands')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const productsByBrand = new Map<string, number>();
+for (const p of products) {
+  if (p.data.brand) productsByBrand.set(p.data.brand, (productsByBrand.get(p.data.brand) || 0) + 1);
+}
+
 const siteUrl = 'https://motodok.com';
 const ld = {
   '@context': 'https://schema.org',
@@ -33,6 +39,21 @@ const ld = {
   <h1>{category?.data.title || 'Диагностика'}</h1>
   {category?.data.description && <p style="color:var(--text2);margin-bottom:1.5rem">{category.data.description}</p>}
 
+  {brands.some(b => productsByBrand.get(b.data.slug)) && (
+    <section class="brands-section">
+      <h2>Производители</h2>
+      <div class="brands-grid">
+        {brands.filter(b => productsByBrand.get(b.data.slug)).map(b => (
+          <a href={`/Diagnosis/Manufacturers/${b.data.slug}/`} class="brand-card">
+            {b.data.logo && <img src={b.data.logo} alt={b.data.title} class="brand-logo" />}
+            <span class="brand-title">{b.data.title}</span>
+            <span class="brand-count">{productsByBrand.get(b.data.slug)}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
   <ProductGrid
     products={products.map(p => ({
       ...p.data,
@@ -41,5 +62,27 @@ const ld = {
     }))}
   />
 </BaseLayout>
+
+<style>
+  .brands-section { margin-bottom: 2rem }
+  .brands-section h2 { font-size: 1.2rem; margin-bottom: .75rem }
+  .brands-grid { display: flex; flex-wrap: wrap; gap: .75rem }
+  .brand-card {
+    display: flex; align-items: center; gap: .5rem;
+    padding: .5rem .75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: .85rem;
+    transition: border-color .2s;
+  }
+  .brand-card:hover { border-color: var(--accent) }
+  .brand-logo { max-width: 60px; max-height: 28px; object-fit: contain }
+  .brand-title { color: var(--text) }
+  .brand-count {
+    font-size: .75rem; color: var(--text2);
+    background: var(--bg2); padding: 1px 6px; border-radius: 8px;
+  }
+</style>
 
 <script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const brands = (await getCollection('brands')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const diagnosisProducts = (await getCollection('products')).filter(p => p.data.category === 'diagnosis');
+const productsByBrand = new Map<string, number>();
+for (const p of diagnosisProducts) {
+  if (p.data.brand) productsByBrand.set(p.data.brand, (productsByBrand.get(p.data.brand) || 0) + 1);
+}
+---
+
+<BaseLayout
+  title="Производители диагностического оборудования"
+  description="Оригинальное диагностическое оборудование по производителям"
+  breadcrumbs={[
+    { label: 'Главная', href: '/' },
+    { label: 'Диагностика', href: '/Diagnosis/' },
+    { label: 'Производители' },
+  ]}
+>
+  <h1>Производители</h1>
+  <p style="color:var(--text2);margin-bottom:1.5rem">Диагностическое оборудование по производителям автомобилей</p>
+
+  <div class="brands-grid">
+    {brands.map(b => {
+      const count = productsByBrand.get(b.data.slug) || 0;
+      return (
+        <a href={`/Diagnosis/Manufacturers/${b.data.slug}/`} class="brand-card">
+          {b.data.logo && <img src={b.data.logo} alt={b.data.title} class="brand-logo" />}
+          <span class="brand-title">{b.data.title}</span>
+          {count > 0 && <span class="brand-count">{count} товар{count > 1 ? 'ов' : ''}</span>}
+        </a>
+      );
+    })}
+  </div>
+</BaseLayout>
+
+<style>
+  .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .brand-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    transition: border-color .2s;
+  }
+  .brand-card:hover {
+    border-color: var(--accent);
+  }
+  .brand-logo {
+    max-width: 80px;
+    max-height: 40px;
+    object-fit: contain;
+  }
+  .brand-title {
+    font-size: .9rem;
+    color: var(--text);
+  }
+  .brand-count {
+    font-size: .75rem;
+    color: var(--text2);
+  }
+</style>
