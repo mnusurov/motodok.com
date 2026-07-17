@@ -18,6 +18,8 @@ collections:
     create: true
     format: "yaml-frontmatter"
     extension: "mdx"
+    media_folder: "/public/images/products"
+    public_folder: "/images/products"
     slug: "{{slug}}"
     summary: "{{title}} — {{price}}$"
     sortable_fields:
@@ -62,6 +64,8 @@ collections:
     folder: "src/content/categories"
     create: false
     format: "yml"
+    media_folder: "/public/images/categories"
+    public_folder: "/images/categories"
     slug: "{{slug}}"
     fields:
       - { label: "Название", name: "title", widget: "string" }
@@ -78,6 +82,8 @@ collections:
     folder: "src/content/brands"
     create: true
     format: "yml"
+    media_folder: "/public/images/brands"
+    public_folder: "/images/brands"
     slug: "{{slug}}"
     fields:
       - { label: "Название", name: "title", widget: "string" }
@@ -94,6 +100,8 @@ collections:
     create: true
     format: "yaml-frontmatter"
     extension: "mdx"
+    media_folder: "/public/images/articles"
+    public_folder: "/images/articles"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sortable_fields:
@@ -121,6 +129,8 @@ collections:
     create: true
     format: "yaml-frontmatter"
     extension: "mdx"
+    media_folder: "/public/images/news"
+    public_folder: "/images/news"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sortable_fields:
@@ -146,6 +156,8 @@ collections:
     create: true
     format: "yaml-frontmatter"
     extension: "mdx"
+    media_folder: "/public/images/services"
+    public_folder: "/images/services"
     slug: "{{slug}}"
     fields:
       - { label: "Название", name: "title", widget: "string" }
@@ -164,6 +176,8 @@ collections:
     create: false
     format: "yaml-frontmatter"
     extension: "mdx"
+    media_folder: "/public/images/pages"
+    public_folder: "/images/pages"
     slug: "{{slug}}"
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
