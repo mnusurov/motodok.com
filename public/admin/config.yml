@@ -16,8 +16,8 @@ collections:
     label_singular: "Товар"
     folder: "src/content/products"
     create: true
-    format: "frontmatter"
-    extension: ".mdx"
+    format: "yaml-frontmatter"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{price}}$"
     sort: "order:asc"
@@ -33,10 +33,10 @@ collections:
           - { label: "Иммобилайзеры", value: "immobilizer" }
           - { label: "Одометры", value: "odometers" }
           - { label: "Базы данных", value: "databases" }
-      - { label: "Бренд", name: "brand", widget: "relation", collection: "brands", searchFields: ["title"], valueField: "slug", displayFields: ["title"], required: false }
+      - { label: "Бренд", name: "brand", widget: "relation", collection: "brands", search_fields: ["title"], value_field: "slug", display_fields: ["title"], required: false }
       - { label: "Артикул", name: "article", widget: "string", required: false }
-      - { label: "Цена ($)", name: "price", widget: "number", valueType: "float", min: 0, required: false }
-      - { label: "Старая цена ($)", name: "oldPrice", widget: "number", valueType: "float", min: 0, required: false }
+      - { label: "Цена ($)", name: "price", widget: "number", value_type: "float", min: 0, required: false }
+      - { label: "Старая цена ($)", name: "oldPrice", widget: "number", value_type: "float", min: 0, required: false }
       - { label: "Валюта", name: "currency", widget: "string", default: "USD", required: false }
       - { label: "В наличии", name: "inStock", widget: "boolean", default: true }
       - { label: "Изображения", name: "images", widget: "list", field: { label: "Изображение", name: "image", widget: "image" }, required: false }
@@ -49,7 +49,7 @@ collections:
       - { label: "Meta Title", name: "metaTitle", widget: "string", required: false, hint: "Оставьте пустым для автогенерации" }
       - { label: "Meta Description", name: "metaDescription", widget: "text", required: false }
       - { label: "OG Image", name: "ogImage", widget: "image", required: false }
-      - { label: "Порядок сортировки", name: "order", widget: "number", valueType: "int", required: false }
+      - { label: "Порядок сортировки", name: "order", widget: "number", value_type: "int", required: false }
       - { label: "Рекомендуемый", name: "featured", widget: "boolean", default: false, required: false }
 
   - name: "categories"
@@ -64,7 +64,7 @@ collections:
       - { label: "URL (slug)", name: "slug", widget: "string" }
       - { label: "Описание", name: "description", widget: "text" }
       - { label: "Изображение", name: "image", widget: "image", required: false }
-      - { label: "Порядок", name: "order", widget: "number", valueType: "int" }
+      - { label: "Порядок", name: "order", widget: "number", value_type: "int" }
       - { label: "Meta Title", name: "metaTitle", widget: "string", required: false }
       - { label: "Meta Description", name: "metaDescription", widget: "text", required: false }
 
@@ -88,8 +88,8 @@ collections:
     label_singular: "Статья"
     folder: "src/content/articles"
     create: true
-    format: "frontmatter"
-    extension: ".mdx"
+    format: "yaml-frontmatter"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sort: "publishedDate:desc"
@@ -111,8 +111,8 @@ collections:
     label_singular: "Новость"
     folder: "src/content/news"
     create: true
-    format: "frontmatter"
-    extension: ".mdx"
+    format: "yaml-frontmatter"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sort: "publishedDate:desc"
@@ -132,8 +132,8 @@ collections:
     label_singular: "Услуга"
     folder: "src/content/services"
     create: true
-    format: "frontmatter"
-    extension: ".mdx"
+    format: "yaml-frontmatter"
+    extension: "mdx"
     slug: "{{slug}}"
     fields:
       - { label: "Название", name: "title", widget: "string" }
@@ -150,14 +150,14 @@ collections:
     label_singular: "Страница"
     folder: "src/content/pages"
     create: false
-    format: "frontmatter"
-    extension: ".mdx"
+    format: "yaml-frontmatter"
+    extension: "mdx"
     slug: "{{slug}}"
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
       - { label: "URL (slug)", name: "slug", widget: "string" }
       - { label: "Описание", name: "description", widget: "text", required: false }
       - { label: "Содержание", name: "body", widget: "markdown" }
-      - { label: "Порядок", name: "order", widget: "number", valueType: "int", default: 10 }
+      - { label: "Порядок", name: "order", widget: "number", value_type: "int", default: 10 }
       - { label: "Meta Title", name: "metaTitle", widget: "string", required: false }
       - { label: "Meta Description", name: "metaDescription", widget: "text", required: false }
