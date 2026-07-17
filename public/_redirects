@@ -36,6 +36,11 @@
 /News/New-Software.html /News/New-Software/ 301
 /News/Mercedes-Diagnosis.html /News/Mercedes-Diagnosis/ 301
 
+# capitalized pages → lowercase
+/Prices.html /prices/ 301
+/How-to-buy.html /how-to-buy/ 301
+/Contacts.html /contacts/ 301
+
 # index.html → clean
 /Diagnosis/index.html /Diagnosis/ 301
 /Measure/index.html /Measure/ 301
