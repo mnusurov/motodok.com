@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductCard from '../components/ProductCard.astro';
 import { getCollection } from 'astro:content';
 
 const products = await getCollection('products');
@@ -76,11 +77,15 @@ function formatDateRu(d: Date): string {
           {sampleProducts.map(p => {
             const cat = categorySlugMap[p.data.category] || p.data.category;
             return (
-              <a href={`/${cat}/${p.slug}/`} class="product-card">
-                <h3>{p.data.title}</h3>
-                <p>{p.data.description?.slice(0, 200)}</p>
-                {p.data.price && <div class="price">{p.data.price}$</div>}
-              </a>
+              <ProductCard product={{
+                title: p.data.title,
+                slug: p.slug,
+                category: cat,
+                price: p.data.price?.toString(),
+                images: p.data.images,
+                features: p.data.features,
+                metaDescription: p.data.description?.slice(0, 200),
+              }} />
             );
           })}
         </div>
