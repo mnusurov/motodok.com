@@ -2,7 +2,7 @@ backend:
   name: github
   repo: mnusurov/motodok.com
   branch: main
-  base_url: https://motodok.pages.dev
+  base_url: https://motodok.com
   auth_endpoint: /api/auth
 
 publish_mode: editorial_workflow
