@@ -8,16 +8,13 @@ const products = (await getCollection('products'))
   .filter(p => p.data.category === 'measure')
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
+
 <BaseLayout
-  title={category?.data.metaTitle || category?.data.title || 'Измерительное оборудование'}
+  title={category?.data.metaTitle || category?.data.title || 'Осциллографы'}
   description={category?.data.metaDescription || category?.data.description || 'Измерительное оборудование для автодиагностики'}
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Измерительное оборудование' },
-  ]}
 >
-  <h1>{category?.data.title || 'Измерительное оборудование'}</h1>
-  {category?.data.description && <p class="category-desc">{category.data.description}</p>}
+  <h1>{category?.data.title || 'Осциллографы'}</h1>
+  {category?.data.description && <p style="color:var(--text2);margin-bottom:1.5rem">{category.data.description}</p>}
 
   <ProductGrid
     products={products.map(p => ({

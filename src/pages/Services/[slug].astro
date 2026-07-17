@@ -13,20 +13,16 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { data, body } = entry;
 ---
+
 <BaseLayout
   title={data.metaTitle || `${data.title} — Motodok`}
   description={data.metaDescription || data.description}
   ogImage={data.image}
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Услуги', href: '/Services/' },
-    { label: data.title },
-  ]}
 >
-  <article class="service-detail">
+  <article>
     <h1>{data.title}</h1>
-    {data.price && <div class="service-price">{data.price}</div>}
-    {data.image && <img src={data.image} alt={data.title} loading="lazy" class="service-image" />}
-    <div class="service-body">{body}</div>
+    {data.price && <div style="font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:1rem">{data.price}</div>}
+    {data.image && <img src={data.image} alt={data.title} loading="lazy" style="border-radius:var(--radius);margin-bottom:1.5rem;max-width:100%" />}
+    {body}
   </article>
 </BaseLayout>

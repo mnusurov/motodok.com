@@ -7,68 +7,17 @@ export interface Props {
     price?: string;
     images?: string[];
     features?: string[];
-    metaTitle?: string;
     metaDescription?: string;
   };
 }
 
 const { product } = Astro.props;
-const image = product.images?.[0];
 ---
 
 <article class="product-card">
-  <a href={`/${product.category}/${product.slug}/`} class="product-card-link">
-    <div class="product-card-body">
-      <h3 class="product-card-title">{product.title}</h3>
-      {product.price && <span class="product-card-price">{product.price} $</span>}
-      {product.metaDescription && <p class="product-card-desc">{product.metaDescription}</p>}
-      {product.features && product.features.length > 0 && (
-        <ul class="product-card-features">
-          {product.features.slice(0, 3).map(f => <li>{f}</li>)}
-        </ul>
-      )}
-    </div>
+  <a href={`/${product.category}/${product.slug}/`}>
+    <h3>{product.title}</h3>
+    {product.metaDescription && <p>{product.metaDescription}</p>}
+    {product.price && <div class="price">{product.price} $</div>}
   </a>
 </article>
-
-<style>
-  .product-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: all 0.2s;
-    background: var(--surface);
-  }
-  .product-card:hover {
-    border-color: rgba(245,158,11,0.3);
-  }
-  .product-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 20px;
-  }
-  .product-card-title {
-    margin: 0 0 8px;
-    font-size: 1rem;
-    color: #fff;
-  }
-  .product-card-price {
-    display: inline-block;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .product-card-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0 0 8px;
-  }
-  .product-card-features {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-  .product-card-features li::before {
-    content: '— ';
-  }
-</style>

@@ -8,16 +8,13 @@ const products = (await getCollection('products'))
   .filter(p => p.data.category === 'immobilizer')
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
+
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Иммобилайзеры'}
   description={category?.data.metaDescription || category?.data.description || 'Оборудование для работы с иммобилайзерами'}
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Иммобилайзеры' },
-  ]}
 >
   <h1>{category?.data.title || 'Иммобилайзеры'}</h1>
-  {category?.data.description && <p class="category-desc">{category.data.description}</p>}
+  {category?.data.description && <p style="color:var(--text2);margin-bottom:1.5rem">{category.data.description}</p>}
 
   <ProductGrid
     products={products.map(p => ({

@@ -4,6 +4,8 @@ import { getCollection } from 'astro:content';
 
 const products = await getCollection('products');
 const categories = await getCollection('categories');
+const articles = (await getCollection('articles')).sort((a, b) => (b.data.publishedDate?.getTime() || 0) - (a.data.publishedDate?.getTime() || 0));
+const newsItems = (await getCollection('news')).sort((a, b) => (b.data.publishedDate?.getTime() || 0) - (a.data.publishedDate?.getTime() || 0));
 
 const categorySlugMap: Record<string, string> = {
   diagnosis: 'Diagnosis',
@@ -13,220 +15,92 @@ const categorySlugMap: Record<string, string> = {
   databases: 'Databases',
 };
 
-const sample = products.slice(0, 8);
+const catEmoji: Record<string, string> = {
+  diagnosis: '\u{1F527}',
+  measure: '\u{1F4C8}',
+  immobilizer: '\u{1F510}',
+  odometers: '\u{1F522}',
+  databases: '\u{1F4BF}',
+  services: '\u{1F529}',
+};
+
+const sampleProducts = products.slice(0, 8);
+const mixedNews = [
+  ...articles.slice(0, 2).map(a => ({ title: a.data.title, date: a.data.publishedDate, href: `/Articles/${a.slug}/`, type: 'article' as const })),
+  ...newsItems.slice(0, 2).map(n => ({ title: n.data.title, date: n.data.publishedDate, href: `/News/${n.slug}/`, type: 'news' as const })),
+].sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0)).slice(0, 4);
+const dayNames = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+
+function formatDateRu(d: Date): string {
+  const day = dayNames[d.getDay()];
+  const date = d.getDate();
+  const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+  return `${day}, ${date} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
 ---
 
-<BaseLayout title="Motodok — Оборудование для автодиагностики" hideSidebar>
-  <section class="hero" slot="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <h1>Оборудование для автодиагностики</h1>
-      <p>Профессиональные сканеры, осциллографы, иммобилайзеры и оборудование для ремонта ЭБУ</p>
-      <div class="hero-actions">
-        <a href="/Diagnosis/" class="btn btn-primary">Каталог</a>
-        <a href="/Services/" class="btn btn-outline">Услуги</a>
+<BaseLayout title="Motodok — Продажа оборудования для автодиагностики" description="Дилерские сканеры, адаптеры, осциллографы и базы данных для автосервисов и профессионалов">
+  <section class="hero">
+    <div class="container">
+      <h1>Оборудование для <span>автодиагностики</span></h1>
+      <p>Дилерские сканеры, адаптеры, осциллографы и базы данных для автосервисов и профессионалов</p>
+      <div class="hero-cta">
+        <a href="/Diagnosis/" class="btn-primary">Смотреть каталог</a>
+        <a href="/Contacts.html" class="btn-secondary">Связаться</a>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <h2 class="section-title">Категории</h2>
-    <div class="cat-grid">
-      {categories.sort((a, b) => a.data.order - b.data.order).map(c => {
-        const slug = categorySlugMap[c.data.slug] || c.data.slug;
-        return (
-          <a href={`/${slug}/`} class="cat-card">
-            <div class="cat-icon">{c.data.title[0]}</div>
-            <h3>{c.data.title}</h3>
-            <p>{c.data.description?.slice(0, 90)}</p>
-          </a>
-        );
-      })}
-    </div>
-  </section>
-
-  {sample.length > 0 && (
-    <section class="section">
-      <h2 class="section-title">Товары</h2>
-      <div class="prod-grid">
-        {sample.map(p => {
-          const cat = categorySlugMap[p.data.category] || p.data.category;
+    <div class="container">
+      <h2>Категории</h2>
+      <div class="category-grid">
+        {categories.sort((a, b) => a.data.order - b.data.order).map(c => {
+          const slug = categorySlugMap[c.data.slug] || c.data.slug;
           return (
-            <a href={`/${cat}/${p.slug}/`} class="prod-card">
-              <div class="prod-card-body">
-                <h3>{p.data.title}</h3>
-                {p.data.price && <span class="price">{p.data.price} $</span>}
-                {p.data.features && (
-                  <ul>
-                    {p.data.features.slice(0, 2).map(f => <li>{f}</li>)}
-                  </ul>
-                )}
-              </div>
+            <a href={`/${slug}/`} class="category-card">
+              <span class="cat-icon">{catEmoji[c.data.slug] || '🔧'}</span>
+              <span class="cat-name">{c.data.title}</span>
             </a>
           );
         })}
       </div>
+    </div>
+  </section>
+
+  {sampleProducts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>Популярное оборудование</h2>
+        <div class="product-grid">
+          {sampleProducts.map(p => {
+            const cat = categorySlugMap[p.data.category] || p.data.category;
+            return (
+              <a href={`/${cat}/${p.slug}/`} class="product-card">
+                <h3>{p.data.title}</h3>
+                <p>{p.data.description?.slice(0, 200)}</p>
+                {p.data.price && <div class="price">{p.data.price}$</div>}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {mixedNews.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>Новости и статьи</h2>
+        <div class="news-grid">
+          {mixedNews.map(item => (
+            <a href={item.href} class="news-card">
+              {item.date && <time>{formatDateRu(item.date)}</time>}
+              <h3>{item.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
   )}
 </BaseLayout>
-
-<style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-    margin: -24px -24px 0;
-    padding: 0 24px;
-  }
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(135deg, rgba(245,158,11,0.08) 0%, transparent 50%),
-      radial-gradient(circle at 20% 80%, rgba(245,158,11,0.03) 0%, transparent 50%);
-  }
-  .hero-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  .hero-content {
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 100px 24px 80px;
-    text-align: center;
-  }
-  .hero-content h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #fff 60%, var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .hero-content p {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 2rem;
-  }
-  .hero-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-  }
-  .btn {
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: all 0.15s;
-  }
-  .btn-primary {
-    background: var(--accent);
-    color: #000;
-  }
-  .btn-primary:hover {
-    background: var(--accent-hover);
-  }
-  .btn-outline {
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--text);
-  }
-  .btn-outline:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 64px 24px;
-  }
-  .section-title {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #fff;
-  }
-
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-  }
-  .cat-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 24px;
-    transition: all 0.2s;
-  }
-  .cat-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-  .cat-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-lg);
-    background: var(--accent-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 16px;
-  }
-  .cat-card h3 {
-    font-size: 1rem;
-    margin-bottom: 8px;
-    color: #fff;
-  }
-  .cat-card p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .prod-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-  }
-  .prod-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px;
-    transition: border-color 0.2s;
-  }
-  .prod-card:hover {
-    border-color: rgba(245,158,11,0.3);
-  }
-  .prod-card-body h3 {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-    color: #fff;
-  }
-  .price {
-    display: inline-block;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .prod-card-body ul li {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 2px;
-  }
-  .prod-card-body ul li::before {
-    content: '— ';
-  }
-</style>

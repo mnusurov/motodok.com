@@ -27,8 +27,8 @@ const products = (await getCollection('products'))
   ]}
 >
   <h1>{brand.title}</h1>
-  {brand.description && <p class="brand-desc">{brand.description}</p>}
-  {brand.country && <p class="brand-country">Страна: {brand.country}</p>}
+  {brand.description && <p style="color:var(--text2);margin-bottom:1rem">{brand.description}</p>}
+  {brand.country && <p style="color:var(--text2);font-size:.85rem;margin-bottom:1.5rem">Страна: {brand.country}</p>}
 
   {products.length > 0 ? (
     <ProductGrid

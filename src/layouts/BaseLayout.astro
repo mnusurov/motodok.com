@@ -1,9 +1,6 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Sidebar from '../components/Sidebar.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import SEO from '../components/SEO.astro';
 
 export interface Props {
@@ -15,10 +12,9 @@ export interface Props {
   canonical?: string;
   breadcrumbs?: { label: string; href?: string }[];
   noIndex?: boolean;
-  hideSidebar?: boolean;
 }
 
-const { title, description, metaTitle, metaDescription, ogImage, canonical, breadcrumbs, noIndex, hideSidebar } = Astro.props;
+const { title, description, metaTitle, metaDescription, ogImage, canonical, noIndex } = Astro.props;
 ---
 
 <!doctype html>
@@ -38,30 +34,17 @@ const { title, description, metaTitle, metaDescription, ogImage, canonical, brea
 <body>
   <div class="layout">
     <Header />
-    <div class="page-wrapper">
-      {!hideSidebar && <Sidebar />}
-      <main class="content">
-        {breadcrumbs && breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    <main>
+      <div class="container page-content">
         <slot />
-      </main>
-    </div>
-    <Footer />
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2007-2026 <a href="/">Motodok</a> &middot; г. Бишкек, Кыргызстан</p>
+        <p class="footer-contacts">+996 (772) 553-731 &middot; +996 (312) 298-969</p>
+      </div>
+    </footer>
   </div>
 </body>
 </html>
-
-<style>
-  .layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  .page-wrapper {
-    display: flex;
-    flex: 1;
-  }
-  .content {
-    flex: 1;
-    padding: 24px;
-  }
-</style>

@@ -6,93 +6,20 @@ const allArticles = (await getCollection('articles')).sort(
   (a, b) => (b.data.publishedDate?.getTime() || 0) - (a.data.publishedDate?.getTime() || 0)
 );
 ---
-<BaseLayout
-  title="Статьи — Motodok"
-  description="Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования"
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Статьи' },
-  ]}
->
+
+<BaseLayout title="Статьи — Motodok" description="Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования">
   <h1>Статьи</h1>
 
   {allArticles.length > 0 ? (
-    <div class="articles-grid">
+    <div class="listing-grid">
       {allArticles.map(item => (
-        <article class="article-card">
-          <a href={`/Articles/${item.slug}/`} class="article-card-link">
-            {item.data.image && <img src={item.data.image} alt={item.data.title} loading="lazy" class="article-card-img" />}
-            <div class="article-card-body">
-              {item.data.publishedDate && <time class="article-card-date">{item.data.publishedDate.toLocaleDateString('ru-RU')}</time>}
-              <h2 class="article-card-title">{item.data.title}</h2>
-              <p class="article-card-desc">{item.data.description}</p>
-              {item.data.tags && item.data.tags.length > 0 && (
-                <div class="article-card-tags">
-                  {item.data.tags.map(tag => <span class="tag">{tag}</span>)}
-                </div>
-              )}
-            </div>
-          </a>
-        </article>
+        <a href={`/Articles/${item.slug}/`} class="listing-card">
+          {item.data.publishedDate && <time>{item.data.publishedDate.toLocaleDateString('ru-RU')}</time>}
+          <h3>{item.data.title}</h3>
+        </a>
       ))}
     </div>
   ) : (
     <p>Статьи скоро появятся</p>
   )}
 </BaseLayout>
-
-<style>
-  .articles-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  .article-card {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-    overflow: hidden;
-    transition: box-shadow 0.2s;
-  }
-  .article-card:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  .article-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .article-card-img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-  .article-card-body {
-    padding: 0.75rem;
-  }
-  .article-card-date {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-  .article-card-title {
-    margin: 0.25rem 0;
-    font-size: 1.1rem;
-  }
-  .article-card-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin: 0 0 0.5rem;
-  }
-  .article-card-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-  }
-  .tag {
-    font-size: 0.75rem;
-    background: var(--accent-light);
-    padding: 0.15rem 0.5rem;
-    border-radius: 3px;
-    color: var(--text-muted);
-  }
-</style>

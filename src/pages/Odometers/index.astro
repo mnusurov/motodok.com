@@ -8,16 +8,13 @@ const products = (await getCollection('products'))
   .filter(p => p.data.category === 'odometers')
   .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
 ---
+
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Коррекция одометров'}
-  description={category?.metaDescription || category?.data.description || 'Оборудование для коррекции одометров и пробега'}
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Коррекция одометров' },
-  ]}
+  description={category?.data.metaDescription || category?.data.description || 'Оборудование для коррекции одометров'}
 >
   <h1>{category?.data.title || 'Коррекция одометров'}</h1>
-  {category?.data.description && <p class="category-desc">{category.data.description}</p>}
+  {category?.data.description && <p style="color:var(--text2);margin-bottom:1.5rem">{category.data.description}</p>}
 
   <ProductGrid
     products={products.map(p => ({

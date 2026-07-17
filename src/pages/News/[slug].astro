@@ -13,20 +13,16 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { data, body } = entry;
 ---
+
 <BaseLayout
   title={data.metaTitle || `${data.title} — Motodok`}
   description={data.metaDescription || data.description}
   ogImage={data.image}
-  breadcrumbs={[
-    { label: 'Главная', href: '/' },
-    { label: 'Новости', href: '/News/' },
-    { label: data.title },
-  ]}
 >
-  <article class="news-detail">
-    {data.publishedDate && <time class="news-date">{data.publishedDate.toLocaleDateString('ru-RU')}</time>}
+  <article>
+    {data.publishedDate && <time style="display:block;color:var(--accent);font-size:.85rem;margin-bottom:.5rem;font-weight:600">{data.publishedDate.toLocaleDateString('ru-RU')}</time>}
     <h1>{data.title}</h1>
-    {data.image && <img src={data.image} alt={data.title} loading="lazy" class="news-image" />}
-    <div class="news-body">{body}</div>
+    {data.image && <img src={data.image} alt={data.title} loading="lazy" style="border-radius:var(--radius);margin-bottom:1.5rem;max-width:100%" />}
+    {body}
   </article>
 </BaseLayout>
