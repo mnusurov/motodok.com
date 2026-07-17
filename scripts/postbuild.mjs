@@ -1,6 +1,7 @@
 import { readFileSync, writeFileSync, unlinkSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const dist = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist');
 const sitemap0 = join(dist, 'sitemap-0.xml');
@@ -18,3 +19,7 @@ if (existsSync(sitemapIndex)) {
   unlinkSync(sitemapIndex);
   console.log('removed sitemap-index.xml');
 }
+
+console.log('pagefind: indexing dist/...');
+execSync('npx pagefind --site dist', { cwd: join(dist, '..'), stdio: 'inherit' });
+console.log('pagefind: done');

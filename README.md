@@ -41,6 +41,7 @@ https://motodok.com/admin/ → **Login with GitHub**
 
 - **Создать**: выбрать коллекцию → **New** → заполнить поля → **Publish**
 - **Редактировать**: кликнуть запись → изменить → **Publish**
+- **Поиск**: кнопка 🔍 в хедере → `/search/` — полнотекстовый поиск по всем страницам
 - **Загрузить фото**: поле Image → **Choose an image** → выбрать файл (сохраняются в `public/images/`)
 
 ### 6. Важно
@@ -76,6 +77,7 @@ npm run preview    # просмотр собранного
 - **Astro 5** — генератор статики
 - **MDX** — контент товаров и статей
 - **Decap CMS** (CDN, standalone) — управление контентом
+- **Pagefind** — полнотекстовый поиск по сайту (без сервера)
 - **Cloudflare Pages** — хостинг + деплой (GitHub Actions)
 - **Cloudflare Functions** — OAuth proxy для Decap CMS
 - **JSON-LD** — микроразметка (Product, Article, BreadcrumbList, LocalBusiness)
