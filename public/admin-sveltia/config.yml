@@ -17,7 +17,7 @@ collections:
     folder: "src/content/products"
     create: true
     format: "yaml-frontmatter"
-    extension: ".mdx"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{price}}$"
     sort: "order:asc"
@@ -89,7 +89,7 @@ collections:
     folder: "src/content/articles"
     create: true
     format: "yaml-frontmatter"
-    extension: ".mdx"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sort: "publishedDate:desc"
@@ -112,7 +112,7 @@ collections:
     folder: "src/content/news"
     create: true
     format: "yaml-frontmatter"
-    extension: ".mdx"
+    extension: "mdx"
     slug: "{{slug}}"
     summary: "{{title}} — {{publishedDate}}"
     sort: "publishedDate:desc"
@@ -133,7 +133,7 @@ collections:
     folder: "src/content/services"
     create: true
     format: "yaml-frontmatter"
-    extension: ".mdx"
+    extension: "mdx"
     slug: "{{slug}}"
     fields:
       - { label: "Название", name: "title", widget: "string" }
@@ -151,7 +151,7 @@ collections:
     folder: "src/content/pages"
     create: false
     format: "yaml-frontmatter"
-    extension: ".mdx"
+    extension: "mdx"
     slug: "{{slug}}"
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
