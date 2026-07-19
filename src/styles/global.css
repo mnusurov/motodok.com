@@ -53,11 +53,18 @@ img { max-width: 100%; height: auto }
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
   font-weight: 800;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
   color: var(--accent) !important;
   text-transform: uppercase;
+}
+
+.logo-mark {
+  display: block;
 }
 
 .nav { display: flex; gap: .25rem; flex-wrap: wrap }
