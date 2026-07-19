@@ -17,6 +17,7 @@ export interface Props {
 }
 
 const { title, description, metaTitle, metaDescription, ogImage, ogType, canonical, noIndex, breadcrumbs } = Astro.props;
+const fallbackOgImage = '/images/logo.svg';
 ---
 
 <!doctype html>
@@ -27,7 +28,7 @@ const { title, description, metaTitle, metaDescription, ogImage, ogType, canonic
   <SEO
     title={metaTitle || title}
     description={metaDescription || description}
-    ogImage={ogImage}
+    ogImage={ogImage || fallbackOgImage}
     ogType={ogType}
     canonical={canonical}
     noIndex={noIndex}
