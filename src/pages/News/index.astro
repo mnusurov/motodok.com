@@ -1,10 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 const allNews = (await getCollection('news')).sort(
   (a, b) => (b.data.publishedDate?.getTime() || 0) - (a.data.publishedDate?.getTime() || 0)
 );
+
+const newsThumbs = await Promise.all(allNews.map(async item => {
+  if (!item.data.image) return null;
+  const img = await getImage({ src: item.data.image, width: 400, height: 160, fit: 'cover', format: 'webp' });
+  return { slug: item.slug, src: img.src };
+}));
+const thumbMap = new Map(newsThumbs.filter(Boolean).map(t => [t.slug, t.src]));
 ---
 
 <BaseLayout title="Новости" description="Новости мира автодиагностики, новинки оборудования, обновления"
@@ -15,7 +23,7 @@ const allNews = (await getCollection('news')).sort(
     <div class="listing-grid">
       {allNews.map(item => (
         <a href={`/News/${item.slug}/`} class="listing-card">
-          {item.data.image && <img src={item.data.image} alt={item.data.title} loading="lazy" />}
+          {thumbMap.has(item.slug) && <img src={thumbMap.get(item.slug)} alt={item.data.title} loading="lazy" width="400" height="160" />}
           {item.data.publishedDate && <time>{item.data.publishedDate.toLocaleDateString('ru-RU')}</time>}
           <h3>{item.data.title}</h3>
         </a>
