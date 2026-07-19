@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allServices = await getCollection('services');
+  return allServices.map(item => ({
+    params: { slug: item.slug },
+    props: { entry: item },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+const siteUrl = 'https://motodok.com';
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: data.title,
+  description: data.description || undefined,
+  provider: { '@type': 'Organization', name: 'Motodok', url: siteUrl },
+  ...(data.price ? { offers: { '@type': 'Offer', price: data.price, priceCurrency: data.currency || 'USD' } } : {}),
+  ...(data.image ? { image: `${siteUrl}${data.image}` } : {}),
+};
+---
+
+<BaseLayout
+  title={data.metaTitle || data.title}
+  description={data.metaDescription || data.description}
+  ogImage={data.image}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Услуги', href: '/services/' }, { label: data.title } ]}
+>
+  <article>
+    <h1>{data.title}</h1>
+    <div style="font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:1rem">{data.price ? `${data.price} $` : 'Цена: договорная'}</div>
+    {data.image && <img src={data.image} alt={data.title} loading="lazy" style="border-radius:var(--radius);margin-bottom:1.5rem;max-width:100%" />}
+    <Content />
+  </article>
+</BaseLayout>
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

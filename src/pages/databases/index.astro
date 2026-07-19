@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { svg, catIcon } from '../../lib/icons';
+
+const category = (await getCollection('categories')).find(c => c.data.slug === 'databases');
+const products = (await getCollection('products'))
+  .filter(p => p.data.category === 'databases')
+  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: category?.data.title || 'Базы данных',
+  description: category?.data.description || 'Базы данных для автодиагностики',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': 'Product', name: p.data.title, url: `${siteUrl}/databases/${p.slug}/` },
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title={category?.data.metaTitle || category?.data.title || 'Базы данных'}
+  description={category?.data.metaDescription || category?.data.description || 'Базы данных для автодиагностики'}
+  ogImage={category?.data.image}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Базы данных' } ]}
+>
+  <PageHeader eyebrow="Каталог" title={category?.data.title || 'Базы данных'} lead={category?.data.description} icon={svg(catIcon.databases, 28)} />
+
+  <ProductGrid
+    products={products.map(p => ({
+      ...p.data,
+      category: 'databases',
+      slug: p.slug,
+    }))}
+  />
+</BaseLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

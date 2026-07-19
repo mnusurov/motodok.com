@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = (await getCollection('products')).filter(p => p.data.pdfFiles && p.data.pdfFiles.length > 0);
+  const paths: { params: { slug: string }; props: Record<string, unknown> }[] = [];
+
+  for (const p of products) {
+    for (const pdf of p.data.pdfFiles) {
+      const slug = pdf.split('/').pop()?.replace(/\.pdf$/i, '') || '';
+      if (slug) {
+        paths.push({ params: { slug }, props: { product: p, pdf } });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { product, pdf } = Astro.props;
+const data = product.data;
+const categorySlug = data.category === 'diagnosis' ? 'diagnosis' : data.category === 'measure' ? 'measure' : data.category === 'immobilizer' ? 'immobilizer' : data.category === 'odometers' ? 'odometers' : 'databases';
+const fileName = pdf.split('/').pop() || 'Документ';
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: `${fileName} — ${data.title}`,
+  description: `Документация: ${fileName} — ${data.title}`,
+  about: { '@type': 'Product', name: data.title },
+};
+---
+
+<BaseLayout title={`${fileName} — ${data.title}`} description={`Документация: ${fileName} — ${data.title}`}>
+  <article>
+    <h1>{fileName}</h1>
+    <p>Документ для: <a href={`/${categorySlug}/${product.slug}/`}>{data.title}</a></p>
+    <div class="download-list" style="margin-top:1rem">
+      <a href={pdf} target="_blank" rel="noopener noreferrer" class="download-btn download-btn--solid">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+        Скачать PDF
+      </a>
+    </div>
+  </article>
+</BaseLayout>
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

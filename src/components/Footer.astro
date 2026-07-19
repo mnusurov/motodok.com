@@ -2,18 +2,18 @@
 import { socialPlatforms } from '../data/social';
 
 const categoryLinks = [
-  { href: '/Diagnosis/', label: 'Диагностика' },
-  { href: '/Odometers/', label: 'Одометры' },
-  { href: '/Immobilizer/', label: 'Иммобилайзеры' },
-  { href: '/Measure/', label: 'Осциллографы' },
-  { href: '/Databases/', label: 'Базы данных' },
-  { href: '/Services/', label: 'Услуги' },
+  { href: '/diagnosis/', label: 'Диагностика' },
+  { href: '/odometers/', label: 'Одометры' },
+  { href: '/immobilizer/', label: 'Иммобилайзеры' },
+  { href: '/measure/', label: 'Осциллографы' },
+  { href: '/databases/', label: 'Базы данных' },
+  { href: '/services/', label: 'Услуги' },
 ];
 
 const infoLinks = [
   { href: '/how-to-buy/', label: 'Как купить' },
   { href: '/prices/', label: 'Цены' },
-  { href: '/documentation/', label: 'Файлы' },
+  { href: '/documentation/', label: 'Документация' },
   { href: '/contacts/', label: 'Контакты' },
 ];
 ---
@@ -49,8 +49,8 @@ const infoLinks = [
         {infoLinks.map(link => (
           <a href={link.href}>{link.label}</a>
         ))}
-        <a href="/Articles/">Статьи</a>
-        <a href="/News/">Новости</a>
+        <a href="/articles/">Статьи</a>
+        <a href="/blog/">Блог</a>
       </div>
       <div class="footer-col">
         <h4>Контакты</h4>

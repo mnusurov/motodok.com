@@ -1,0 +1,18 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  /** Raw inline SVG markup for a leading icon badge */
+  icon?: string;
+}
+
+const { eyebrow, title, lead, icon } = Astro.props;
+---
+
+<div class="page-title">
+  {icon && <span class="icon-badge" set:html={icon} />}
+  {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+  <h1>{title}</h1>
+  {lead && <p class="lead">{lead}</p>}
+</div>

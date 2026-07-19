@@ -20,7 +20,7 @@ const { Content } = await entry.render();
   description={data.metaDescription || data.description}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: data.title } ]}
 >
-  <article>
+  <article class={entry.slug === 'documentation' ? 'docs-page' : ''}>
     <h1>{data.title}</h1>
     <Content />
   </article>

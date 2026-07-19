@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProductJsonLd from '../../components/ProductJsonLd.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = (await getCollection('products')).filter(p => p.data.category === 'measure');
+  return products.map(p => ({
+    params: { slug: p.slug },
+    props: { entry: p },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+---
+
+<BaseLayout
+  title={data.metaTitle || data.title}
+  description={data.metaDescription || `${data.title} — измерительное оборудование для автодиагностики`}
+  ogImage={data.ogImage || data.images?.[0]}
+  ogType="product"
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Осциллографы', href: '/measure/' }, { label: data.title } ]}
+>
+  <article>
+    <h1>{data.title}</h1>
+    {data.price && <div style="font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:1rem">{data.price}$</div>}
+
+    {data.images && data.images.length > 0 && (
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem">
+        {data.images.map(img => <img src={img} alt={data.title} loading="lazy" style="border-radius:var(--radius);width:100%;height:auto" />)}
+      </div>
+    )}
+
+    <Content />
+
+    {data.features && data.features.length > 0 && (
+      <ul style="margin-bottom:1.5rem">
+        {data.features.map(f => <li style="padding:4px 0;color:var(--text2)">{f}</li>)}
+      </ul>
+    )}
+
+    {data.pdfFiles && data.pdfFiles.length > 0 && (
+      <div style="margin-bottom:1.5rem">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.75rem">Файлы для скачивания</h3>
+        <div class="download-list">
+          {data.pdfFiles.map(f => (
+            <a href={f} target="_blank" rel="noopener noreferrer" class="download-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+              {f.split('/').pop() || 'PDF'}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </article>
+  <ProductJsonLd product={data} />
+</BaseLayout>

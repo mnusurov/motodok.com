@@ -15,7 +15,7 @@ export default defineConfig({
       serialize: (item) => {
         if (item.url === 'https://motodok.com/') {
           item.priority = 1.0;
-        } else if (item.url.includes('/Diagnosis/') || item.url.includes('/Measure/')) {
+        } else if (item.url.includes('/diagnosis/') || item.url.includes('/measure/')) {
           item.priority = 0.9;
         }
         delete item.lastmod;
