@@ -7,14 +7,9 @@ const description = 'Поиск по каталогу motodok.com';
 <BaseLayout title={title} description={description}>
   <div class="search-page">
     <h1>Поиск по сайту</h1>
-    <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
-    <div id="search"></div>
-    <script src="/pagefind/pagefind-ui.js" is:inline></script>
-    <script is:inline>
-      window.addEventListener('DOMContentLoaded', () => {
-        new PagefindUI({ element: '#search', showImages: false });
-      });
-    </script>
+    <link rel="stylesheet" href="/pagefind/pagefind-component-ui.css">
+    <pagefind-searchbox></pagefind-searchbox>
+    <script src="/pagefind/pagefind-component-ui.js" type="module"></script>
   </div>
 </BaseLayout>
 
@@ -27,42 +22,14 @@ const description = 'Поиск по каталогу motodok.com';
     margin-bottom: 1rem;
     color: var(--text);
   }
-  :global(.pagefind-ui__search-input) {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    border-radius: var(--radius);
-    padding: 0.75rem 1rem;
-    font-size: 1rem;
-    width: 100%;
-  }
-  :global(.pagefind-ui__search-input:focus) {
-    outline: none;
-    border-color: var(--accent);
-  }
-  :global(.pagefind-ui__result-title) {
-    color: var(--accent);
-    font-size: 1.1rem;
-  }
-  :global(.pagefind-ui__result-excerpt) {
-    color: var(--text2);
-  }
-  :global(.pagefind-ui__result-link) {
-    color: var(--text2);
-    font-size: 0.85rem;
-  }
-  :global(.pagefind-ui__result) {
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 0;
-  }
-  :global(.pagefind-ui__search-clear) {
-    display: none;
-  }
-  :global(.pagefind-ui__message) {
-    color: var(--text2);
-    margin: 1rem 0;
-  }
-  :global(.pagefind-ui__drawer) {
-    margin-top: 0.5rem;
+  pagefind-searchbox {
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--text);
+    --pagefind-ui-text-hover: var(--accent);
+    --pagefind-ui-background: var(--bg2);
+    --pagefind-ui-background-hover: var(--bg2);
+    --pagefind-ui-background-active: var(--bg2);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-border-radius: var(--radius);
   }
 </style>
