@@ -111,10 +111,9 @@ collections:
         direction: descending
     fields:
       - { label: "Заголовок", name: "title", widget: "string" }
-      - { label: "URL (slug)", name: "slug", widget: "string" }
       - { label: "Описание", name: "description", widget: "text" }
       - { label: "Изображение", name: "image", widget: "image", required: false }
-      - { label: "Автор", name: "author", widget: "string", default: "Motodok" }
+      - { label: "Автор", name: "author", widget: "string", default: "Motodok", required: false }
       - { label: "Дата публикации", name: "publishedDate", widget: "datetime" }
       - { label: "Дата обновления", name: "updatedDate", widget: "datetime", required: false }
       - { label: "Теги", name: "tags", widget: "list", field: { label: "Тег", name: "tag", widget: "string" }, required: false }
