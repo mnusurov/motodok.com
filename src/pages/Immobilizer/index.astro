@@ -28,6 +28,7 @@ const ld = {
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Иммобилайзеры'}
   description={category?.data.metaDescription || category?.data.description || 'Оборудование для работы с иммобилайзерами'}
+  ogImage={category?.data.image}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Иммобилайзеры' } ]}
 >
   <h1>{category?.data.title || 'Иммобилайзеры'}</h1>

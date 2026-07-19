@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { brandSvg } from '../../../lib/brandLogo';
 
 const brands = (await getCollection('brands')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 const diagnosisProducts = (await getCollection('products')).filter(p => p.data.category === 'diagnosis');
@@ -27,7 +28,7 @@ for (const p of diagnosisProducts) {
       const count = productsByBrand.get(b.data.slug) || 0;
       return (
         <a href={`/Diagnosis/Manufacturers/${b.data.slug}/`} class="brand-card">
-          {b.data.logo && <img src={b.data.logo} alt={b.data.title} class="brand-logo" />}
+          {brandSvg(b.data.slug) && <span class="brand-logo" set:html={brandSvg(b.data.slug)} />}
           <span class="brand-title">{b.data.title}</span>
           {count > 0 && <span class="brand-count">{count} товар{count > 1 ? 'ов' : ''}</span>}
         </a>
@@ -58,10 +59,11 @@ for (const p of diagnosisProducts) {
     border-color: var(--accent);
   }
   .brand-logo {
-    max-width: 80px;
-    max-height: 40px;
-    object-fit: contain;
+    display: inline-flex;
+    color: var(--text2);
   }
+  .brand-logo :global(svg) { width: 34px; height: 34px }
+  .brand-card:hover .brand-logo { color: var(--text) }
   .brand-title {
     font-size: .9rem;
     color: var(--text);

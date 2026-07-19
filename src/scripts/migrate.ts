@@ -151,17 +151,6 @@ function migrateBrands() {
   const brandsDir = join(OLD_DIST, 'Diagnosis', 'Manufacturers');
   try {
     const files = readdirSync(brandsDir).filter(f => f.endsWith('.html') && f !== 'index.html');
-    const imagesDir = join(brandsDir, 'Images');
-    const brandImages: Record<string, string> = {};
-    try {
-      const imgs = readdirSync(imagesDir);
-      imgs.forEach(img => {
-        if (img.endsWith('.gif') || img.endsWith('.jpg') || img.endsWith('.png')) {
-          const name = basename(img, extname(img));
-          brandImages[name.toLowerCase()] = img;
-        }
-      });
-    } catch {}
 
     files.forEach(file => {
       const { title, metaDescription, body } = parseHtml(join(brandsDir, file));
@@ -169,22 +158,10 @@ function migrateBrands() {
       const data = {
         title: title || basename(file, '.html'),
         slug,
-        logo: '',
         description: metaDescription || '...',
         country: '',
         website: '',
       };
-      const brandKey = slug.replace(/[^a-z0-9]/g, '');
-      for (const [imgName, imgFile] of Object.entries(brandImages)) {
-        if (brandKey.includes(imgName) || imgName.includes(brandKey)) {
-          data.logo = `/images/brands/${imgFile}`;
-          const srcPath = join(imagesDir, imgFile);
-          const dstDir = join(IMAGES_DIR, 'brands');
-          mkdirSync(dstDir, { recursive: true });
-          copyFileSync(srcPath, join(dstDir, imgFile));
-          break;
-        }
-      }
       const yaml = generateYamlFrontmatter(data);
       writeFileSync(join(CONTENT_DIR, 'brands', `${slug}.yml`), yaml);
       console.log(`  Brand: ${slug}.yml`);

@@ -28,6 +28,7 @@ const ld = {
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Осциллографы'}
   description={category?.data.metaDescription || category?.data.description || 'Измерительное оборудование для автодиагностики'}
+  ogImage={category?.data.image}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Осциллографы' } ]}
 >
   <h1>{category?.data.title || 'Осциллографы'}</h1>

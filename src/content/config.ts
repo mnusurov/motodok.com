@@ -43,7 +43,6 @@ const brands = defineCollection({
   schema: z.object({
     title: z.string(),
     slug: z.string(),
-    logo: z.string(),
     description: z.string().optional(),
     country: z.string().optional(),
     website: z.string().optional(),

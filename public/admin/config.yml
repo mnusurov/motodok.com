@@ -88,7 +88,6 @@ collections:
     fields:
       - { label: "Название", name: "title", widget: "string" }
       - { label: "URL (slug)", name: "slug", widget: "string" }
-      - { label: "Логотип", name: "logo", widget: "image" }
       - { label: "Описание", name: "description", widget: "text", required: false }
       - { label: "Страна", name: "country", widget: "string", required: false }
       - { label: "Веб-сайт", name: "website", widget: "string", required: false }

@@ -28,6 +28,7 @@ const ld = {
 <BaseLayout
   title={category?.data.metaTitle || category?.data.title || 'Базы данных'}
   description={category?.data.metaDescription || category?.data.description || 'Базы данных для автодиагностики'}
+  ogImage={category?.data.image}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Базы данных' } ]}
 >
   <h1>{category?.data.title || 'Базы данных'}</h1>
