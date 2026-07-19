@@ -55,7 +55,6 @@ collections:
       - { label: "Meta Title", name: "metaTitle", widget: "string", required: false, hint: "Рекомендуется заполнить для SEO. Если оставить пустым — подставится из заголовка" }
       - { label: "Meta Description", name: "metaDescription", widget: "text", required: false, hint: "Рекомендуется заполнить для SEO. Если оставить пустым — подставится из описания" }
       - { label: "OG Image", name: "ogImage", widget: "image", required: false }
-      - { label: "OG Image", name: "ogImage", widget: "image", required: false }
       - { label: "Порядок сортировки", name: "order", widget: "number", value_type: "int", required: false }
       - { label: "Рекомендуемый", name: "featured", widget: "boolean", default: false, required: false }
 
