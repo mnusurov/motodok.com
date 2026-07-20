@@ -46,6 +46,17 @@ const generatedDescription = metaDescription || description || `${title} — Mot
     const theme = localStorage.getItem('theme');
     if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
   </script>
+  {import.meta.env.PROD && (
+    <>
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KFSGR4BFQ"></script>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-8KFSGR4BFQ');
+      </script>
+    </>
+  )}
 </head>
 <body>
   <div class="layout">
