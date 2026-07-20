@@ -1,0 +1,262 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { svg } from '../../lib/icons';
+
+const metaTitle = 'Как купить оборудование Motodok — оплата и доставка в СНГ';
+const metaDescription = 'Купить автосканер в Motodok: наличные, WebMoney, Western Union. Доставка EMS, UPS, TNT в любую страну. Диагностическое оборудование для СТО с доставкой по миру.';
+
+const steps = [
+  { icon: 'message', title: 'Свяжитесь с нами', text: 'Напишите на email или позвоните по телефонам со страницы «Контакты» — подскажем наличие и поможем выбрать.' },
+  { icon: 'wallet', title: 'Выберите способ оплаты', text: 'Подберём удобный вариант оплаты под ваш регион — от наличных до международных переводов.' },
+  { icon: 'truck', title: 'Получите заказ', text: 'Отправляем оборудование и ПО в любую точку мира. Расходы по оплате и доставке несёт заказчик.' },
+];
+
+const payment = [
+  {
+    region: 'Бишкек и Кыргызстан',
+    methods: [
+      { name: 'Наличными из рук в руки', note: 'в пределах Бишкека', cost: 'бесплатно' },
+    ],
+  },
+  {
+    region: 'СНГ',
+    methods: [
+      { name: 'Юнистрим', note: 'система денежных переводов', cost: '2–3%', href: 'https://www.unistream.ru/' },
+      { name: 'WebMoney', note: 'онлайн-расчёты', cost: '1%', href: 'https://www.webmoney.ru/' },
+    ],
+  },
+  {
+    region: 'Международные заказчики',
+    methods: [
+      { name: 'Western Union', note: 'система денежных переводов', cost: '$20 за $100', href: 'https://www.westernunion.com/' },
+      { name: 'MoneyGram', note: 'система денежных переводов', cost: '2–5%', href: 'https://moneygram.com/' },
+    ],
+  },
+];
+
+const delivery = [
+  {
+    region: 'Бишкек',
+    services: [
+      { name: 'Лично из рук в руки', note: 'в пределах Бишкека', time: 'в тот же день' },
+    ],
+  },
+  {
+    region: 'Центральная Азия',
+    services: [
+      { name: 'EMS', note: 'международная почта, наземный транспорт', time: '~1 неделя' },
+      { name: 'Спецсвязь Кыргызстана', note: 'экспресс-доставка', time: '~3 недели' },
+    ],
+  },
+  {
+    region: 'СНГ',
+    services: [
+      { name: 'EMS', note: 'наземный транспорт по СНГ', time: '~3 недели' },
+      { name: 'UPS · TNT · OCS', note: 'экспресс-службы', time: '~1–2 недели', href: 'https://www.tnt.com/' },
+    ],
+  },
+  {
+    region: 'Другие страны мира',
+    services: [
+      { name: 'EMS', note: 'авиатранспорт', time: '~3 недели' },
+      { name: 'EMS', note: 'наземный транспорт', time: '~4 недели' },
+      { name: 'UPS · TNT · OCS', note: 'по желанию клиента', time: '~1–2 недели', href: 'https://www.tnt.com/' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Как купить' } ]}
+>
+  <PageHeader
+    title="Как купить"
+    lead="Доставляем адаптеры, сканеры, базы данных и программное обеспечение по всему миру. Свяжитесь с нами — вместе подберём удобный способ оплаты и доставки."
+    icon={svg('wallet', 28)}
+  />
+
+  <section class="hb-steps">
+    {steps.map((s, i) => (
+      <div class="hb-step">
+        <span class="hb-step-num">{i + 1}</span>
+        <span class="icon-badge" set:html={svg(s.icon, 22)} />
+        <h3>{s.title}</h3>
+        <p>{s.text}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="hb-section">
+    <header class="hb-head">
+      <span class="icon-badge" set:html={svg('wallet', 24)} />
+      <h2>Оплата</h2>
+    </header>
+    <div class="hb-grid">
+      {payment.map(g => (
+        <div class="hb-card">
+          <span class="hb-region">{g.region}</span>
+          <div class="hb-rows">
+            {g.methods.map(m => (
+              <div class="hb-row">
+                <div class="hb-row-main">
+                  {m.href
+                    ? <a href={m.href} target="_blank" rel="noopener noreferrer">{m.name}</a>
+                    : <span class="hb-name">{m.name}</span>}
+                  {m.note && <span class="hb-note">{m.note}</span>}
+                </div>
+                <span class="hb-badge">{m.cost}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="hb-section">
+    <header class="hb-head">
+      <span class="icon-badge" set:html={svg('truck', 24)} />
+      <h2>Доставка</h2>
+    </header>
+    <div class="hb-grid">
+      {delivery.map(g => (
+        <div class="hb-card">
+          <span class="hb-region">{g.region}</span>
+          <div class="hb-rows">
+            {g.services.map(s => (
+              <div class="hb-row">
+                <div class="hb-row-main">
+                  {s.href
+                    ? <a href={s.href} target="_blank" rel="noopener noreferrer">{s.name}</a>
+                    : <span class="hb-name">{s.name}</span>}
+                  {s.note && <span class="hb-note">{s.note}</span>}
+                </div>
+                <span class="hb-badge hb-badge-muted">{s.time}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="hb-cta">
+    <div>
+      <h2>Готовы оформить заказ?</h2>
+      <p>Напишите или позвоните — ответим по наличию, цене и срокам доставки в ваш регион.</p>
+    </div>
+    <a class="btn-primary" href="/contacts/">Связаться с нами <Fragment set:html={svg('arrow', 18)} /></a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hb-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 3rem;
+  }
+  .hb-step {
+    position: relative;
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color .2s, transform .2s;
+  }
+  .hb-step:hover { border-color: var(--accent); transform: translateY(-2px) }
+  .hb-step-num {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--border);
+  }
+  .hb-step h3 { font-size: 1.02rem; font-weight: 700; margin: .9rem 0 .5rem }
+  .hb-step p { color: var(--text2); font-size: .92rem; line-height: 1.6 }
+
+  .hb-section { margin: 2.5rem 0 }
+  .hb-head {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: 1.1rem;
+  }
+  .hb-head .icon-badge { width: 40px; height: 40px; border-radius: 11px; margin-bottom: 0; flex-shrink: 0 }
+  .hb-head .icon-badge :global(svg) { width: 20px; height: 20px }
+  .hb-head h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em }
+
+  .hb-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+  .hb-card {
+    padding: 1.35rem 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color .2s, transform .2s;
+  }
+  .hb-card:hover { border-color: var(--accent); transform: translateY(-2px) }
+  .hb-region {
+    display: block;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--text2);
+    margin-bottom: .9rem;
+  }
+  .hb-rows { display: flex; flex-direction: column; gap: .7rem }
+  .hb-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: .7rem;
+    border-top: 1px solid var(--border);
+  }
+  .hb-row:first-child { padding-top: 0; border-top: none }
+  .hb-row-main { display: flex; flex-direction: column; gap: .15rem; min-width: 0 }
+  .hb-row-main a, .hb-name { font-weight: 600; color: var(--text) }
+  .hb-row-main a { transition: color .2s }
+  .hb-row-main a:hover { color: var(--accent) }
+  .hb-note { font-size: .8rem; color: var(--text2) }
+  .hb-badge {
+    flex-shrink: 0;
+    font-size: .82rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .hb-badge-muted {
+    font-weight: 600;
+    color: var(--text2);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
+  .hb-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin: 3rem 0 1rem;
+    padding: 1.75rem 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .hb-cta h2 { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: .35rem }
+  .hb-cta p { color: var(--text2); font-size: .95rem }
+</style>
