@@ -43,8 +43,8 @@ const res = await fetch('https://api.indexnow.org/indexnow', {
 });
 
 if (!res.ok) {
-  console.error(`IndexNow ping failed: ${res.status} ${await res.text()}`);
-  process.exit(1);
+  console.warn(`IndexNow ping failed (non-fatal): ${res.status} ${await res.text()}`);
+  process.exit(0);
 }
 
 console.log(`IndexNow: pinged ${changedUrls.length}/${urls.length} changed URLs (${res.status})`);
