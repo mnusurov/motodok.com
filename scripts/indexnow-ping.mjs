@@ -36,15 +36,22 @@ if (changedUrls.length === 0) {
   process.exit(0);
 }
 
-const res = await fetch('https://api.indexnow.org/indexnow', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json; charset=utf-8' },
-  body: JSON.stringify({ host, key, keyLocation, urlList: changedUrls }),
-});
+const endpoints = [
+  'https://api.indexnow.org/indexnow', // Bing (aggregator)
+  'https://yandex.com/indexnow', // Yandex
+];
 
-if (!res.ok) {
-  console.warn(`IndexNow ping failed (non-fatal): ${res.status} ${await res.text()}`);
-  process.exit(0);
+for (const endpoint of endpoints) {
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    body: JSON.stringify({ host, key, keyLocation, urlList: changedUrls }),
+  });
+
+  if (!res.ok) {
+    console.warn(`IndexNow ping to ${endpoint} failed (non-fatal): ${res.status} ${await res.text()}`);
+    continue;
+  }
+
+  console.log(`IndexNow: pinged ${endpoint} with ${changedUrls.length}/${urls.length} changed URLs (${res.status})`);
 }
-
-console.log(`IndexNow: pinged ${changedUrls.length}/${urls.length} changed URLs (${res.status})`);
