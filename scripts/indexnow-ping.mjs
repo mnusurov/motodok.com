@@ -36,22 +36,21 @@ if (changedUrls.length === 0) {
   process.exit(0);
 }
 
-const endpoints = [
-  'https://api.indexnow.org/indexnow', // Bing (aggregator)
-  'https://yandex.com/indexnow', // Yandex
-];
+// Bing is covered by Cloudflare's own Crawler Hints (Caching settings), so we
+// only need to ping Yandex directly here (api.indexnow.org rejects our key
+// with 403 for reasons unrelated to this site's setup — Yandex's own
+// endpoint accepts it fine).
+const endpoint = 'https://yandex.com/indexnow';
 
-for (const endpoint of endpoints) {
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
-    body: JSON.stringify({ host, key, keyLocation, urlList: changedUrls }),
-  });
+const res = await fetch(endpoint, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=utf-8' },
+  body: JSON.stringify({ host, key, keyLocation, urlList: changedUrls }),
+});
 
-  if (!res.ok) {
-    console.warn(`IndexNow ping to ${endpoint} failed (non-fatal): ${res.status} ${await res.text()}`);
-    continue;
-  }
-
-  console.log(`IndexNow: pinged ${endpoint} with ${changedUrls.length}/${urls.length} changed URLs (${res.status})`);
+if (!res.ok) {
+  console.warn(`IndexNow ping to ${endpoint} failed (non-fatal): ${res.status} ${await res.text()}`);
+  process.exit(0);
 }
+
+console.log(`IndexNow: pinged ${endpoint} with ${changedUrls.length}/${urls.length} changed URLs (${res.status})`);
