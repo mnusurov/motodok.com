@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const brand = entry.data;
 const products = (await getCollection('products'))
   .filter(p => p.data.category === 'diagnosis' && p.data.brand === brand.slug)
-  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+  .sort((a, b) => Number(b.data.inStock) - Number(a.data.inStock) || (a.data.order || 99) - (b.data.order || 99));
 
 const siteUrl = 'https://motodok.com';
 const ld = {

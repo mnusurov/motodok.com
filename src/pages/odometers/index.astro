@@ -8,7 +8,7 @@ import { svg, catIcon } from '../../lib/icons';
 const category = (await getCollection('categories')).find(c => c.data.slug === 'odometers');
 const products = (await getCollection('products'))
   .filter(p => p.data.category === 'odometers')
-  .sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+  .sort((a, b) => Number(b.data.inStock) - Number(a.data.inStock) || (a.data.order || 99) - (b.data.order || 99));
 
 const siteUrl = 'https://motodok.com';
 const ld = {
@@ -33,7 +33,7 @@ const ld = {
   ogImage={category?.data.image}
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Коррекция одометров' } ]}
 >
-  <PageHeader eyebrow="Каталог" title={category?.data.title || 'Коррекция одометров'} lead={category?.data.description} icon={svg(catIcon.odometers, 28)} />
+  <PageHeader title={category?.data.title || 'Коррекция одометров'} lead={category?.data.description} icon={svg(catIcon.odometers, 28)} />
 
   <ProductGrid
     products={products.map(p => ({

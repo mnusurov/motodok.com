@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { socialPlatforms, socialIconPaths } from '../../data/social';
+import { svg } from '../../lib/icons';
+
+const metaTitle = 'Контакты Motodok: телефоны, адреса — Бишкек, Алматы, Ташкент';
+const metaDescription = 'Motodok: +996(312)517107, +996(551)553731, +996(772)553731, info@motodok.com. Адреса в Бишкеке, Алматы и Ташкенте. Оборудование для диагностики автосервиса с доставкой по миру.';
+
+const phones = [
+  { label: '+996 (312) 517-107', href: 'tel:+996312517107' },
+  { label: '+996 (551) 553-731', href: 'tel:+996551553731' },
+  { label: '+996 (772) 553-731', href: 'tel:+996772553731' },
+];
+
+const messengerText = 'Здравствуйте, пишу с сайта motodok.com';
+const telegramUrl = `https://t.me/amernus?text=${encodeURIComponent(messengerText)}`;
+const whatsappUrl = `https://api.whatsapp.com/send/?phone=996772553731&text=${encodeURIComponent(messengerText)}&type=phone_number&app_absent=0`;
+
+const cities = [
+  { city: 'Бишкек', country: 'Кыргызстан', note: 'Главный офис', mapUrl: 'https://go.2gis.com/XhGiI' },
+  { city: 'Алматы', country: 'Казахстан', note: 'Представительство', mapUrl: '' },
+  { city: 'Ташкент', country: 'Узбекистан', note: 'Представительство', mapUrl: '' },
+];
+
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Motodok',
+  url: siteUrl,
+  email: 'info@motodok.com',
+  telephone: ['+996312517107', '+996551553731', '+996772553731'],
+  address: cities.map(c => ({ '@type': 'PostalAddress', addressLocality: c.city, addressCountry: c.country })),
+  sameAs: socialPlatforms.map(p => p.url),
+};
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Контакты' } ]}
+>
+  <PageHeader
+    title="Контакты"
+    lead="Свяжитесь с нами удобным способом — ответим на вопросы по оборудованию, оплате и доставке. Работаем в Бишкеке, Алматы и Ташкенте, доставляем по всему миру."
+    icon={svg('message', 28)}
+  />
+
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="icon-badge" set:html={svg('phone', 24)} />
+      <h3>Телефоны</h3>
+      <div class="contact-values">
+        {phones.map(p => <a href={p.href}>{p.label}</a>)}
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <span class="icon-badge" set:html={svg('mail', 24)} />
+      <h3>Email</h3>
+      <div class="contact-values">
+        <a href="mailto:info@motodok.com">info@motodok.com</a>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <span class="icon-badge" set:html={svg('message', 24)} />
+      <h3>Мессенджеры</h3>
+      <div class="contact-values">
+        <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp +996 (772) 553-731</a>
+        <a href={telegramUrl} target="_blank" rel="noopener noreferrer">Telegram @amernus</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="contact-section">
+    <h2>Города присутствия</h2>
+    <div class="city-cards">
+      {cities.map(c => (
+        <div class="city-card">
+          <span class="icon-badge" set:html={svg('pin', 22)} />
+          <div>
+            <span class="city-name">{c.city}</span>
+            <span class="city-country">{c.country}</span>
+          </div>
+          {c.mapUrl
+            ? <a class="city-note city-note-link" href={c.mapUrl} target="_blank" rel="noopener noreferrer">{c.note} · 2ГИС</a>
+            : <span class="city-note">{c.note}</span>}
+        </div>
+      ))}
+    </div>
+    <p class="city-delivery">Доставка оборудования и ПО — по всему миру. Способы оплаты и доставки описаны на странице <a href="/how-to-buy/">Как купить</a>.</p>
+  </section>
+
+  <section class="contact-section">
+    <h2>Мы в соцсетях</h2>
+    <div class="contact-social">
+      {socialPlatforms.map(p => (
+        <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
+          <svg viewBox="0 0 24 24" fill="currentColor" set:html={`<path d="${socialIconPaths[p.icon]}" />`} />
+          <span>{p.name}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="contact-section contact-about">
+    <h2>О компании</h2>
+    <p>Motodok — оборудование для компьютерной диагностики автомобилей, электронные каталоги автозапчастей и информация по ремонту и техобслуживанию иномарок. С 2007 года поставляем дилерские и мультимарочные сканеры, адаптеры KKL, CarSoft BMW и MB, оборудование для корректировки пробега и прописки чип-ключей штатных иммобилайзеров.</p>
+    <p>Каталоги содержат подробные данные по запчастям и автомобилям, процедуры техобслуживания и диагностики, электросхемы, распиновку блоков управления, кузовные размеры и нормо-часы. Рекомендуем обновлять программы 2–3 раза в год. Также выполняем <a href="/services/">услуги</a> по ремонту и обновлению ПО диагностического оборудования.</p>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .contact-card {
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    transition: border-color .2s, transform .2s;
+  }
+  .contact-card:hover { border-color: var(--accent); transform: translateY(-2px) }
+  .contact-card h3 { font-size: 1rem; font-weight: 700; margin: .9rem 0 .6rem }
+  .contact-values { display: flex; flex-direction: column; gap: .3rem }
+  .contact-values a { color: var(--text2); font-size: .95rem; transition: color .2s }
+  .contact-values a:hover { color: var(--accent) }
+
+  .contact-section { margin: 2.5rem 0 }
+  .contact-section > h2 { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem }
+
+  .city-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .city-card {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .city-card .icon-badge { width: 40px; height: 40px; border-radius: 11px; margin-bottom: 0; flex-shrink: 0 }
+  .city-card .icon-badge :global(svg) { width: 20px; height: 20px }
+  .city-name { display: block; font-weight: 700; color: var(--text) }
+  .city-country { display: block; font-size: .82rem; color: var(--text2) }
+  .city-note { margin-left: auto; font-size: .72rem; color: var(--text2); background: var(--bg2); border: 1px solid var(--border); padding: 2px 9px; border-radius: 999px; white-space: nowrap }
+  a.city-note { transition: color .2s, border-color .2s }
+  a.city-note:hover { color: var(--accent); border-color: var(--accent) }
+  .city-delivery { margin-top: 1rem; color: var(--text2); font-size: .95rem; line-height: 1.6 }
+
+  .contact-social { display: flex; flex-wrap: wrap; gap: .6rem }
+  .contact-social a {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .55rem .9rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text2);
+    font-size: .85rem;
+    font-weight: 600;
+    transition: color .2s, border-color .2s;
+  }
+  .contact-social a:hover { color: var(--text); border-color: var(--accent) }
+  .contact-social svg { width: 18px; height: 18px }
+
+  .contact-about p { color: var(--text2); line-height: 1.7; margin-bottom: 1rem; max-width: 760px }
+</style>
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

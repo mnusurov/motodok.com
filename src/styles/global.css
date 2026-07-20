@@ -504,12 +504,32 @@ img { max-width: 100%; height: auto }
 .product-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: var(--shadow-lg); color: inherit }
 
 .product-card-img {
+  position: relative;
   aspect-ratio: 4 / 3;
   margin: -1.5rem -1.5rem 1.25rem;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   overflow: hidden;
-  background: #fff;
+  background: transparent;
 }
+
+.stock-badge {
+  position: absolute;
+  top: .6rem;
+  left: .6rem;
+  z-index: 1;
+  padding: .25rem .55rem;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  color: var(--text);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.product-card.is-out .product-card-img img { opacity: .5; filter: grayscale(.4) }
+.product-card.is-out h3 { color: var(--text2) }
 
 .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease }
 .product-card:hover .product-card-img img { transform: scale(1.04) }
@@ -824,6 +844,8 @@ img { max-width: 100%; height: auto }
 
 .page-title { margin-bottom: 2.25rem }
 .page-title .eyebrow { margin-bottom: .6rem }
+.page-title-head { display: flex; align-items: baseline; gap: 1rem }
+.page-title-head .icon-badge { margin-bottom: 0; flex-shrink: 0 }
 .page-title h1 {
   font-size: clamp(1.9rem, 4vw, 2.6rem);
   font-weight: 800;

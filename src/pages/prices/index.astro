@@ -1,0 +1,213 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { svg, catIcon } from '../../lib/icons';
+
+const metaTitle = 'Цены на диагностическое оборудование: сканеры Motodok от $10';
+const metaDescription = 'Прайс-лист Motodok: сканеры BMW, Mercedes, Toyota, Honda, VAG, адаптеры, осциллографы. Купить оборудование для диагностики авто с доставкой по миру от $10.';
+
+const categories = (await getCollection('categories')).sort((a, b) => a.data.order - b.data.order);
+const products = await getCollection('products');
+const services = await getCollection('services');
+
+const fmtPrice = (p: string | number | undefined): string | null => {
+  if (p === undefined || p === null || p === '') return null;
+  return typeof p === 'number' ? `$${p}` : p;
+};
+
+type Row = { title: string; href: string; price: string };
+
+// Product groups by category (only priced items)
+const productGroups = categories.map(cat => {
+  const slug = cat.data.slug;
+  const rows: Row[] = products
+    .filter(p => p.data.category === slug && p.data.inStock && p.data.price !== undefined)
+    .map(p => ({ title: p.data.title, href: `/${slug}/${p.slug}/`, price: fmtPrice(p.data.price)! }))
+    .sort((a, b) => a.title.localeCompare(b.title, 'ru'));
+  return { slug, title: cat.data.title, icon: catIcon[slug] || 'package', rows };
+});
+
+// Services group
+const serviceRows: Row[] = services
+  .map(s => ({ title: s.data.title, href: `/services/${s.slug}/`, price: fmtPrice(s.data.price) }))
+  .filter((r): r is Row => r.price !== null)
+  .sort((a, b) => a.title.localeCompare(b.title, 'ru'));
+
+const groups = [
+  ...productGroups,
+  ...(serviceRows.length ? [{ slug: 'services', title: 'Услуги', icon: catIcon.services, rows: serviceRows }] : []),
+].filter(g => g.rows.length);
+
+const totalCount = groups.reduce((n, g) => n + g.rows.length, 0);
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={metaDescription}
+  breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Цены' } ]}
+>
+  <PageHeader
+    title="Цены"
+    lead={`Актуальный прайс-лист — ${totalCount} позиций. Цены указаны в USD. Стоимость доставки уточняется отдельно.`}
+    icon={svg('tag', 28)}
+  />
+
+  <div class="price-tools">
+    <div class="price-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input
+        type="search"
+        id="price-filter"
+        placeholder="Поиск по названию…"
+        autocomplete="off"
+        aria-label="Поиск по прайс-листу"
+      />
+    </div>
+    <nav class="price-nav" aria-label="Категории">
+      {groups.map(g => (
+        <a href={`#${g.slug}`} class="price-chip" data-chip={g.slug}>{g.title}</a>
+      ))}
+    </nav>
+  </div>
+
+  <p class="price-empty" id="price-empty" hidden>По запросу ничего не найдено.</p>
+
+  {groups.map(g => (
+    <section class="price-group" id={g.slug} data-group={g.slug}>
+      <header class="price-group-head">
+        <span class="icon-badge" set:html={svg(g.icon, 24)} />
+        <h2>{g.title}</h2>
+        <span class="price-group-count">{g.rows.length}</span>
+      </header>
+      <div class="price-list">
+        {g.rows.map(r => (
+          <div class="price-row" data-name={r.title.toLowerCase()}>
+            <a href={r.href}>{r.title}</a>
+            <span>{r.price}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</BaseLayout>
+
+<style>
+  .price-tools {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 1rem;
+    padding: .85rem 0;
+    margin-bottom: 1rem;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .price-search {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    flex: 1 1 240px;
+    max-width: 340px;
+    padding: .5rem .8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text2);
+    transition: border-color .2s;
+  }
+  .price-search:focus-within { border-color: var(--accent) }
+  .price-search :global(svg) { flex-shrink: 0 }
+  .price-search input {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font: inherit;
+    font-size: .92rem;
+  }
+
+  .price-nav { display: flex; flex-wrap: wrap; gap: .4rem }
+  .price-chip {
+    padding: .35rem .7rem;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--text2);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: color .2s, border-color .2s, background .2s;
+  }
+  .price-chip:hover { color: var(--text); border-color: var(--accent) }
+  .price-chip[hidden] { display: none }
+
+  .price-group { scroll-margin-top: 6rem; margin: 2.25rem 0 }
+  .price-group[hidden] { display: none }
+
+  .price-group-head {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    margin-bottom: .5rem;
+  }
+  .price-group-head .icon-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .price-group-head .icon-badge :global(svg) { width: 20px; height: 20px }
+  .price-group-head h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em }
+  .price-group-count {
+    font-size: .75rem;
+    color: var(--text2);
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    padding: 1px 8px;
+    border-radius: 999px;
+  }
+
+  .price-row[hidden] { display: none }
+
+  .price-empty { color: var(--text2); padding: 1.5rem 0 }
+</style>
+
+<script>
+  const input = document.getElementById('price-filter') as HTMLInputElement | null;
+  const empty = document.getElementById('price-empty');
+  const groups = Array.from(document.querySelectorAll<HTMLElement>('.price-group'));
+  const chips = new Map(
+    Array.from(document.querySelectorAll<HTMLElement>('.price-chip')).map(c => [c.dataset.chip, c])
+  );
+
+  function applyFilter(q: string) {
+    const query = q.trim().toLowerCase();
+    let anyVisible = false;
+
+    for (const group of groups) {
+      const rows = Array.from(group.querySelectorAll<HTMLElement>('.price-row'));
+      let visible = 0;
+      for (const row of rows) {
+        const match = !query || (row.dataset.name || '').includes(query);
+        row.hidden = !match;
+        if (match) visible++;
+      }
+      group.hidden = visible === 0;
+      const chip = chips.get(group.dataset.group);
+      if (chip) chip.hidden = visible === 0;
+      if (visible) anyVisible = true;
+    }
+
+    if (empty) empty.hidden = anyVisible;
+  }
+
+  input?.addEventListener('input', () => applyFilter(input.value));
+</script>

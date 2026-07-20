@@ -8,15 +8,18 @@ export interface Props {
     images?: string[];
     features?: string[];
     metaDescription?: string;
+    inStock?: boolean;
   };
 }
 
 const { product } = Astro.props;
+const outOfStock = product.inStock === false;
 ---
 
-<a href={`/${product.category}/${product.slug}/`} class="product-card">
+<a href={`/${product.category}/${product.slug}/`} class:list={["product-card", { "is-out": outOfStock }]}>
   {product.images && product.images[0] && (
     <div class="product-card-img">
+      {outOfStock && <span class="stock-badge">Нет в наличии</span>}
       <img src={product.images[0]} alt={product.title} loading="lazy" />
     </div>
   )}
