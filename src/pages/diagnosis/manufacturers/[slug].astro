@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProductGrid from '../../../components/ProductGrid.astro';
 import { getCollection } from 'astro:content';
+import { brandSvg } from '../../../lib/brandLogo';
 
 export async function getStaticPaths() {
   const brands = await getCollection('brands');
@@ -35,7 +36,10 @@ const ld = {
     { label: brand.title },
   ]}
 >
-  <h1>{brand.title}</h1>
+  <div class="brand-heading">
+    {brandSvg(brand.slug) && <span class="brand-icon" set:html={brandSvg(brand.slug)} />}
+    <h1>{brand.title}</h1>
+  </div>
   {brand.description && <p style="color:var(--text2);margin-bottom:1rem">{brand.description}</p>}
   {brand.country && <p style="color:var(--text2);font-size:.85rem;margin-bottom:1.5rem">Страна: {brand.country}</p>}
 
@@ -51,5 +55,21 @@ const ld = {
     <p>Товары данного производителя не найдены</p>
   )}
 </BaseLayout>
+
+<style>
+  .brand-heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .brand-icon {
+    display: inline-flex;
+    color: var(--text2);
+    flex-shrink: 0;
+  }
+  .brand-icon :global(svg) { width: 48px; height: 48px }
+  .brand-heading h1 { margin: 0 }
+</style>
 
 <script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />
