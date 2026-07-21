@@ -69,24 +69,25 @@ const ld = {
 <style>
   .brands-section { margin-bottom: 2rem }
   .brands-section h2 { font-size: 1.2rem; margin-bottom: .75rem }
-  .brands-grid { display: flex; flex-wrap: wrap; gap: .75rem }
+  .brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: .75rem }
   .brand-card {
-    display: flex; align-items: center; gap: .5rem;
-    padding: .5rem .75rem;
+    display: flex; flex-direction: column; align-items: center;
+    gap: .4rem; padding: .75rem .5rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    font-size: .85rem;
+    font-size: .85rem; text-align: center;
     transition: border-color .2s;
   }
   .brand-card:hover { border-color: var(--accent) }
   .brand-logo { display: inline-flex; color: var(--text2) }
-  .brand-logo :global(svg) { width: 32px; height: 32px }
+  .brand-logo :global(svg) { width: 36px; height: 36px }
   .brand-card:hover .brand-logo { color: var(--text) }
-  .brand-title { color: var(--text) }
+  .brand-title { color: var(--text); line-height: 1.2 }
   .brand-count {
     font-size: .75rem; color: var(--text2);
     background: var(--bg2); padding: 1px 6px; border-radius: 8px;
+    margin-top: auto;
   }
 </style>
 
