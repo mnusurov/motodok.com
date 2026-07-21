@@ -42,10 +42,6 @@ const generatedDescription = metaDescription || description || `${title} — Mot
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
   <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <script is:inline>
-    const theme = localStorage.getItem('theme');
-    if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
-  </script>
   {import.meta.env.PROD && (
     <>
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-8KFSGR4BFQ"></script>
@@ -97,21 +93,5 @@ const generatedDescription = metaDescription || description || `${title} — Mot
     </main>
     <Footer />
   </div>
-  <script is:inline>
-    const btn = document.getElementById('themeToggle');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        const html = document.documentElement;
-        const isLight = html.getAttribute('data-theme') === 'light';
-        if (isLight) {
-          html.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'dark');
-        } else {
-          html.setAttribute('data-theme', 'light');
-          localStorage.setItem('theme', 'light');
-        }
-      });
-    }
-  </script>
 </body>
 </html>

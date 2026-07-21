@@ -7,41 +7,306 @@ const categoryLinks = [
   { href: '/databases/', label: 'Базы данных' },
   { href: '/services/', label: 'Услуги' },
 ];
+
+const journalLinks = [
+  { href: '/articles/', label: 'Статьи' },
+  { href: '/blog/', label: 'Блог' },
+];
+
+const navRight = [
+  { href: '/prices/', label: 'Цены' },
+  { href: '/how-to-buy/', label: 'Как купить' },
+  { href: '/contacts/', label: 'Контакты' },
+];
 ---
 
 <header class="site-header">
-  <div class="header-inner">
-    <a href="/" class="logo">
-      <img src="/images/logo-mark.svg" alt="" width="28" height="28" class="logo-mark" />
-      Motodok
-    </a>
-    <div class="header-actions">
-      <nav class="nav">
-        <div class="dropdown">
-          <span class="dropbtn">Каталог</span>
-          <div class="dropdown-content">
-            {categoryLinks.map(link => (
-              <a href={link.href}>{link.label}</a>
-            ))}
-          </div>
-        </div>
-        <a href="/blog/">Блог</a>
-        <a href="/articles/">Статьи</a>
-        <a href="/documentation/">Документация</a>
-        <a href="/prices/">Цены</a>
-        <a href="/how-to-buy/">Как купить</a>
-        <a href="/contacts/">Контакты</a>
-        <a href="/search/" class="search-btn" aria-label="Поиск">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-          </svg>
-        </a>
-      </nav>
-      <button class="theme-toggle" id="themeToggle" aria-label="Переключить тему" title="Светлая/тёмная тема">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
+  <nav class="sh-nav-left">
+    <div class="sh-dropdown">
+      <button type="button" class="sh-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+        Каталог <svg class="sh-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
       </button>
+      <ul class="sh-dropdown-menu" role="menu">
+        {categoryLinks.map(c => (
+          <li role="none"><a href={c.href} role="menuitem">{c.label}</a></li>
+        ))}
+      </ul>
     </div>
-  </div>
+    <div class="sh-dropdown">
+      <button type="button" class="sh-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+        Журнал <svg class="sh-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
+      <ul class="sh-dropdown-menu" role="menu">
+        {journalLinks.map(l => (
+          <li role="none"><a href={l.href} role="menuitem">{l.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <a href="/documentation/">Документация</a>
+  </nav>
+  <a class="sh-logo" href="/">Motodok</a>
+  <nav class="sh-nav-right">
+    {navRight.map(l => <a href={l.href}>{l.label}</a>)}
+    <a href="/search/" class="sh-search-btn" aria-label="Поиск">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+    </a>
+    <button type="button" class="sh-burger" aria-label="Открыть меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 </header>
+
+<!-- Мобильный оверлей -->
+<div class="sh-overlay" aria-hidden="true">
+  <button type="button" class="sh-overlay-close" aria-label="Закрыть меню">✕</button>
+  <nav class="sh-overlay-nav">
+    <p class="sh-overlay-section">Каталог</p>
+    {categoryLinks.map(c => <a href={c.href}>{c.label}</a>)}
+    <p class="sh-overlay-section">Журнал</p>
+    {journalLinks.map(l => <a href={l.href}>{l.label}</a>)}
+    <a href="/documentation/">Документация</a>
+    <p class="sh-overlay-section">Сервис</p>
+    {navRight.map(l => <a href={l.href}>{l.label}</a>)}
+  </nav>
+</div>
+
+<style>
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    height: 74px;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: rgba(246,241,231,.92);
+    backdrop-filter: blur(10px);
+    z-index: 50;
+  }
+  .sh-logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-align: center;
+    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .sh-nav-left, .sh-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+  }
+  .sh-nav-right { justify-content: flex-end }
+  .sh-nav-left a, .sh-nav-right a {
+    font-size: .88rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .sh-nav-left a:hover, .sh-nav-right a:hover { color: var(--green) }
+
+  /* Dropdown */
+  .sh-dropdown { position: relative }
+  .sh-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    font-size: .88rem;
+    letter-spacing: .02em;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color .2s;
+    font-family: inherit;
+  }
+  .sh-dropdown-trigger:hover,
+  .sh-dropdown.is-open .sh-dropdown-trigger { color: var(--green) }
+  .sh-chevron { width: 14px; height: 14px; transition: transform .2s }
+  .sh-dropdown.is-open .sh-chevron { transform: rotate(180deg) }
+  .sh-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: .5rem;
+    min-width: 200px;
+    list-style: none;
+    box-shadow: 0 16px 40px -16px rgba(36,35,30,.3);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-6px);
+    transition: opacity .2s, transform .2s;
+    z-index: 100;
+  }
+  .sh-dropdown.is-open .sh-dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+  .sh-dropdown-menu a {
+    display: block;
+    padding: .6rem 1rem;
+    border-radius: 8px;
+    font-size: .9rem;
+    color: var(--ink);
+    text-decoration: none;
+    transition: background .15s, color .15s;
+  }
+  .sh-dropdown-menu a:hover { background: var(--cream2); color: var(--green) }
+
+  /* Поиск */
+  .sh-search-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    color: var(--muted);
+    transition: color .2s, background .2s;
+  }
+  .sh-search-btn:hover { color: var(--green); background: var(--cream2) }
+
+  /* Гамбургер */
+  .sh-burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .sh-burger span {
+    display: block;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+
+  /* Мобильный оверлей */
+  .sh-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--green-deep);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .35s;
+  }
+  .sh-overlay.is-open { opacity: 1; pointer-events: auto }
+  .sh-overlay-close {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    background: none;
+    border: none;
+    color: var(--cream);
+    font-size: 1.4rem;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background .2s;
+  }
+  .sh-overlay-close:hover { background: rgba(246,241,231,.15) }
+  .sh-overlay-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .3rem;
+    text-align: center;
+  }
+  .sh-overlay-nav a {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    color: var(--cream);
+    padding: .4rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: color .2s;
+    font-weight: 500;
+  }
+  .sh-overlay-nav a:hover { color: var(--gold) }
+  .sh-overlay-section {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    color: rgba(246,241,231,.45);
+    margin: 1rem 0 .3rem;
+  }
+
+  @media (max-width: 900px) {
+    .site-header { grid-template-columns: auto 1fr }
+    .sh-nav-left { display: none }
+    .sh-burger { display: flex }
+    .sh-nav-right a:not(.sh-search-btn) { display: none }
+    .sh-logo { text-align: right; margin-right: .75rem }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const dropdowns = document.querySelectorAll('.site-header .sh-dropdown');
+    dropdowns.forEach(dd => {
+      const trigger = dd.querySelector('.sh-dropdown-trigger');
+      if (!trigger) return;
+      trigger.addEventListener('click', () => {
+        const willOpen = !dd.classList.contains('is-open');
+        dropdowns.forEach(d => {
+          d.classList.remove('is-open');
+          d.querySelector('.sh-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+        if (willOpen) { dd.classList.add('is-open'); trigger.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.site-header .sh-dropdown')) {
+        dropdowns.forEach(d => {
+          d.classList.remove('is-open');
+          d.querySelector('.sh-dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    const burger = document.querySelector('.sh-burger');
+    const overlay = document.querySelector('.sh-overlay');
+    const overlayClose = document.querySelector('.sh-overlay-close');
+    function openOverlay() {
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      burger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeOverlay() {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+    if (burger) burger.addEventListener('click', openOverlay);
+    if (overlayClose) overlayClose.addEventListener('click', closeOverlay);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeOverlay(); });
+  })();
+</script>

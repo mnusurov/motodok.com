@@ -19,45 +19,51 @@ const infoLinks = [
 ---
 
 <footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Motodok</h4>
-        <p>Оборудование для диагностики и ремонта автомобилей. Дилерские сканеры, адаптеры, осциллографы и базы данных с 2007 года.</p>
-        <div class="footer-social">
-          {socialPlatforms.map(p => (
-            <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
-              <svg viewBox="0 0 24 24" fill="currentColor" set:html={`<path d="${socialIconPaths[p.icon]}" />`} />
-            </a>
-          ))}
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Категории</h4>
-        {categoryLinks.map(link => (
-          <a href={link.href}>{link.label}</a>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <a class="footer-logo" href="/">Motodok</a>
+      <p>Оборудование для диагностики и ремонта автомобилей. Дилерские сканеры, адаптеры, осциллографы и базы данных с 2007 года.</p>
+      <div class="footer-social">
+        {socialPlatforms.map(p => (
+          <a href={p.url} target="_blank" rel="noopener noreferrer" aria-label={p.name}>
+            <svg viewBox="0 0 24 24" fill="currentColor" set:html={`<path d="${socialIconPaths[p.icon]}" />`} />
+          </a>
         ))}
-      </div>
-      <div class="footer-col">
-        <h4>Информация</h4>
-        {infoLinks.map(link => (
-          <a href={link.href}>{link.label}</a>
-        ))}
-        <a href="/articles/">Статьи</a>
-        <a href="/blog/">Блог</a>
-      </div>
-      <div class="footer-col">
-        <h4>Контакты</h4>
-        <p><a href="tel:+996312517107">+996 (312) 517-107</a></p>
-        <p><a href="tel:+996551553731">+996 (551) 553-731</a></p>
-        <p><a href="tel:+996772553731">+996 (772) 553-731</a></p>
-        <p style="margin-top:.5rem"><a href="mailto:info@motodok.com">info@motodok.com</a></p>
-        <p style="margin-top:.5rem">г. Бишкек, Кыргызстан</p>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2007-2026 <a href="/">Motodok</a></span>
-      <span>Оборудование для автодиагностики</span>
+    <div class="footer-col">
+      <h4>Категории</h4>
+      {categoryLinks.map(l => <a href={l.href}>{l.label}</a>)}
+    </div>
+    <div class="footer-col">
+      <h4>Информация</h4>
+      {infoLinks.map(l => <a href={l.href}>{l.label}</a>)}
+      <a href="/articles/">Статьи</a>
+      <a href="/blog/">Блог</a>
+    </div>
+    <div class="footer-col">
+      <h4>Контакты</h4>
+      <p><a href="tel:+996312517107">+996 (312) 517-107</a></p>
+      <p><a href="tel:+996551553731">+996 (551) 553-731</a></p>
+      <p><a href="tel:+996772553731">+996 (772) 553-731</a></p>
+      <p style="margin-top:.5rem"><a href="mailto:info@motodok.com">info@motodok.com</a></p>
+      <p style="margin-top:.5rem">г. Бишкек, Кыргызстан</p>
     </div>
   </div>
+  <div class="footer-bottom">
+    <span>&copy; 2007–2026 <a href="/">Motodok</a></span>
+    <span>Оборудование для автодиагностики</span>
+  </div>
 </footer>
+
+<style>
+  .footer-logo {
+    font-family: 'Playfair Display Variable', 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
