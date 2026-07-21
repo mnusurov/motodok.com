@@ -1,12 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+import { socialIconPaths, socialPlatforms } from '../data/social';
 import { testimonials } from '../data/testimonials';
 import { advantages } from '../data/advantages';
-import { socialPlatforms, socialIconPaths } from '../data/social';
-import { getCollection } from 'astro:content';
 import { brandSvg } from '../lib/brandLogo';
-import { svg, catIcon } from '../lib/icons';
 
 const products = await getCollection('products');
 const categories = await getCollection('categories');
@@ -22,198 +20,92 @@ const categorySlugMap: Record<string, string> = {
   databases: 'databases',
 };
 
-const sampleProducts = [...products]
-  .sort((a, b) => Number(b.data.inStock) - Number(a.data.inStock))
-  .slice(0, 8);
-const mixedNews = [
-  ...articles.slice(0, 3).map(a => ({ title: a.data.title, date: a.data.publishedDate, href: `/articles/${a.slug}/`, type: 'article' as const })),
-  ...newsItems.slice(0, 3).map(n => ({ title: n.data.title, date: n.data.publishedDate, href: `/blog/${n.slug}/`, type: 'news' as const })),
-].sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0)).slice(0, 4);
-const dayNames = ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'];
+const showcase = products
+  .filter(p => p.data.images?.length && typeof p.data.price === 'number' && p.data.inStock)
+  .sort((a, b) => (b.data.price || 0) - (a.data.price || 0))
+  .slice(0, 8)
+  .map(p => ({
+    title: p.data.title,
+    href: `/${categorySlugMap[p.data.category] || p.data.category}/${p.slug}/`,
+    price: p.data.price as number,
+    image: p.data.images[0],
+  }));
 
-function formatDateRu(d: Date): string {
-  const day = dayNames[d.getDay()];
-  const date = d.getDate();
-  const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
-  return `${day}, ${date} ${months[d.getMonth()]} ${d.getFullYear()}`;
-}
+const hero = showcase[0];
+const second = showcase[1];
+
+const cats = categories
+  .sort((a, b) => a.data.order - b.data.order)
+  .map(c => ({
+    title: c.data.title,
+    href: `/${categorySlugMap[c.data.slug] || c.data.slug}/`,
+    slug: c.data.slug,
+    count: products.filter(p => p.data.category === c.data.slug).length,
+  }));
+
+const diagnosisBrands = new Set(products.filter(p => p.data.category === 'diagnosis' && p.data.brand).map(p => p.data.brand!));
+const brandItems = brands
+  .filter(b => diagnosisBrands.has(b.data.slug))
+  .map(b => ({ title: b.data.title, logo: brandSvg(b.data.slug), href: `/diagnosis/manufacturers/${b.data.slug}/` }));
 
 const stats = [
-  { number: '19+', label: 'лет на рынке', icon: 'award' },
-  { number: `${products.length}+`, label: 'товаров в каталоге', icon: 'package' },
-  { number: `${brands.length}`, label: 'брендов', icon: 'tag' },
-  { number: '1000+', label: 'довольных клиентов', icon: 'users' },
+  { number: 19, suffix: '+', label: 'лет на рынке' },
+  { number: products.length, suffix: '+', label: 'товаров в каталоге' },
+  { number: brands.length, suffix: '', label: 'брендов' },
 ];
 
-function getInitials(name: string): string {
-  return name.split(' ').map(s => s[0]).join('');
-}
+const mixedNews = [
+  ...articles.slice(0, 3).map(a => ({ title: a.data.title, date: a.data.publishedDate, href: `/articles/${a.slug}/`, type: 'Статья' })),
+  ...newsItems.slice(0, 3).map(n => ({ title: n.data.title, date: n.data.publishedDate, href: `/blog/${n.slug}/`, type: 'Блог' })),
+].sort((a, b) => (b.date?.getTime() || 0) - (a.date?.getTime() || 0)).slice(0, 4)
+  .map(i => ({
+    ...i,
+    dateStr: i.date ? i.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '',
+  }));
+
+const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 ---
 
-<BaseLayout title="Продажа оборудования для автодиагностики" description="Дилерские сканеры, адаптеры, осциллографы и базы данных для автосервисов и профессионалов" wide={true}>
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="container">
-      <span class="hero-badge">Профессиональная автодиагностика с 2007 года</span>
-      <h1>Оборудование для <span>автодиагностики</span></h1>
-      <p>Дилерские сканеры, адаптеры, осциллографы и базы данных для автосервисов и профессионалов</p>
-      <div class="hero-cta">
-        <a href="/diagnosis/" class="btn-primary">Смотреть каталог <Fragment set:html={svg('arrow', 18)} /></a>
-        <a href="/contacts/" class="btn-secondary">Связаться</a>
+<BaseLayout
+  title="Продажа оборудования для автодиагностики"
+  description="Дилерские сканеры, адаптеры, осциллографы и базы данных для автосервисов и профессионалов"
+  wide={true}
+>
+  <!-- ── Герой ── -->
+  <section class="vd-hero">
+    <div class="vd-hero-text">
+      <p class="vd-kicker">Профессиональная автодиагностика · с 2007 года</p>
+      <h1>Инструменты, достойные вашего сервиса</h1>
+      <p class="vd-lede">Дилерские сканеры, осциллографы и базы данных — отобранные, проверенные и доставленные в любую точку СНГ.</p>
+      <div class="vd-cta-row">
+        <a class="vd-btn" href="/diagnosis/">Перейти в каталог</a>
+        <a class="vd-link" href="/contacts/">Получить консультацию &rarr;</a>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="stats-grid">
+      <div class="vd-hero-stats">
         {stats.map(s => (
-          <div class="stat-card">
-            <span class="icon-badge"><Fragment set:html={svg(s.icon)} /></span>
-            <div class="stat-number">{s.number}</div>
-            <div class="stat-label">{s.label}</div>
+          <div class="vd-hero-stat">
+            <span class="vd-hero-stat-num reveal" data-count={s.number} data-suffix={s.suffix}>0{s.suffix}</span>
+            <span class="vd-hero-stat-label">{s.label}</span>
           </div>
         ))}
       </div>
     </div>
+    {hero && (
+      <div class="vd-hero-media reveal">
+        <div class="vd-arch vd-parallax"><img src={hero.image} alt={hero.title} loading="eager" /></div>
+        {second && <div class="vd-arch vd-arch-sm vd-parallax" data-speed="1.6"><img src={second.image} alt={second.title} loading="lazy" /></div>}
+      </div>
+    )}
   </section>
 
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Каталог</span>
-        <h2>Категории оборудования</h2>
-        <p class="section-sub">От дилерских сканеров до баз данных — всё для профессиональной диагностики автомобилей.</p>
-      </div>
-      <div class="category-grid">
-        {categories.sort((a, b) => a.data.order - b.data.order).map(c => {
-          const slug = categorySlugMap[c.data.slug] || c.data.slug;
-          return (
-            <a href={`/${slug}/`} class="category-card">
-              <span class="icon-badge"><Fragment set:html={svg(catIcon[c.data.slug] || 'wrench', 28)} /></span>
-              <span class="cat-name">{c.data.title}</span>
-              <span class="cat-arrow">Смотреть <Fragment set:html={svg('arrow', 15)} /></span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-
-  {brands.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Поддержка марок</span>
-          <h2>Работаем со всеми брендами</h2>
-        </div>
-        <div class="brands-carousel-wrap">
-          <div class="brands-carousel">
-            {[...brands, ...brands].map(b => {
-              const logo = brandSvg(b.data.slug);
-              return (
-                <span class="brand-logo" title={b.data.title}>
-                  {logo
-                    ? <Fragment set:html={logo} />
-                    : <span class="brand-wordmark">{b.data.title}</span>}
-                </span>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Преимущества</span>
-        <h2>Почему выбирают Motodok</h2>
-        <p class="section-sub">Прямые поставки, гарантия на каждое устройство и экспертная поддержка при выборе.</p>
-      </div>
-      <div class="advantages-grid">
-        {advantages.map(a => (
-          <div class="advantage-card">
-            <span class="icon-badge"><Fragment set:html={svg(a.icon)} /></span>
-            <h3>{a.title}</h3>
-            <p>{a.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  {sampleProducts.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Витрина</span>
-          <h2>Популярное оборудование</h2>
-          <p class="section-sub">Проверенные сканеры и комплексы, которые чаще всего выбирают автосервисы.</p>
-        </div>
-        <div class="product-grid">
-          {sampleProducts.map(p => {
-            const cat = categorySlugMap[p.data.category] || p.data.category;
-            return (
-              <ProductCard product={{
-                title: p.data.title,
-                slug: p.slug,
-                category: cat,
-                price: p.data.price?.toString(),
-                images: p.data.images,
-                features: p.data.features,
-                metaDescription: p.data.description?.slice(0, 200),
-                inStock: p.data.inStock,
-              }} />
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Отзывы</span>
-        <h2>Нам доверяют профессионалы</h2>
-        <p class="section-sub">Автосервисы и диагносты по всему СНГ уже работают с нашим оборудованием.</p>
-      </div>
-      <div class="testimonials-grid">
-        {testimonials.map(t => (
-          <div class="testimonial-card">
-            <div class="testimonial-stars">
-              {Array.from({ length: 5 }).map(() => <Fragment set:html={svg('star', 16)} />)}
-            </div>
-            <div class="testimonial-text">{t.text}</div>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar">{getInitials(t.name)}</div>
-              <div>
-                <div class="testimonial-name">{t.name}</div>
-                <div class="testimonial-role">{t.role}</div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  {mixedNews.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">Журнал</span>
-          <h2>Блог и статьи</h2>
-          <p class="section-sub">Обзоры оборудования, гайды по диагностике и новости индустрии.</p>
-        </div>
-        <div class="news-grid">
-          {mixedNews.map(item => (
-            <a href={item.href} class="news-card">
-              <span class="news-tag">{item.type === 'article' ? 'Статья' : 'Блог'}</span>
-              {item.date && <time>{formatDateRu(item.date)}</time>}
-              <h3>{item.title}</h3>
+  <!-- ── Карусель брендов ── -->
+  {brandItems.length > 0 && (
+    <section class="vd-band-wrap" aria-label="Марки автомобилей">
+      <div class="vd-band">
+        <div class="vd-band-track">
+          {[...brandItems, ...brandItems].map(b => (
+            <a class="vd-band-item" href={b.href}>
+              {b.logo ? <Fragment set:html={b.logo} /> : b.title}
             </a>
           ))}
         </div>
@@ -221,35 +113,566 @@ function getInitials(name: string): string {
     </section>
   )}
 
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Соцсети</span>
-        <h2>Мы на связи</h2>
+  <!-- ── Категории ── -->
+  <section class="vd-section">
+    <div class="vd-head reveal">
+      <p class="vd-kicker">Каталог</p>
+      <h2>Пять направлений</h2>
+    </div>
+    <div class="vd-cat-grid">
+      {cats.map((c, i) => (
+        <a class={`vd-cat reveal ${i === 0 ? 'vd-cat-wide' : ''}`} href={c.href} style={`transition-delay:${i * 70}ms`}>
+          <span class="vd-cat-index">{romanNumerals[i] ?? String(i + 1)}</span>
+          <h3>{c.title}</h3>
+          <p class="vd-cat-meta">{c.count} позиций в наличии</p>
+          <span class="vd-cat-cta">Смотреть коллекцию &rarr;</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Витрина товаров (рейл) ── -->
+  {showcase.length > 0 && (
+    <section class="vd-section vd-showroom">
+      <div class="vd-head vd-head-row reveal">
+        <div>
+          <p class="vd-kicker">Витрина</p>
+          <h2>Избранное оборудование</h2>
+        </div>
+        <div class="vd-rail-nav">
+          <button type="button" data-rail="products" data-dir="-1" aria-label="Назад">&larr;</button>
+          <button type="button" data-rail="products" data-dir="1" aria-label="Вперёд">&rarr;</button>
+        </div>
       </div>
-      <div class="social-links">
-        {socialPlatforms.map(p => (
-          <a href={p.url} target="_blank" rel="noopener noreferrer" class="social-link">
-            <span class="social-icon">
-              <svg viewBox="0 0 24 24" fill="currentColor" set:html={`<path d="${socialIconPaths[p.icon]}" />`} />
-            </span>
-            <span class="social-name">{p.name}</span>
-            <span class="social-username">{p.username}</span>
+      <div class="vd-rail" id="vdRailProducts">
+        {showcase.map(p => (
+          <a class="vd-product" href={p.href}>
+            <div class="vd-product-img"><img src={p.image} alt={p.title} loading="lazy" /></div>
+            <div class="vd-product-body">
+              <span class="vd-product-title">{p.title}</span>
+              <span class="vd-product-price">${p.price} <small>USD</small></span>
+            </div>
           </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- ── Наш подход ── -->
+  <section class="vd-section vd-values">
+    <div class="vd-head reveal">
+      <p class="vd-kicker">Наш подход</p>
+      <h2>Как мы работаем</h2>
+    </div>
+    <div class="vd-values-list">
+      {advantages.slice(0, 4).map((a, i) => (
+        <div class="vd-value reveal" style={`transition-delay:${i * 70}ms`}>
+          <span class="vd-value-num">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <h3>{a.title}</h3>
+            <p>{a.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── Отзывы (рейл на зелёном фоне) ── -->
+  <section class="vd-testimonials">
+    <div class="vd-section vd-testimonials-inner">
+      <div class="vd-head vd-head-row reveal">
+        <div>
+          <p class="vd-kicker vd-kicker-light">Отзывы</p>
+          <h2 class="vd-light">Нам доверяют профессионалы</h2>
+        </div>
+        <div class="vd-rail-nav vd-rail-nav-light">
+          <button type="button" data-rail="reviews" data-dir="-1" aria-label="Назад">&larr;</button>
+          <button type="button" data-rail="reviews" data-dir="1" aria-label="Вперёд">&rarr;</button>
+        </div>
+      </div>
+      <div class="vd-rail vd-reviews-rail" id="vdRailReviews">
+        {[...testimonials, ...testimonials, ...testimonials].map(t => (
+          <div class="vd-review-card">
+            <div class="vd-stars" aria-hidden="true">★★★★★</div>
+            <p class="vd-review-text">«{t.text}»</p>
+            <footer class="vd-review-footer">
+              <strong>{t.name}</strong>
+              <span>{t.role}</span>
+            </footer>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="container">
-      <h2>Свяжитесь с нами</h2>
-      <p>Получите консультацию по подбору оборудования</p>
-      <div class="cta-phone">+996 (772) 553-731</div>
-      <div class="hero-cta">
-        <a href="/contacts/" class="btn-primary">Написать нам</a>
-        <a href="/diagnosis/" class="btn-secondary">Перейти в каталог</a>
+  <!-- ── Журнал ── -->
+  {mixedNews.length > 0 && (
+    <section class="vd-section">
+      <div class="vd-head reveal">
+        <p class="vd-kicker">Журнал</p>
+        <h2>Читать о диагностике</h2>
       </div>
+      <div class="vd-journal">
+        {mixedNews.map((n, i) => (
+          <a class="vd-journal-row reveal" href={n.href} style={`transition-delay:${i * 60}ms`}>
+            <span class="vd-journal-date">{n.dateStr}</span>
+            <span class="vd-journal-title">{n.title}</span>
+            <span class="vd-journal-type">{n.type}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- ── CTA ── -->
+  <section class="vd-final reveal">
+    <h2>Расскажите, какие марки вы обслуживаете, — соберём комплект под них</h2>
+    <div class="vd-cta-row vd-cta-center">
+      <a class="vd-btn vd-btn-light" href="tel:+996772553731">+996 772 553-731</a>
+      <a class="vd-link vd-link-light" href="/contacts/">Написать нам &rarr;</a>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* ── Kicker ── */
+  .vd-kicker {
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .vd-kicker-light { color: rgba(246,241,231,.6) }
+  .vd-light { color: var(--cream) }
+
+  /* ── Герой ── */
+  .vd-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: clamp(3rem, 7vw, 6rem) clamp(1rem, 4vw, 3rem);
+  }
+  .vd-hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    margin: 1.1rem 0;
+  }
+  .vd-hero-text { display: flex; flex-direction: column; gap: 0 }
+  .vd-lede { color: var(--muted); font-size: 1.12rem; max-width: 32rem }
+  .vd-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .vd-btn {
+    background: var(--green);
+    color: var(--cream);
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: background .25s, transform .25s, box-shadow .25s;
+  }
+  .vd-btn:hover {
+    background: var(--green-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px -16px rgba(31,77,63,.55);
+  }
+  .vd-btn-light { background: var(--cream); color: var(--green-deep) }
+  .vd-btn-light:hover { background: #fff }
+  .vd-link {
+    color: var(--green);
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s;
+  }
+  .vd-link:hover { border-color: var(--green) }
+  .vd-link-light { color: var(--cream) }
+  .vd-link-light:hover { border-color: var(--cream) }
+
+  .vd-hero-stats {
+    display: flex;
+    gap: 2.6rem;
+    margin-top: 3rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.6rem;
+  }
+  .vd-hero-stat { display: flex; flex-direction: column }
+  .vd-hero-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--green);
+    font-variant-numeric: tabular-nums;
+  }
+  .vd-hero-stat-label { font-size: .82rem; color: var(--muted) }
+
+  .vd-hero-media { position: relative; display: flex; justify-content: center }
+  .vd-arch {
+    background: #fff;
+    border-radius: 200px 200px 18px 18px;
+    padding: 2.6rem 2rem 2rem;
+    box-shadow: 0 30px 60px -30px rgba(36,35,30,.35);
+    width: min(380px, 80%);
+  }
+  .vd-arch img { max-height: 320px; object-fit: contain; margin: 0 auto; mix-blend-mode: multiply }
+  .vd-arch-sm {
+    position: absolute;
+    right: -10px;
+    bottom: -34px;
+    width: 170px;
+    padding: 1.4rem 1rem 1rem;
+    border: 1px solid var(--line);
+  }
+  .vd-arch-sm img { max-height: 120px }
+
+  /* ── Карусель брендов ── */
+  .vd-band-wrap {
+    border-block: 1px solid var(--line);
+    background: var(--cream2);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+  .vd-band { padding: 1.4rem 0 }
+  .vd-band-track {
+    display: flex;
+    gap: 0;
+    width: max-content;
+    animation: vdScroll 38s linear infinite;
+  }
+  .vd-band-track:hover { animation-play-state: paused }
+  @keyframes vdScroll {
+    0% { transform: translateX(0) }
+    100% { transform: translateX(-50%) }
+  }
+  .vd-band-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    padding: 0 2.2rem;
+    color: var(--muted);
+    font-size: .85rem;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    opacity: .65;
+    transition: opacity .2s;
+  }
+  .vd-band-item:hover { opacity: 1 }
+  .vd-band-item :global(svg) { height: 24px; width: auto }
+
+  /* ── Секции ── */
+  .vd-section {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: clamp(3rem, 6vw, 5.5rem) clamp(1rem, 4vw, 3rem);
+  }
+  .vd-head { margin-bottom: 2.4rem }
+  .vd-head h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    font-weight: 600;
+    margin-top: .5rem;
+  }
+  .vd-head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+
+  /* ── Категории ── */
+  .vd-cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem }
+  .vd-cat {
+    background: #fff;
+    border-radius: 18px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border: 1px solid var(--line);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .vd-cat:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -28px rgba(36,35,30,.4) }
+  .vd-cat-wide { grid-column: span 2; background: var(--green); color: var(--cream); border: none }
+  .vd-cat-wide .vd-cat-meta { color: rgba(246,241,231,.65) }
+  .vd-cat-wide .vd-cat-cta { color: var(--cream) }
+  .vd-cat-index {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--gold);
+  }
+  .vd-cat h3 {
+    font-size: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+  }
+  .vd-cat-meta { color: var(--muted); font-size: .9rem; flex: 1 }
+  .vd-cat-cta {
+    color: var(--green);
+    font-weight: 600;
+    font-size: .92rem;
+    margin-top: 1.2rem;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: all .3s;
+  }
+  .vd-cat:hover .vd-cat-cta { opacity: 1; transform: none }
+
+  /* ── Витрина (рейл) ── */
+  .vd-showroom { background: var(--cream2); max-width: none }
+  .vd-showroom > * { max-width: var(--max-w); margin-inline: auto }
+  .vd-rail-nav { display: flex; gap: .6rem }
+  .vd-rail-nav button {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: none;
+    color: var(--ink);
+    font-size: 1.05rem;
+    transition: all .2s;
+    cursor: pointer;
+  }
+  .vd-rail-nav button:hover { background: var(--ink); color: var(--cream) }
+  .vd-rail-nav-light button {
+    border-color: rgba(246,241,231,.5);
+    color: var(--cream);
+  }
+  .vd-rail-nav-light button:hover {
+    background: rgba(246,241,231,.2);
+    border-color: var(--cream);
+  }
+  .vd-rail {
+    display: flex;
+    gap: 1.4rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: .4rem .2rem 1.2rem;
+    scrollbar-width: none;
+  }
+  .vd-rail::-webkit-scrollbar { display: none }
+  .vd-product {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 14px 34px -20px rgba(36,35,30,.28);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .vd-product:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 56px -26px rgba(36,35,30,.42);
+  }
+  .vd-product-img {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .vd-product-img img {
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform .4s;
+  }
+  .vd-product:hover .vd-product-img img { transform: scale(1.05) }
+  .vd-product-body {
+    padding: 1.2rem 1.4rem 1.5rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .vd-product-title { font-weight: 600; line-height: 1.4 }
+  .vd-product-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--green);
+  }
+  .vd-product-price small {
+    font-size: .7rem;
+    color: var(--muted);
+  }
+
+  /* ── Как мы работаем ── */
+  .vd-values-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.4rem 4rem }
+  .vd-value {
+    display: flex;
+    gap: 1.6rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1.6rem;
+  }
+  .vd-value-num {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 2.2rem;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .vd-value h3 { font-size: 1.15rem; margin-bottom: .4rem }
+  .vd-value p { color: var(--muted); font-size: .95rem }
+
+  /* ── Отзывы ── */
+  .vd-testimonials {
+    background: var(--green);
+    padding: clamp(3rem, 6vw, 5.5rem) 0;
+  }
+  .vd-testimonials-inner { max-width: var(--max-w); margin: 0 auto; padding-inline: clamp(1rem, 4vw, 3rem) }
+  .vd-reviews-rail { padding-bottom: .4rem }
+  .vd-review-card {
+    flex: 0 0 calc(33.333% - 1rem);
+    min-width: 260px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(246,241,231,.18);
+    border-radius: 18px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    scroll-snap-align: start;
+  }
+  .vd-stars { color: var(--gold); letter-spacing: .3em; font-size: 1rem }
+  .vd-review-text {
+    color: var(--cream);
+    font-size: 1rem;
+    line-height: 1.6;
+    flex: 1;
+    font-style: italic;
+  }
+  .vd-review-footer {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-size: .88rem;
+  }
+  .vd-review-footer strong { color: var(--cream) }
+  .vd-review-footer span { color: rgba(246,241,231,.55) }
+
+  /* ── Журнал ── */
+  .vd-journal { border-top: 1px solid var(--line) }
+  .vd-journal-row {
+    display: grid;
+    grid-template-columns: 12rem 1fr 6rem;
+    gap: 1.6rem;
+    align-items: baseline;
+    padding: 1.5rem .4rem;
+    border-bottom: 1px solid var(--line);
+    transition: background .2s;
+  }
+  .vd-journal-date { color: var(--muted); font-size: .85rem }
+  .vd-journal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    transition: color .2s;
+  }
+  .vd-journal-type {
+    text-align: right;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--gold);
+  }
+  .vd-journal-row:hover { background: rgba(255,255,255,.55) }
+  .vd-journal-row:hover .vd-journal-title { color: var(--green) }
+
+  /* ── CTA финальный ── */
+  .vd-final {
+    background: var(--green-deep);
+    color: var(--cream);
+    text-align: center;
+    padding: clamp(4rem, 8vw, 7rem) 1.5rem;
+  }
+  .vd-final h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.8vw, 2.9rem);
+    font-weight: 600;
+    max-width: 26ch;
+    margin: 0 auto;
+  }
+  .vd-cta-center { justify-content: center; margin-top: 2.4rem }
+
+  /* ── Reveal анимации ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(44px) scale(.985);
+    transition: opacity .85s ease, transform .85s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.is-in { opacity: 1; transform: none }
+  @media (prefers-reduced-motion: reduce) { .reveal { transition: none; opacity: 1; transform: none } }
+
+  /* ── Адаптив ── */
+  @media (max-width: 900px) {
+    .vd-hero { grid-template-columns: 1fr }
+    .vd-arch-sm { display: none }
+    .vd-cat-grid { grid-template-columns: 1fr }
+    .vd-cat-wide { grid-column: auto }
+    .vd-values-list { grid-template-columns: 1fr }
+    .vd-journal-row { grid-template-columns: 1fr; gap: .3rem }
+    .vd-journal-type { text-align: left }
+    .vd-review-card { flex: 0 0 85vw }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    // ── Рейлы ──
+    document.querySelectorAll('[data-rail]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const railId = btn.dataset.rail === 'products' ? 'vdRailProducts' : 'vdRailReviews';
+        const rail = document.getElementById(railId);
+        if (rail) rail.scrollBy({ left: Number(btn.dataset.dir) * 330, behavior: 'smooth' });
+      });
+    });
+
+    // ── Параллакс ──
+    if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const items = document.querySelectorAll('.vd-parallax');
+      addEventListener('scroll', () => {
+        const y = scrollY;
+        items.forEach(el => {
+          const speed = Number(el.dataset.speed || 1);
+          el.style.translate = `0 ${Math.min(y, 600) * 0.04 * speed}px`;
+        });
+      }, { passive: true });
+    }
+
+    // ── Reveal on scroll ──
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in');
+        if (en.target.dataset.count) countUp(en.target);
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal, [data-count]').forEach(el => io.observe(el));
+
+    function countUp(el) {
+      const target = Number(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1200;
+      const t0 = performance.now();
+      function tick(t) {
+        const p = Math.min((t - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  })();
+</script>
