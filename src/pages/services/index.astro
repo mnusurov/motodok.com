@@ -6,7 +6,7 @@ import { getCollection } from 'astro:content';
 const allServices = await getCollection('services');
 ---
 
-<BaseLayout title="Услуги" description="Услуги по ремонту и обслуживанию диагностического оборудования"
+<BaseLayout title="Услуги по диагностике" description="Услуги по ремонту и обслуживанию диагностического оборудования"
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Услуги' } ]}>
   <PageHeader eyebrow="Сервис" title="Услуги" lead="Ремонт и обслуживание диагностического оборудования." />
 

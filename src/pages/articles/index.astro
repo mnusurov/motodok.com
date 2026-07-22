@@ -16,7 +16,7 @@ const articleThumbs = await Promise.all(allArticles.map(async item => {
 const thumbMap = new Map(articleThumbs.filter(Boolean).map(t => [t.slug, t.src]));
 ---
 
-<BaseLayout title="Статьи" description="Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования"
+<BaseLayout title="Статьи об автодиагностике" description="Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования"
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Статьи' } ]}>
   <PageHeader eyebrow="Материалы" title="Статьи" lead="Гайды по диагностике, обзоры оборудования и советы по выбору." />
 
