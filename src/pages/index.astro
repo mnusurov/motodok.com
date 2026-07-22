@@ -321,8 +321,12 @@ const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
     padding: 2.6rem 2rem 2rem;
     box-shadow: 0 30px 60px -30px rgba(36,35,30,.35);
     width: min(380px, 80%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .vd-arch img { max-height: 320px; object-fit: contain; margin: 0 auto; mix-blend-mode: multiply }
+  .vd-arch img { max-height: 320px; width: 100%; object-fit: contain; display: block; mix-blend-mode: multiply }
   .vd-arch-sm {
     position: absolute;
     right: -10px;
