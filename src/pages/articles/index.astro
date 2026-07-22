@@ -14,9 +14,27 @@ const articleThumbs = await Promise.all(allArticles.map(async item => {
   return { slug: item.slug, src: img.src };
 }));
 const thumbMap = new Map(articleThumbs.filter(Boolean).map(t => [t.slug, t.src]));
+
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Статьи об автодиагностике',
+  description: 'Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования',
+  url: `${siteUrl}/articles/`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: allArticles.map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': 'Article', name: a.data.title, url: `${siteUrl}/articles/${a.slug}/` },
+    })),
+  },
+};
 ---
 
 <BaseLayout title="Статьи об автодиагностике" description="Полезные статьи по автодиагностике, ремонту электроники, выбору оборудования"
+  ogImage="/og-image.png"
   breadcrumbs={[ { label: 'Главная', href: '/' }, { label: 'Статьи' } ]}>
   <PageHeader eyebrow="Материалы" title="Статьи" lead="Гайды по диагностике, обзоры оборудования и советы по выбору." />
 
@@ -36,3 +54,5 @@ const thumbMap = new Map(articleThumbs.filter(Boolean).map(t => [t.slug, t.src])
     <p>Статьи скоро появятся</p>
   )}
 </BaseLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />

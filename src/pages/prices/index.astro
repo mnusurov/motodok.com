@@ -40,6 +40,23 @@ const groups = [
 ].filter(g => g.rows.length);
 
 const totalCount = groups.reduce((n, g) => n + g.rows.length, 0);
+
+const siteUrl = 'https://motodok.com';
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Цены на диагностическое оборудование',
+  description: metaDescription,
+  url: `${siteUrl}/prices/`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: groups.flatMap(g => g.rows).map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: { '@type': 'Product', name: r.title, url: `${siteUrl}${r.href}` },
+    })),
+  },
+};
 ---
 
 <BaseLayout
@@ -91,6 +108,8 @@ const totalCount = groups.reduce((n, g) => n + g.rows.length, 0);
     </section>
   ))}
 </BaseLayout>
+
+<script type="application/ld+json" set:html={JSON.stringify(ld, null, 2)} />
 
 <style>
   .price-tools {
