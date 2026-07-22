@@ -22,7 +22,7 @@ type Row = { title: string; href: string; price: string };
 const productGroups = categories.map(cat => {
   const slug = cat.data.slug;
   const rows: Row[] = products
-    .filter(p => p.data.category === slug && p.data.inStock && p.data.price !== undefined)
+    .filter(p => p.data.category === slug && p.data.availability !== 'discontinued' && p.data.price !== undefined)
     .map(p => ({ title: p.data.title, href: `/${slug}/${p.slug}/`, price: fmtPrice(p.data.price)! }))
     .sort((a, b) => a.title.localeCompare(b.title, 'ru'));
   return { slug, title: cat.data.title, icon: catIcon[slug] || 'package', rows };

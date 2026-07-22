@@ -18,10 +18,22 @@ const categorySlugMap: Record<string, string> = {
   immobilizer: 'immobilizer',
   odometers: 'odometers',
   databases: 'databases',
+  'battery-service': 'battery-service',
+  charging: 'charging',
+  safety: 'safety',
+};
+
+const pluralRu = (n: number, one: string, few: string, many: string) => {
+  const mod10 = n % 10;
+  const mod100 = n % 100;
+  if (mod100 > 10 && mod100 < 20) return many;
+  if (mod10 === 1) return one;
+  if (mod10 >= 2 && mod10 <= 4) return few;
+  return many;
 };
 
 const showcase = products
-  .filter(p => p.data.images?.length && typeof p.data.price === 'number' && p.data.inStock)
+  .filter(p => p.data.images?.length && typeof p.data.price === 'number' && p.data.availability === 'in_stock')
   .sort((a, b) => (b.data.price || 0) - (a.data.price || 0))
   .slice(0, 8)
   .map(p => ({
@@ -62,8 +74,6 @@ const mixedNews = [
     ...i,
     dateStr: i.date ? i.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' }) : '',
   }));
-
-const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
 ---
 
 <BaseLayout
@@ -117,14 +127,14 @@ const romanNumerals = ['I', 'II', 'III', 'IV', 'V', 'VI'];
   <section class="vd-section">
     <div class="vd-head reveal">
       <p class="vd-kicker">Каталог</p>
-      <h2>Пять направлений</h2>
+      <h2>{cats.length} {pluralRu(cats.length, 'направление', 'направления', 'направлений')}</h2>
     </div>
     <div class="vd-cat-grid">
       {cats.map((c, i) => (
         <a class={`vd-cat reveal ${i === 0 ? 'vd-cat-wide' : ''}`} href={c.href} style={`transition-delay:${i * 70}ms`}>
-          <span class="vd-cat-index">{romanNumerals[i] ?? String(i + 1)}</span>
+          <span class="vd-cat-index">{String(i + 1).padStart(2, '0')}</span>
           <h3>{c.title}</h3>
-          <p class="vd-cat-meta">{c.count} позиций в наличии</p>
+          <p class="vd-cat-meta">{c.count} {pluralRu(c.count, 'позиция', 'позиции', 'позиций')}</p>
           <span class="vd-cat-cta">Смотреть коллекцию &rarr;</span>
         </a>
       ))}

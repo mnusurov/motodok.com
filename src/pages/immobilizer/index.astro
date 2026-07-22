@@ -3,12 +3,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductGrid from '../../components/ProductGrid.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
+import { sortProducts } from '../../lib/productSort';
 import { svg, catIcon } from '../../lib/icons';
 
 const category = (await getCollection('categories')).find(c => c.data.slug === 'immobilizer');
-const products = (await getCollection('products'))
+const products = sortProducts(
+  (await getCollection('products'))
   .filter(p => p.data.category === 'immobilizer')
-  .sort((a, b) => Number(b.data.inStock) - Number(a.data.inStock) || (a.data.order || 99) - (b.data.order || 99));
+);
 
 const siteUrl = 'https://motodok.com';
 const ld = {

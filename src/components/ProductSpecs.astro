@@ -1,0 +1,23 @@
+---
+export interface Props {
+  specifications?: Record<string, string>;
+}
+const { specifications } = Astro.props;
+const entries = specifications ? Object.entries(specifications) : [];
+---
+
+{entries.length > 0 && (
+  <div style="margin-bottom:1.5rem">
+    <h3 style="font-size:1rem;font-weight:700;margin-bottom:.75rem">Технические характеристики</h3>
+    <table style="width:100%;border-collapse:collapse">
+      <tbody>
+        {entries.map(([key, value]) => (
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:.5rem 1rem .5rem 0;color:var(--text2);white-space:nowrap;vertical-align:top">{key}</td>
+            <td style="padding:.5rem 0;font-weight:600">{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}

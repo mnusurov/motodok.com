@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProductJsonLd from '../../components/ProductJsonLd.astro';
+import ProductSpecs from '../../components/ProductSpecs.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -34,6 +35,8 @@ const { Content } = await entry.render();
     )}
 
     <Content />
+
+    <ProductSpecs specifications={data.specifications} />
 
     {data.features && data.features.length > 0 && (
       <ul style="margin-bottom:1.5rem">

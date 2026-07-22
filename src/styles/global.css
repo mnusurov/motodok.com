@@ -56,119 +56,6 @@ img { max-width: 100%; height: auto }
 
 .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.5rem }
 
-/* ── Header ──────────────────────────────── */
-
-.site-header {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.header-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 64px;
-}
-
-.logo {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  color: var(--accent);
-  text-transform: uppercase;
-}
-
-.logo-mark {
-  display: block;
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-
-.nav { display: flex; gap: .25rem; flex-wrap: wrap }
-
-.nav a, .nav .dropbtn {
-  color: var(--text2);
-  font-size: .85rem;
-  font-weight: 500;
-  padding: .5rem .75rem;
-  border-radius: 6px;
-  transition: color .2s, background .2s;
-}
-
-.nav a:hover, .nav .dropbtn:hover { color: var(--text); background: rgba(255,255,255,.05) }
-
-[data-theme="light"] .nav a:hover, [data-theme="light"] .nav .dropbtn:hover { background: rgba(0,0,0,.05) }
-
-.search-btn { display: inline-flex; align-items: center; padding: .5rem .5rem }
-
-.dropdown { position: relative; display: flex; align-items: center }
-.dropdown:hover .dropdown-content { display: flex }
-.dropbtn { cursor: pointer; background: none; border: none; font-family: inherit; font-size: .85rem; color: var(--text2); font-weight: 500; padding: .5rem .75rem; border-radius: 6px; transition: color .2s, background .2s }
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  min-width: 170px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: .25rem 0;
-  flex-direction: column;
-  z-index: 200;
-}
-.dropdown-content a {
-  padding: .5rem 1rem;
-  border-radius: 0;
-  white-space: nowrap;
-  background: transparent;
-}
-.dropdown-content a:hover { background: rgba(255,255,255,.05); color: var(--text) }
-
-[data-theme="light"] .dropdown-content a:hover { background: rgba(0,0,0,.05) }
-
-.theme-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text2);
-  cursor: pointer;
-  padding: .4rem .5rem;
-  display: inline-flex;
-  align-items: center;
-  font-size: .85rem;
-  transition: color .2s, border-color .2s;
-}
-.theme-toggle:hover { color: var(--text); border-color: var(--accent) }
-
-.header-social {
-  display: flex;
-  gap: .25rem;
-  margin-left: .25rem;
-}
-.header-social a {
-  display: inline-flex;
-  align-items: center;
-  padding: .35rem;
-  color: var(--text2);
-  border-radius: 4px;
-  transition: color .2s;
-}
-.header-social a:hover { color: var(--accent) }
-
 /* ── Hero ────────────────────────────────── */
 
 .hero {
@@ -496,24 +383,27 @@ img { max-width: 100%; height: auto }
   background: transparent;
 }
 
-.stock-badge {
-  position: absolute;
-  top: .6rem;
-  left: .6rem;
-  z-index: 1;
-  padding: .25rem .55rem;
+.order-badge {
+  display: inline-block;
+  margin-bottom: .5rem;
+  padding: .2rem .55rem;
   font-size: .7rem;
   font-weight: 700;
   letter-spacing: .02em;
-  color: var(--text);
-  background: color-mix(in srgb, var(--bg) 78%, transparent);
-  backdrop-filter: blur(4px);
-  border: 1px solid var(--border);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   border-radius: 999px;
 }
 
-.product-card.is-out .product-card-img img { opacity: .5; filter: grayscale(.4) }
-.product-card.is-out h3 { color: var(--text2) }
+.order-badge-discontinued {
+  color: var(--text2);
+  background: color-mix(in srgb, var(--text2) 12%, transparent);
+  border-color: color-mix(in srgb, var(--text2) 35%, transparent);
+}
+
+.product-card.is-discontinued .product-card-img img { opacity: .55; filter: grayscale(.5) }
+.product-card.is-discontinued h3 { color: var(--text2) }
 
 .product-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease }
 .product-card:hover .product-card-img img { transform: scale(1.04) }

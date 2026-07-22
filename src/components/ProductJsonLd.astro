@@ -5,7 +5,7 @@ export interface Props {
     description?: string;
     price?: number;
     currency?: string;
-    inStock?: boolean;
+    availability?: 'in_stock' | 'on_order' | 'discontinued';
     images?: string[];
     brand?: string;
     article?: string;
@@ -25,14 +25,16 @@ const ld: Record<string, unknown> = {
   ...(product.images?.length && { image: product.images.map(i => `${siteUrl}${i}`) }),
 };
 
-if (product.price) {
+const availability = product.availability || 'in_stock';
+
+if (product.price && availability !== 'discontinued') {
   ld.offers = {
     '@type': 'Offer',
     price: product.price,
     priceCurrency: product.currency || 'USD',
-    availability: product.inStock !== false
+    availability: availability === 'in_stock'
       ? 'https://schema.org/InStock'
-      : 'https://schema.org/OutOfStock',
+      : 'https://schema.org/BackOrder',
   };
 }
 

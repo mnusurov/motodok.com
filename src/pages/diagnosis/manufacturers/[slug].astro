@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProductGrid from '../../../components/ProductGrid.astro';
 import { getCollection } from 'astro:content';
+import { sortProducts } from '../../../lib/productSort';
 import { brandSvg } from '../../../lib/brandLogo';
 
 export async function getStaticPaths() {
@@ -14,9 +15,10 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const brand = entry.data;
-const products = (await getCollection('products'))
+const products = sortProducts(
+  (await getCollection('products'))
   .filter(p => p.data.category === 'diagnosis' && p.data.brand === brand.slug)
-  .sort((a, b) => Number(b.data.inStock) - Number(a.data.inStock) || (a.data.order || 99) - (b.data.order || 99));
+);
 
 const siteUrl = 'https://motodok.com';
 const ld = {

@@ -21,6 +21,8 @@ export const icons: Record<string, string> = {
   pin: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>',
   clock: '<path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/>',
   message: '<path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-5.777-5.78z"/>',
+  battery: '<rect x="2" y="7" width="16" height="10" rx="2" ry="2"/><line x1="22" x2="22" y1="11" y2="13"/>',
+  zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
 };
 
 export const svg = (key: string, size = 24) =>
@@ -34,4 +36,7 @@ export const catIcon: Record<string, string> = {
   odometers: 'gauge',
   databases: 'database',
   services: 'tool',
+  'battery-service': 'battery',
+  charging: 'zap',
+  safety: 'shield',
 };

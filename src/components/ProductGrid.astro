@@ -10,7 +10,7 @@ export interface Props {
     images?: string[];
     features?: string[];
     metaDescription?: string;
-    inStock?: boolean;
+    availability?: 'in_stock' | 'on_order' | 'discontinued';
   }[];
 }
 

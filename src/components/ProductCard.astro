@@ -8,24 +8,26 @@ export interface Props {
     images?: string[];
     features?: string[];
     metaDescription?: string;
-    inStock?: boolean;
+    availability?: 'in_stock' | 'on_order' | 'discontinued';
   };
 }
 
 const { product } = Astro.props;
-const outOfStock = product.inStock === false;
+const availability = product.availability || 'in_stock';
+const discontinued = availability === 'discontinued';
 ---
 
-<a href={`/${product.category}/${product.slug}/`} class:list={["product-card", { "is-out": outOfStock }]}>
+<a href={`/${product.category}/${product.slug}/`} class:list={["product-card", { "is-discontinued": discontinued }]}>
   {product.images && product.images[0] && (
     <div class="product-card-img">
-      {outOfStock && <span class="stock-badge">Нет в наличии</span>}
       <img src={product.images[0]} alt={product.title} loading="lazy" />
     </div>
   )}
   <div class="product-card-body">
     <h3>{product.title}</h3>
+    {availability === 'on_order' && <span class="order-badge">Под заказ</span>}
+    {discontinued && <span class="order-badge order-badge-discontinued">Товар снят с продажи</span>}
     {product.metaDescription && <p>{product.metaDescription}</p>}
   </div>
-  {product.price && <div class="price">{product.price} $</div>}
+  {!discontinued && product.price && <div class="price">{product.price} $</div>}
 </a>
