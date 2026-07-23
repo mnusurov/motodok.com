@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <clipPath id="cut"><polygon points="11.52,0 64,0 64,52.48 52.48,64 0,64 0,11.52"></polygon></clipPath>
   <g clip-path="url(#cut)">
-    <rect width="64" height="64" fill="#0d0d0d"></rect>
+    <rect width="64" height="64" fill="#143529"></rect>
   </g>
-  <path d="M11.52,0 L64,0 L64,52.48 L52.48,64 L0,64 L0,11.52 Z" fill="none" stroke="#ff6b35" stroke-width="3"></path>
-  <text x="32" y="33.5" text-anchor="middle" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="800" font-size="34" fill="#ff6b35">M</text>
+  <path d="M11.52,0 L64,0 L64,52.48 L52.48,64 L0,64 L0,11.52 Z" fill="none" stroke="#b98a2f" stroke-width="3"></path>
+  <text x="32" y="33.5" text-anchor="middle" dominant-baseline="central" font-family="Arial, sans-serif" font-weight="800" font-size="34" fill="#f6f1e7">M</text>
 </svg>
