@@ -42,7 +42,7 @@ importers:
         specifier: ^0.33.0
         version: 0.33.5
       simple-icons:
-        specifier: ^16.26.0
+        specifier: 16.26.0
         version: 16.26.0
       turndown:
         specifier: ^7.2.4

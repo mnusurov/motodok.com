@@ -304,53 +304,6 @@ img { max-width: 100%; height: auto }
 .cat-arrow { margin-top: .6rem; font-size: .82rem; font-weight: 600; color: var(--text2); display: inline-flex; align-items: center; gap: .3rem; transition: color .2s, gap .2s }
 .category-card:hover .cat-arrow { color: var(--accent); gap: .5rem }
 
-/* ── Brands Carousel ──────────────────────── */
-
-.brands-carousel-wrap {
-  overflow: hidden;
-  position: relative;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-
-.brands-carousel {
-  display: flex;
-  gap: 1.25rem;
-  animation: scrollBrands 40s linear infinite;
-  width: max-content;
-}
-
-.brands-carousel:hover { animation-play-state: paused }
-
-.brand-logo {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 72px;
-  width: 140px;
-  padding: 0 1.25rem;
-  color: var(--text2);
-  opacity: .6;
-  transition: color .25s, opacity .25s, transform .25s;
-}
-
-.brand-logo:hover { color: var(--text); opacity: 1; transform: translateY(-2px) }
-
-.brand-logo svg { width: 40px; height: 40px; display: block }
-
-.brand-wordmark {
-  font-weight: 800;
-  font-size: 1.15rem;
-  letter-spacing: -.01em;
-  white-space: nowrap;
-}
-
-@keyframes scrollBrands {
-  0% { transform: translateX(0) }
-  100% { transform: translateX(-50%) }
-}
-
 /* ── Product Grid ──────────────────────────── */
 
 .product-grid {

@@ -4,7 +4,7 @@ import ProductGrid from '../../components/ProductGrid.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
 import { sortProducts } from '../../lib/productSort';
-import { brandSvg } from '../../lib/brandLogo';
+import { brandSvg, brandLogoMask } from '../../lib/brandLogo';
 import { svg, catIcon } from '../../lib/icons';
 
 const category = (await getCollection('categories')).find(c => c.data.slug === 'diagnosis');
@@ -16,7 +16,7 @@ const products = sortProducts(
 const brands = (await getCollection('brands')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 const productsByBrand = new Map<string, number>();
 for (const p of products) {
-  if (p.data.brand) productsByBrand.set(p.data.brand, (productsByBrand.get(p.data.brand) || 0) + 1);
+  for (const brand of p.data.brands) productsByBrand.set(brand, (productsByBrand.get(brand) || 0) + 1);
 }
 
 const siteUrl = 'https://motodok.com';
@@ -46,11 +46,17 @@ const ld = {
 
   {brands.some(b => productsByBrand.get(b.data.slug)) && (
     <section class="brands-section">
-      <h2>Производители</h2>
+      <div class="brands-head">
+        <h2>Марки авто</h2>
+        <a href="/diagnosis/manufacturers/" class="brands-all">Все марки &rarr;</a>
+      </div>
       <div class="brands-grid">
         {brands.filter(b => productsByBrand.get(b.data.slug)).map(b => (
           <a href={`/diagnosis/manufacturers/${b.data.slug}/`} class="brand-card">
-            {brandSvg(b.data.slug) && <span class="brand-logo" set:html={brandSvg(b.data.slug)} />}
+            <span class="brand-logo" class:list={{ 'brand-mask': !brandSvg(b.data.slug) && brandLogoMask(b.data.slug) }}
+              set:html={brandSvg(b.data.slug)}
+              style={!brandSvg(b.data.slug) && brandLogoMask(b.data.slug) ? `-webkit-mask-image:url(${brandLogoMask(b.data.slug)});mask-image:url(${brandLogoMask(b.data.slug)})` : undefined}
+            />
             <span class="brand-title">{b.data.title}</span>
             <span class="brand-count">{productsByBrand.get(b.data.slug)}</span>
           </a>
@@ -70,11 +76,16 @@ const ld = {
 
 <style>
   .brands-section { margin-bottom: 2rem }
-  .brands-section h2 { font-size: 1.2rem; margin-bottom: .75rem }
+  .brands-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: .75rem }
+  .brands-head h2 { font-size: 1.2rem; margin: 0 }
+  .brands-all { font-size: .85rem; color: var(--text2); white-space: nowrap }
+  .brands-all:hover { color: var(--accent) }
   .brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: .75rem }
   .brand-card {
     display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-start;
     gap: .4rem; padding: .75rem .5rem;
+    min-height: 128px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -82,10 +93,20 @@ const ld = {
     transition: border-color .2s;
   }
   .brand-card:hover { border-color: var(--accent) }
-  .brand-logo { display: inline-flex; color: var(--text2) }
+  .brand-logo { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; color: var(--text2) }
   .brand-logo :global(svg) { width: 36px; height: 36px }
+  .brand-logo.brand-mask {
+    background-color: currentColor;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+  }
   .brand-card:hover .brand-logo { color: var(--text) }
-  .brand-title { color: var(--text); line-height: 1.2 }
+  .brand-title {
+    color: var(--text); line-height: 1.2;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .brand-count {
     font-size: .75rem; color: var(--text2);
     background: var(--bg2); padding: 1px 6px; border-radius: 8px;

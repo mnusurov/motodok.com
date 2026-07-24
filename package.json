@@ -21,7 +21,7 @@
     "cheerio": "^1.2.0",
     "pagefind": "^1.5.2",
     "sharp": "^0.33.0",
-    "simple-icons": "^16.26.0",
+    "simple-icons": "16.26.0",
     "turndown": "^7.2.4"
   },
   "devDependencies": {

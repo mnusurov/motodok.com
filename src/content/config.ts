@@ -6,7 +6,7 @@ const products = defineCollection({
     title: z.string(),
     category: z.enum(['diagnosis', 'measure', 'immobilizer', 'odometers', 'databases', 'battery-service', 'charging', 'safety']),
     powertrain: z.enum(['ice', 'hybrid', 'ev', 'universal']).default('ice'),
-    brand: z.string().optional(),
+    brands: z.array(z.string()).default([]),
     article: z.string().optional(),
     price: z.number().optional(),
     currency: z.string().default('USD'),

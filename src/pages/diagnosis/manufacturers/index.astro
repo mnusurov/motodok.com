@@ -1,21 +1,21 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-import { brandSvg } from '../../../lib/brandLogo';
+import { brandSvg, brandLogoMask } from '../../../lib/brandLogo';
 
 const brands = (await getCollection('brands')).sort((a, b) => a.data.title.localeCompare(b.data.title));
 const diagnosisProducts = (await getCollection('products')).filter(p => p.data.category === 'diagnosis');
 const productsByBrand = new Map<string, number>();
 for (const p of diagnosisProducts) {
-  if (p.data.brand) productsByBrand.set(p.data.brand, (productsByBrand.get(p.data.brand) || 0) + 1);
+  for (const brand of p.data.brands) productsByBrand.set(brand, (productsByBrand.get(brand) || 0) + 1);
 }
 
 const siteUrl = 'https://motodok.com';
 const ld = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Производители диагностического оборудования',
-  description: 'Оригинальное диагностическое оборудование по производителям',
+  name: 'Марки авто — диагностическое оборудование',
+  description: 'Оригинальное диагностическое оборудование по маркам авто',
   url: `${siteUrl}/diagnosis/manufacturers/`,
   mainEntity: {
     '@type': 'ItemList',
@@ -29,26 +29,31 @@ const ld = {
 ---
 
 <BaseLayout
-  title="Производители диагностического оборудования"
-  description="Оригинальное диагностическое оборудование по производителям"
+  title="Марки авто — диагностическое оборудование"
+  description="Оригинальное диагностическое оборудование по маркам авто"
   ogImage="/og-image.png"
   breadcrumbs={[
     { label: 'Главная', href: '/' },
     { label: 'Диагностика', href: '/diagnosis/' },
-    { label: 'Производители' },
+    { label: 'Марки авто' },
   ]}
 >
-  <h1>Производители</h1>
-  <p style="color:var(--text2);margin-bottom:1.5rem">Диагностическое оборудование по производителям автомобилей</p>
+  <h1>Марки авто</h1>
+  <p style="color:var(--text2);margin-bottom:1.5rem">Диагностическое оборудование по маркам авто</p>
 
   <div class="brands-grid">
     {brands.map(b => {
       const count = productsByBrand.get(b.data.slug) || 0;
+      const logo = brandSvg(b.data.slug);
+      const mask = !logo && brandLogoMask(b.data.slug);
       return (
         <a href={`/diagnosis/manufacturers/${b.data.slug}/`} class="brand-card">
-          {brandSvg(b.data.slug) && <span class="brand-logo" set:html={brandSvg(b.data.slug)} />}
+          <span class="brand-logo" class:list={{ 'brand-mask': mask }}
+            set:html={logo}
+            style={mask ? `-webkit-mask-image:url(${mask});mask-image:url(${mask})` : undefined}
+          />
           <span class="brand-title">{b.data.title}</span>
-          {count > 0 && <span class="brand-count">{count} товар{count > 1 ? 'ов' : ''}</span>}
+          <span class="brand-count">{count > 0 ? `${count} товар${count > 1 ? 'ов' : ''}` : ' '}</span>
         </a>
       );
     })}
@@ -67,8 +72,10 @@ const ld = {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.5rem;
     padding: 1rem;
+    min-height: 148px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -80,16 +87,29 @@ const ld = {
   }
   .brand-logo {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
     color: var(--text2);
   }
   .brand-logo :global(svg) { width: 34px; height: 34px }
+  .brand-logo.brand-mask {
+    background-color: currentColor;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+  }
   .brand-card:hover .brand-logo { color: var(--text) }
   .brand-title {
     font-size: .9rem;
     color: var(--text);
+    line-height: 1.25;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden;
   }
   .brand-count {
     font-size: .75rem;
     color: var(--text2);
+    margin-top: auto;
   }
 </style>

@@ -38,8 +38,10 @@ if (product.price && availability !== 'discontinued') {
   };
 }
 
-if (product.brand) {
-  ld.brand = { '@type': 'Brand', name: product.brand };
+if (product.brands?.length) {
+  ld.brand = product.brands.length === 1
+    ? { '@type': 'Brand', name: product.brands[0] }
+    : product.brands.map((b: string) => ({ '@type': 'Brand', name: b }));
 }
 
 if (product.article) {

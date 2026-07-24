@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content';
 import { socialIconPaths, socialPlatforms } from '../data/social';
 import { testimonials } from '../data/testimonials';
 import { advantages } from '../data/advantages';
-import { brandSvg } from '../lib/brandLogo';
+import { brandSvg, brandLogoMask } from '../lib/brandLogo';
 
 const products = await getCollection('products');
 const categories = await getCollection('categories');
@@ -33,7 +33,7 @@ const pluralRu = (n: number, one: string, few: string, many: string) => {
 };
 
 const showcase = products
-  .filter(p => p.data.images?.length && typeof p.data.price === 'number' && p.data.availability === 'in_stock')
+  .filter(p => p.data.images?.length && typeof p.data.price === 'number' && p.data.availability !== 'discontinued')
   .sort((a, b) => (b.data.price || 0) - (a.data.price || 0))
   .slice(0, 8)
   .map(p => ({
@@ -55,10 +55,10 @@ const cats = categories
     count: products.filter(p => p.data.category === c.data.slug).length,
   }));
 
-const diagnosisBrands = new Set(products.filter(p => p.data.category === 'diagnosis' && p.data.brand).map(p => p.data.brand!));
+const diagnosisBrands = new Set(products.filter(p => p.data.category === 'diagnosis').flatMap(p => p.data.brands));
 const brandItems = brands
   .filter(b => diagnosisBrands.has(b.data.slug))
-  .map(b => ({ title: b.data.title, logo: brandSvg(b.data.slug), href: `/diagnosis/manufacturers/${b.data.slug}/` }));
+  .map(b => ({ title: b.data.title, logo: brandSvg(b.data.slug), mask: brandLogoMask(b.data.slug), href: `/diagnosis/manufacturers/${b.data.slug}/` }));
 
 const stats = [
   { number: 19, suffix: '+', label: 'лет на рынке' },
@@ -114,8 +114,8 @@ const mixedNews = [
       <div class="vd-band">
         <div class="vd-band-track">
           {[...brandItems, ...brandItems].map(b => (
-            <a class="vd-band-item" href={b.href}>
-              {b.logo ? <Fragment set:html={b.logo} /> : b.title}
+            <a class="vd-band-item" href={b.href} aria-label={b.title}>
+              {b.logo ? <Fragment set:html={b.logo} /> : b.mask ? <span class="brand-mask" style={`-webkit-mask-image:url(${b.mask});mask-image:url(${b.mask})`} /> : b.title}
             </a>
           ))}
         </div>
@@ -383,6 +383,13 @@ const mixedNews = [
   }
   .vd-band-item:hover { opacity: 1 }
   .vd-band-item :global(svg) { height: 36px; width: auto }
+  .vd-band-item .brand-mask {
+    display: inline-block; height: 36px; width: 36px;
+    background-color: currentColor;
+    -webkit-mask-size: contain; mask-size: contain;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: center; mask-position: center;
+  }
 
   /* ── Секции ── */
   .vd-section {
