@@ -173,9 +173,6 @@
 # html → clean generic pattern
 /*.html /:splat/ 301
 
-# www → non-www
-https://www.motodok.com/* https://motodok.com/:splat 301
-
 # pass through API routes to Pages Functions
 /api/* /api/:splat 200
 
