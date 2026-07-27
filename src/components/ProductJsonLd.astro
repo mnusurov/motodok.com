@@ -1,4 +1,6 @@
 ---
+import { getCollection } from 'astro:content';
+
 export interface Props {
   product: {
     title: string;
@@ -7,7 +9,9 @@ export interface Props {
     currency?: string;
     availability?: 'in_stock' | 'on_order' | 'discontinued';
     images?: string[];
-    brand?: string;
+    brands?: string[];
+    gtin?: string;
+    mpn?: string;
     article?: string;
   };
 }
@@ -15,6 +19,10 @@ export interface Props {
 const { product } = Astro.props;
 const siteUrl = 'https://motodok.com';
 const id = `${siteUrl}${Astro.url.pathname}`;
+
+// Load brand data for proper display names
+const allBrands = await getCollection('brands');
+const brandMap = new Map(allBrands.map(b => [b.data.slug, b.data.title]));
 
 const ld: Record<string, unknown> = {
   '@context': 'https://schema.org',
@@ -25,8 +33,29 @@ const ld: Record<string, unknown> = {
   ...(product.images?.length && { image: product.images.map(i => `${siteUrl}${i}`) }),
 };
 
-const availability = product.availability || 'in_stock';
+// GTIN support
+if (product.gtin) {
+  const gtin = product.gtin.replace(/[\s-]/g, '');
+  const len = gtin.length;
+  if (len === 8) ld.gtin8 = gtin;
+  else if (len === 12) ld.gtin12 = gtin;
+  else if (len === 13) ld.gtin13 = gtin;
+  else if (len === 14) ld.gtin14 = gtin;
+  else ld.gtin13 = gtin; // fallback
+}
 
+// Brand handling — use proper title from brands collection
+const brandSlugs = product.brands || [];
+if (brandSlugs.length > 0) {
+  const brands = brandSlugs.map(slug => ({
+    '@type': 'Brand' as const,
+    name: brandMap.get(slug) || slug,
+  }));
+  ld.brand = brands.length === 1 ? brands[0] : brands;
+}
+
+// Offer
+const availability = product.availability || 'in_stock';
 if (product.price && availability !== 'discontinued') {
   ld.offers = {
     '@type': 'Offer',
@@ -38,14 +67,15 @@ if (product.price && availability !== 'discontinued') {
   };
 }
 
-if (product.brands?.length) {
-  ld.brand = product.brands.length === 1
-    ? { '@type': 'Brand', name: product.brands[0] }
-    : product.brands.map((b: string) => ({ '@type': 'Brand', name: b }));
-}
-
+// SKU / MPN — helps Google identify products without brand/gtin
 if (product.article) {
   ld.sku = product.article;
+}
+if (product.mpn) {
+  ld.mpn = product.mpn;
+} else if (product.article && !brandSlugs.length && !product.gtin) {
+  // Fallback: use article as MPN when no brand/gtin
+  ld.mpn = product.article;
 }
 ---
 
