@@ -21,6 +21,15 @@ export interface Props {
 const { title, description, metaTitle, metaDescription, ogImage, ogType, canonical, noIndex, breadcrumbs, wide } = Astro.props;
 const fallbackOgImage = '/og-image.png';
 const generatedDescription = metaDescription || description || `${title} — Motodok. Оборудование для диагностики и ремонта автомобилей.`;
+
+/* Pad short meta descriptions to 150+ chars for Bing/SEO */
+function padMetaDescription(desc: string, min = 150): string {
+  if (desc.length >= min) return desc;
+  const suffix = 'Motodok — оборудование для автосервиса с доставкой и гарантией';
+  const pad = ' — ' + suffix;
+  const take = Math.min(pad.length, min - desc.length);
+  return desc + pad.slice(0, take);
+}
 ---
 
 <!doctype html>
@@ -30,7 +39,7 @@ const generatedDescription = metaDescription || description || `${title} — Mot
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <SEO
     title={metaTitle || title}
-    description={generatedDescription}
+    description={padMetaDescription(generatedDescription)}
     ogImage={ogImage || fallbackOgImage}
     ogType={ogType}
     canonical={canonical}
